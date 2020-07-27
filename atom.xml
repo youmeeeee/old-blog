@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-27T00:17:53.921Z</updated>
+  <updated>2020-07-13T04:33:56.050Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2020/07/27/hello-world/"/>
-    <id>http://yoursite.com/2020/07/27/hello-world/</id>
-    <published>2020-07-27T00:17:53.921Z</published>
-    <updated>2020-07-27T00:17:53.921Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>Debouncing, Throttling 2</title>
@@ -554,6 +532,32 @@
       
         &lt;p&gt;참고&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;htt
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>함수 실행 시간 체크(performace/console.time)</title>
+    <link href="http://yoursite.com/2019/04/10/2019-04-10-Javascript-performance/"/>
+    <id>http://yoursite.com/2019/04/10/2019-04-10-Javascript-performance/</id>
+    <published>2019-04-10T01:48:57.000Z</published>
+    <updated>2019-04-11T01:27:51.838Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고<br><a href="https://developer.mozilla.org/ko/docs/Web/API/Performance" target="_blank" rel="noopener">https://developer.mozilla.org/ko/docs/Web/API/Performance</a><br><a href="https://developers.google.com/web/tools/chrome-devtools/console/track-executions?hl=ko" target="_blank" rel="noopener">https://developers.google.com/web/tools/chrome-devtools/console/track-executions?hl=ko</a></p><p>처음으로 함수 실행 시간을 체크해 볼 일이 있었다.</p><p>window의 perfomance 객체를 활용하는 방법이다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t0 = performance.now();</span><br><span class="line">doSomething();</span><br><span class="line"><span class="keyword">var</span> t1 = performance.now();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Call to doSomething took "</span> + (t1 - t0) + <span class="string">" milliseconds."</span>);</span><br></pre></td></tr></table></figure><p>이렇게 사용하면 된다~!</p><p>이것에 찾아보다가 아직 사용해본 적이 없는 console.time에 대해서도 알게 되었는데 </p><p>time() 메서드는 새로운 타이머를 시작하고, 소요된 시간을측정하는데 매우 유용하다. 문자열의 해당 메서드에 전달해 마커의 이름을 지정하고 타이머를 중지하려면 timeEnd()를 호출하고 initializer에 전달한 것과 동일한 문자열을 전달하면 콘솔이 timeEnd() 메서드가 실행될 때 경과한 시간과 레이블을 기록한다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.time(<span class="string">'test'</span>);</span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">100000</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=arr.length<span class="number">-1</span>; i&gt;=<span class="number">0</span>; <span class="number">1</span>--)&#123;</span><br><span class="line">  arr[i] = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'test'</span>);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;br&gt;&lt;a href=&quot;https://developer.mozilla.org/ko/docs/Web/API/Performance&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://developer.mozilla.org/ko
       
     
     </summary>
