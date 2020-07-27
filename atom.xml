@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Youmekko</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-07-27T00:17:53.921Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Youme Choi</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2020/07/27/hello-world/"/>
+    <id>http://yoursite.com/2020/07/27/hello-world/</id>
+    <published>2020-07-27T00:17:53.921Z</published>
+    <updated>2020-07-27T00:17:53.921Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Debouncing, Throttling 2</title>
+    <link href="http://yoursite.com/2020/07/13/2020-07-13-DebouncingAndThrottling/"/>
+    <id>http://yoursite.com/2020/07/13/2020-07-13-DebouncingAndThrottling/</id>
+    <published>2020-07-13T02:07:54.000Z</published>
+    <updated>2020-07-13T04:33:56.050Z</updated>
+    
+    <content type="html"><![CDATA[<p>–</p><blockquote><p>작년 11월에 아래와 같은 포스팅을 한 적이 있다. 그 때는 그냥 보고 넘어 갔는데 이번에 무한 스크롤 구현에 대해서 배우면서 Debounce, Throttling 개념을 다시 만나게 되었다. 이 참에 정리하자.<br>블로그 포스팅은 정말 오랜만이다!</p></blockquote><hr><p>참고</p><p><a href="https://bityoungjae.com/2019/11/09/JavaScript/%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/%EB%94%94%EB%B0%94%EC%9A%B4%EC%8B%B1%EA%B3%BC%20%EC%93%B0%EB%A1%9C%ED%8B%80%EB%A7%81/" target="_blank" rel="noopener">https://bityoungjae.com/2019/11/09/JavaScript/개념정리/디바운싱과 쓰로틀링/</a> </p><h3 id="Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함"><a href="#Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함" class="headerlink" title="Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함"></a>Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함</h3><p>3초의 시간을 설정해두고 3초 내애는 버튼이 눌려도 폭죽이 발사되지 않도록 조정하는 것</p><p>마구 연타시 폭죽은 발사되지 않고 마지막 버튼을 떼는 순간 3초 뒤 발사 된다.</p><p>-&gt; 셋팅한 3초만큼 기능이 정지된다고 해야하나..</p><h3 id="Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장"><a href="#Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장" class="headerlink" title="Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장"></a>Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장</h3><p> 3초 후에는 다시 폭죽이 발사되도록 초기화 된다.</p><p>이제 버튼을 마구 연타해도 3초의 발사간격을 보장한다.</p><p>-&gt; 3초의 대기 후 다시 이벤트를 처리한다.</p><p>예) </p><ul><li>디바운싱 - 아이디 중복 검사</li><li>쓰로틀링 - 스크롤 이벤트</li></ul><hr><h3 id="구현-예제"><a href="#구현-예제" class="headerlink" title="구현 예제"></a>구현 예제</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"search"</span> <span class="attr">name</span>=<span class="string">"search value="</span>" /&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> debounce = <span class="literal">null</span></span><br><span class="line"><span class="keyword">var</span> throttle = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">keyupCallback</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`[Normal Keyup Event], [Input Value] : <span class="subst">$&#123;el.target.value&#125;</span>, [Time]: <span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().getTime()&#125;</span>`</span>);</span><br><span class="line">  </span><br><span class="line">  clearTimeout(debounce)</span><br><span class="line">  debounce = setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`[Debounce], [Input Value] : <span class="subst">$&#123;el.target.value&#125;</span>, [Time]: <span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().getTime()&#125;</span>`</span>);</span><br><span class="line">  &#125;, <span class="number">500</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(!throttle) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`[Throttle], [Input Value] : <span class="subst">$&#123;el.target.value&#125;</span>, [Time]: <span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().getTime()&#125;</span>`</span>)</span><br><span class="line">      throttle = <span class="literal">null</span></span><br><span class="line">    &#125;, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  throttle = el.target.value;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'search'</span>).addEventListener(<span class="string">'keyup'</span>, keyupCallback)</span><br></pre></td></tr></table></figure><p>위처럼 구현하고 inputbox에 아래처럼 타이핑 해보았다.</p><p><img src="/img/2020-07-13-01.png" alt=""></p><p>결과는 아래와 같다.</p><p><img src="/img/2020-07-13-02.png" alt=""></p><p>일전에 썼던 결론과 같다는 것을 직관적으로 확인 해 보았다.</p><ul><li>Throttling - 연이은 이벤트의 Interval 단위 실행을 보장</li><li>Debouce - Interval내 반복되는 이벤트를 무시</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;–&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;작년 11월에 아래와 같은 포스팅을 한 적이 있다. 그 때는 그냥 보고 넘어 갔는데 이번에 무한 스크롤 구현에 대해서 배우면서 Debounce, Throttling 개념을 다시 만나게 되었다. 이 참에 정리
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Array.prototype.reduce()</title>
+    <link href="http://yoursite.com/2020/03/02/2020-03-02-reduce/"/>
+    <id>http://yoursite.com/2020/03/02/2020-03-02-reduce/</id>
+    <published>2020-03-01T17:22:33.000Z</published>
+    <updated>2020-05-27T01:25:06.915Z</updated>
+    
+    <content type="html"><![CDATA[<p>익숙해지지 않는 reduce… </p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span> &#123;</span><br><span class="line">  </span><br><span class="line">&#125;, initialValue)</span><br></pre></td></tr></table></figure><ul><li>callback<ul><li>accumulator - 콜백 함수의 반환값을 누적한다. 콜백의 이전 반환 값 또는, 콜백의 첫번째 호출이면 initialValue를 제공한 경우에는 initialValue이다.</li><li>currentValue - 현재 처리할 요소</li><li>currentIndex - 처리할 현재 요소의 인덱스</li><li>array - reduce 를 호출한 배열</li></ul></li><li>initialValue (optional) - 콜백의 최초 호출에서 첫번째 인수에 제공하는 값으로 초기값을 제공하지 않으면 첫번째 요소를 사용한다. 빈 배열에서 초기값 없이 reduce를 호출하면 에러가 난다.</li></ul><p>가장 흔한 더하기 예제로 보자.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> accumulator + currentValue;</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="comment">//의 결과는 55다.</span></span><br><span class="line"></span><br><span class="line">arr.reduce(<span class="function">(<span class="params">accumulator, currentValue, currentIndex, array</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> accumulator + currentValue;</span><br><span class="line">&#125;, <span class="number">10</span>)</span><br><span class="line"><span class="comment">//의 결과는 65다.</span></span><br></pre></td></tr></table></figure><p>reduce함수에서  </p><ul><li>initialValue를 제공 한 경우 <ul><li>accumulator는 initialValue와 같고 </li><li>currentValue는 배열의 첫번째 값과 같다.</li></ul></li><li>initialValue를 제공 하지 않은 경우<ul><li>accumulator는 배열의 첫번째 값과 같고</li><li>currentValue는 배열의 두번째 값과 같다.</li></ul></li></ul><p>즉, initialValue를 제공하지 않으면 reduce()는 인덱스 1부터 시작해서 콜백 함수를 실행하고 첫번재 인덱스는 건너뛴다. initialValue를 제공하면 인덱스 0에서 시작한다.</p><p>사용할만한 예제로는 위처럼</p><ol><li>배열의 모든 값 합산</li><li>객체 배열에서의 합산</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="attr">x</span>: <span class="number">1</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">2</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">3</span>&#125;].reduce(<span class="function">(<span class="params">accumulator, currentValue</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> accumulator + currentValue.x;</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="comment">//6</span></span><br></pre></td></tr></table></figure><ol start="3"><li>중첩 배열 펼치기 (이런 경우는 많이 못본것 같지만…)</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> flattened = [[<span class="number">0</span>, <span class="number">1</span>], [<span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>]].reduce(</span><br><span class="line">  ( accumulator, currentValue ) =&gt; &#123;</span><br><span class="line">    accumulator.concat(currentValue)</span><br><span class="line">  &#125;, []);</span><br><span class="line"><span class="comment">//[0,1,2,3,4,5]</span></span><br></pre></td></tr></table></figure><ol start="4"><li>객체 내의 값 인스턴스 개수 세기 (유용해 보이네)</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> names = [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Tiff'</span>, <span class="string">'Bruce'</span>, <span class="string">'Alice'</span>];</span><br><span class="line"></span><br><span class="line">names.reduce(<span class="function">(<span class="params">allNames, name</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(name <span class="keyword">in</span> allNames) &#123;</span><br><span class="line">        allNames[name]++;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        allNames[name] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> allNames;</span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;Alice: 2, Bob: 1, Tiff: 1, Bruce: 1&#125;</span></span><br></pre></td></tr></table></figure><ol start="5"><li>속성으로 객체 분류하기</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> people = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Alice'</span>, <span class="attr">age</span>: <span class="number">21</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Max'</span>, <span class="attr">age</span>: <span class="number">20</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">'Jane'</span>, <span class="attr">age</span>: <span class="number">20</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">groupBy</span>(<span class="params">objectArra, property</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> people.reduce(<span class="function">(<span class="params">acc, obj</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> key = obj[property];</span><br><span class="line">        <span class="keyword">if</span>(!acc[key])&#123;</span><br><span class="line">            acc[key] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        acc[key].push(obj);</span><br><span class="line">        <span class="keyword">return</span> acc;</span><br><span class="line">    &#125;,&#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">groupBy(people, <span class="string">'age'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123; </span></span><br><span class="line"><span class="comment">20: [</span></span><br><span class="line"><span class="comment">  &#123; name: 'Max', age: 20 &#125;, </span></span><br><span class="line"><span class="comment">    &#123; name: 'Jane', age: 20 &#125;</span></span><br><span class="line"><span class="comment">   ], </span></span><br><span class="line"><span class="comment">  21: [</span></span><br><span class="line"><span class="comment">   &#123; name: 'Alice', age: 21 &#125;</span></span><br><span class="line"><span class="comment">   ] </span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure><ol start="6"><li>배열의 중복 항목 제거</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>, <span class="number">4</span>];</span><br><span class="line">arr.sort().reduce(<span class="function">(<span class="params">accumulator, current</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> length = accumulator.length</span><br><span class="line">    <span class="keyword">if</span> (length === <span class="number">0</span> || accumulator[length - <span class="number">1</span>] !== current) &#123;</span><br><span class="line">        accumulator.push(current);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> accumulator;</span><br><span class="line">&#125;, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">//[1,2,3,4,5]</span></span><br></pre></td></tr></table></figure><p>sort, every, some, find, findIndex, includes 모두 reduce로 구현이 가능하다… 반복되는 모든 것에는 reduce를 쓸 수 있다.</p><p>비동기 프로그램에도 유용하다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promiseFactory = <span class="function">(<span class="params">time</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(time);</span><br><span class="line">    setTimeout(resolve, time)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="number">1000</span>, <span class="number">2000</span>, <span class="number">3000</span>, <span class="number">4000</span>].reduce(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> acc.then(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">    promiseFactory(cur)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, <span class="built_in">Promise</span>.resolve());</span><br></pre></td></tr></table></figure><ul><li>filter처럼</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>].reduce(<span class="function">(<span class="params">acc, cur</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(cur);</span><br><span class="line">    <span class="keyword">if</span>(cur%<span class="number">2</span>) &#123;</span><br><span class="line">        acc.push(cur)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">&#125;, [])</span><br><span class="line"></span><br><span class="line"><span class="comment">//[1,3,5,7,9]</span></span><br></pre></td></tr></table></figure><ul><li>map처럼</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>].reduce(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> &#123;</span><br><span class="line">    acc.push(cur * <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> acc;</span><br><span class="line">&#125;, [])</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;익숙해지지 않는 reduce… &lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020-02-25 TIL</title>
+    <link href="http://yoursite.com/2020/02/25/2020-02-25-TIL/"/>
+    <id>http://yoursite.com/2020/02/25/2020-02-25-TIL/</id>
+    <published>2020-02-25T14:28:54.000Z</published>
+    <updated>2020-04-28T22:12:37.758Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="mac에-오라클-설치하기"><a href="#mac에-오라클-설치하기" class="headerlink" title="mac에 오라클 설치하기"></a>mac에 오라클 설치하기</h3><ul><li>Docker를 이용한다.</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1_deepdiver의 oracle 11 이미지를 pull 받는다.</span></span><br><span class="line">docker pull deepdiver/docker-oracle-xe-11g </span><br><span class="line"></span><br><span class="line"><span class="comment">#2_이미지를 컨터네이로 생성한뒤 실행 한다.</span></span><br><span class="line">docker run -d -p 49160:22 -p 49161:1521 deepdiver/docker-oracle-xe-11g</span><br><span class="line"></span><br><span class="line"><span class="comment">#3_컨테이너 목록을 출력</span></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;mac에-오라클-설치하기&quot;&gt;&lt;a href=&quot;#mac에-오라클-설치하기&quot; class=&quot;headerlink&quot; title=&quot;mac에 오라클 설치하기&quot;&gt;&lt;/a&gt;mac에 오라클 설치하기&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Docker를 이용한다.&lt;/li&gt;
+&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="TIL" scheme="http://yoursite.com/categories/TIL/"/>
+    
+    
+      <category term="til" scheme="http://yoursite.com/tags/til/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git commit template</title>
+    <link href="http://yoursite.com/2020/02/21/2020-02-21-git-template/"/>
+    <id>http://yoursite.com/2020/02/21/2020-02-21-git-template/</id>
+    <published>2020-02-21T06:38:06.000Z</published>
+    <updated>2020-04-21T22:12:09.246Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>commit-template.txt 파일을 만든다.</li><li>commit-template.txt 파일을 git config에 등록해준다.</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global commit.template commit-template.txt</span><br></pre></td></tr></table></figure><p>(이걸 왜진작안했나용?!)</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;commit-template.txt 파일을 만든다.&lt;/li&gt;
+&lt;li&gt;commit-template.txt 파일을 git config에 등록해준다.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2020-02-19 TIL</title>
+    <link href="http://yoursite.com/2020/02/19/2020-02-19-TIL/"/>
+    <id>http://yoursite.com/2020/02/19/2020-02-19-TIL/</id>
+    <published>2020-02-19T14:59:59.000Z</published>
+    <updated>2020-02-21T06:25:10.715Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>Tomcat GUI</li><li>하나의 톰캣으로 여러개의 app 서비스하기</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;Tomcat GUI&lt;/li&gt;
+&lt;li&gt;하나의 톰캣으로 여러개의 app 서비스하기&lt;/li&gt;
+&lt;/ul&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="TIL" scheme="http://yoursite.com/categories/TIL/"/>
+    
+    
+      <category term="til" scheme="http://yoursite.com/tags/til/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2019년 회고</title>
+    <link href="http://yoursite.com/2020/02/13/2020-02-13-2019/"/>
+    <id>http://yoursite.com/2020/02/13/2020-02-13-2019/</id>
+    <published>2020-02-13T02:26:13.000Z</published>
+    <updated>2020-04-28T22:12:37.757Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="간단하고-뒤늦은-2019년-회고"><a href="#간단하고-뒤늦은-2019년-회고" class="headerlink" title="간단하고 뒤늦은 2019년 회고"></a>간단하고 뒤늦은 2019년 회고</h1><p>(부제 : 갑자기 쓰고 싶어진 작년 회고 - 두서 없음)</p><p>연말에 팀내에서 간단히 회고 시간을 가졌다. 새로 오신 팀장님이 만든 자리로 각자 잘한 것, 못한 것, 내년에 잘하고 싶은 것을 작성했다. 업무적인 것도 적어도 좋고 개인적인 것도 상관 없었다.</p><p>내가 적어낸 것은 슬프게도 아래와 같다…</p><h5 id="잘한-것"><a href="#잘한-것" class="headerlink" title="잘한 것"></a>잘한 것</h5><ol><li>결혼</li><li>만 1년을 넘게 일한 개발자가 된 것 (2년차 개발자가 되었다. 소름. 2020년 현재 1년 6개월)</li></ol><h5 id="못한-것"><a href="#못한-것" class="headerlink" title="못한 것"></a>못한 것</h5><ol><li>체력 관리</li><li>공부</li></ol><h5 id="내년에-잘하고-싶은-것"><a href="#내년에-잘하고-싶은-것" class="headerlink" title="내년에 잘하고 싶은 것"></a>내년에 잘하고 싶은 것</h5><ol><li>운동 습관</li><li>공부</li></ol><p>심플하다. 어찌저찌 시간이 가고 2년차 개발자가 되어 버렸다.</p><p>열심히 하지 않았던 것의 변명 혹은 자기 합리화를 위해 1년 동안 팀내 일어났던 일들을 정리 해보자면…</p><p>연초에 팀내 제품 개발을 주도 했던 팀장님과 차장님, 과장님이 1~3월에 거쳐 모두 퇴사하여 어수선한 시기를 보냈다. 이 후로 남겨진 직원들끼리 제품 코드를 공부 했고, 프로젝트 팀의 요구사항들을 정리 해서 메이저 버전 업그레이드를 준비 하다가, 사내 급한 프로젝트 이슈로 선임들이 2달 정도 외부 지원을 나가는 바람에 그마저 무산 되었다.  팀 내 가장 오래됐던 직원도 10월에 퇴사했다. 아참… 나도 해외 프로젝트 지원으로 9월 중 열흘 간 대만에도 다녀왔다. </p><p>궁핍한 팀 내 사정으로 모이기만 끝없는 불평불만의 소리가 반복 되었다. </p><p><em>“…(생략) 주니어 개발자 들은 소프트웨어 개발이 그리 신나는 커리어가 아니라고 믿게 된다. -소프트웨어 장인 중-“</em> </p><p><strong>신나지 않았던걸까.. 아무 생각이 없었던 걸까.. 그냥 안했다. 상황이야 어쨌든 그것은 온전히 나의 책임이다.</strong></p><p>그러다 10월에 새로운 팀장님이 오셨다. 팀장님은 내가 밖에서만 보고 듣던 좋은 개발 문화를 만들기 위해 부단히 노력 해 주시는 분이다.</p><ul><li>팀의 일하는 방법과 프로세스를 정의해 개발에만 집중 할 수 있는 환경을 최대한 제공 (비록 우리팀은 외부에 영향을 받는 요소가 많지만…)</li><li>입사 후 한번도 받아 본 적 없는 코드 리뷰 도입 (처음 코드 리뷰 받은 날의 감격이란… )</li><li>힘든 상황 속에서도 긍정적인 인사이트를 제시 (길고 길었던 황무지에 한줄기 빛이랄까… )</li><li>개개인 존중 (매번 배우고 있다.)</li><li>기타 사소한 것 잔뜩</li></ul><p>팀장님을 신격화 하려는 건 아닌데…ㅎㅎ 팀장님이 우리 팀에 온 건 나에게 있어선 정말 행운이다. 팀장님이 오고 나선 자연스럽게 열심히 하고 싶어졌다. </p><p>요 몇 일은 업무 외적인 걸로 스트레스가 심해서 팀장님과 잠시 티 타임을 가졌다. 많은 이야기들이 오고 갔지만 팀장님이 마지막으로 해준 말이 가장 마음에 와 닿았다.</p><p><em>“인생의 목표를 거시적으로 생각했을 때, 살아 있는 한 할 수 있는 일은 딱 한 가지,  더 나은 사람이 되는 것 뿐인 것 같아요. 더 나아지지 않고 끝나도 상관은 없지만… 기왕이면 더 낫게, 더 즐겁게가 좋습니다.”</em></p><p>작년 연말에 회고를 쓰지 않으려고 했던 건 어차피 구차한 변명들 밖에 쓸 게 없을 것 같았기 때문이다. (실제로 쓰고 보니 그러하고…) 2020년 나의 한 해는 어떨까?  열심히 하겠다는 다짐 같은 건 차마 적지를 못하겠다. 그런 말과 글은 다 부질 없으니까. 팀장님의 또 다른 조언 처럼 <strong>의지</strong>를 한번에 다 쓰고 불 태워 버리지 말고 없어지지 않게 잘 기루고 가꾸는 한 해가 되길 조심스레 바래본다. </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;간단하고-뒤늦은-2019년-회고&quot;&gt;&lt;a href=&quot;#간단하고-뒤늦은-2019년-회고&quot; class=&quot;headerlink&quot; title=&quot;간단하고 뒤늦은 2019년 회고&quot;&gt;&lt;/a&gt;간단하고 뒤늦은 2019년 회고&lt;/h1&gt;&lt;p&gt;(부제 : 갑자기 
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/categories/Notes/"/>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>팀내 TDD 도입 도전을 위해... &#39;소프트웨어 장인&#39; 중</title>
+    <link href="http://yoursite.com/2020/01/10/2020-01-10-TodaysNote/"/>
+    <id>http://yoursite.com/2020/01/10/2020-01-10-TodaysNote/</id>
+    <published>2020-01-10T08:00:00.000Z</published>
+    <updated>2020-01-10T08:01:02.592Z</updated>
+    
+    <content type="html"><![CDATA[<p>작년 회고를 쓸 수 없었던 것에 대한 변명</p><p><code>배움의 문화를 만들면 회사에 효율적으로 열정을 주입할 수 있따. 항상 더 나은 방법을 찾고 스스로 개발하고자 하는 사람들로 가득 찬 환경을 접해본 개발자들은 그리 많지 않다는 것이 안타까운 현실이다. 자기가 하는 일에 불평불만과 한탄을 쏟아내고 아무런 동기부여도 되어있찌 않은 개발자들을 옆에서 지켜보는 경우가 후러씬 더 흔하다. 롤 모델이 부족하기 때문에 주니어 개발자들은 소프트웨어 개발이라는 것이 그리 신나는 커리어가 아니라고 믿게 된다.</code></p><hr><p>기술적 변화를 추진할 때 특히 TDD처럼 태도에 대한 변화까지 필요로 한다면, 직접 보여주면섯 따라하게 하는 것이 가장 좋은 방법이다.</p><p>단순히 인터넷에서 매뉴얼을 찾아보기만 해서는 시작할 수 없는 것들이 있다                                         . TDD가 바로 그런것들 중 하나이다. </p><p>큰 충돌없이 TDD를 도입할 수 있는 좋은 방법은 도움을 요청하는 것이다. 팀에서 가장 열정적인 동료에게 당신의 코드 구현을 도와달라고 하자. 작업 내용을 설명하고 한 두시간 동안 TDD로 구현해보자고 제안하자. 그냥 재미로 한번만 해봅시다. 라고하자. </p><p>바로 이때가 TDD 가 얼마나 훌륭한지 보여줄 수 있는 기회다. 붉은 마크가 초록색으로 바뀔 때의 성취감을 그 동료오 ㅏ함께 나눈다.</p><p>버그에 대한 두려움 없이 코드를 리팩토링 할 수 있다는 자유로움을 보여주자.</p><p>핑퐁 코딩의 한방법으로 한사람은 기능 구현을, 다른 한사람을 테스틀르 작성하는 것이다. 테스트가 한개씩 통과될 때마다 역할을 바꾼다. </p><p>개발자는 습관대로 하려는 편이고 자기 주관이 뚜렷한 경우가 대부분이다. 그냥 가서 해보자고 말한다고 순순히 따라오지는 않는다. 실행 관례를 전파하는 가장 효율적인 방법은 모범을 보이는 것이다. 당신과의 페어프로그래밍에 초대해서 어떻게 하는것인지 보여주자.</p><p>테스트 주도 개발이 항상 필요할까?</p><p>실용적인 대답은 ‘아니다’다. </p><p>TDD를 하면서 시장 타이밍을 맞추기에는 제품 개발 시간이 너무 부족하다. 아직 무엇을 해야할지 몰라서 잠재적인 투자자에게 시연하고 시장을 시험할 수 있는 걸 빨리 만들어야내야 하는 상황에서도 TDD를 해야하나..? </p><p>TDD회의론자 들이나 스타트업 개발자들이 이렇게 말할 때가 있다. 이런 경우들에서도 ‘항상’ 과 같은 단정적인 쓰면 거부감만 키운다. 도구나 실행관례를 선택할 때는 실제로 처한 맥락을 반드시 고려해야 한다. 한가지 안타까운 것은 TDD에 능숙한 사람들중에는 그런 말을 하는 사람이 없ㄷ나느 것이다. 실행 관례에 대해 의문을 표하는 사람ㄷ들은 그들이 그뒤에 남길 골칫덩이에 대해서는 인지하지 못하고 당장 뭔가를 만들어내는 것에만 집중한다.</p><p>경험이 많은 XP 개발자들은 TDD를 둘러싼 논란이 시간 낭비라고 생각한다. 유능한 개발자라면 TDD 때문에 개발 일정이 지연되지 않는다. 그것이 진실이다. 논란은 아무런 의미가 없다. 경험많은 XP 개발자들은 모든것을 테스트 기반으로 수행한다. 그들에게 테스트를 먼저 생각하는 것은 전혀 어려운 일이 아니다.</p><p>극히 드물지만 TDD를 하지 않을 때가 있따. 그런 경우는 자동화된 테스트가 별 의마가 없느 상황으로 대부분이 사용자의 인터페이스 동작 방식에 관련 된 것들이다.</p><p>TDD에 능숙한 개발자들은 TDD때문에 개발이 지연되었거나 시간이 없어서 테스트를 작성하지 못했다는 변명은 절대하지 않는다. TDD등 XP 실행관례를 전파하고 싶다면 먼저 스스로 능숙해져야한다.</p><p>특정 실행 관례를 사용하지 않는 다는 이유로 누군가를 프로페셔널 하지 않다고 성급하게 폄하해서는 안된다. 그들이 사용중인 실행 관례가 무엇인지 물어보고 당신이 사용하고자 하는 실행 관례와 비교해서 그들의 것이 어떤 점에서 더 나은지 찾아보야아 한다…</p><p>소프트웨어 프로젝트에서 예측 못한 변경의 양 자체는 문제가 아니다. 문제는 그러한 변화를 따라 갈 수 없는 역랑의 부족이다. 잘 작성된 소프트웨어는 고객에게 가치를 제공하기 위한 수단이다. </p><p><strong>소프트웨어 프로젝트는 우리를 위한 것이 아니다.</strong> 프로페셔널로서 소프트웨어 프로젝트가 개발자를 위한것이 아니라는 사실을 이해할 필요가 있따. ‘나는 내가 뭘 하는지 알고 있고 테스트를 작성할 필요는 없다’ 라는 태도는 이기적이고 오만한 것이다. 심지어 그것이 사실이라고 하더라도 프로젝트가 당신을 위한것은 아니다. 프로젝트는 한두명의 슈퍼개발자를 위한것이 아니다. 프로젝트를 수행한 사람들이 떠나간 후 그것을 유지보수할 사람들을 고려해야만 한다. 원저작자들 없이 소프트웨어를 진화시켜야하는 회사의 어려움을 이해해야한다. </p><p>단순설계를 위한 네가지 원칙 - 켄트벡</p><ol><li>모든 테스트를 통과해야한다.</li><li>명료하고 충분히 표현하고 일관되야 한다.</li><li>동작이나 설정에 중복이 있어서는 안된다.</li><li>메서드, 글래스, 모듈의 수는 가능한 적어야 한다.</li></ol><p>JB 레인스 버거</p><ol><li>모든 테스트의 통과</li><li>중복의 최소화</li><li>명료성의 최대화</li><li>구성 요소의 최소화</li></ol><p>TDD에 능숙한 개발자는 개발 초기부터 디자인 패턴을 적용하는 일이 극히 드물다. 테스트 코드는 비지니스 요구사항에 맞추는 것이지 디자인 패턴에 맞추는 것은 아니다. </p><p>당장의 합당한 이유없이 단지 미래를 대비해야 한다는 모호한 전제로 초기부터 추상화를 하면 어플리케이션이 엉망이 된다. 미래에 어느 부분에서 수정이 필요할지 모르기 때문에 모든 부분에서 추상화(복잡도 증대)를 적용해버린다. 어플리케이션이 진화 및 변경할 수 있또록 모든 가능성에 대비하는 것을 똑똑한 대응이라고 생각할 수도 있다.. 진실은 반대로 매우 바보 같은 짓이다.</p><p>장인은 일종의 삶의 철학이다. 우리의 삶 전체에 걸쳐서 최선을 다해 역량을 마스터할 과업으로 소프트웨어 개발을 선택한 것이다.</p><p>비유로 인한 문제.</p><p>비유는 어떤것을 설명할 때 유사한 다른것을 빗대어 대입해보는 방식으로 실질직어로는 전혀 상관없는 두가지를 엮어서 이야기하게된다. 비유는 일종의 유추로서의 관게, 대비, 유사성에 기대어 효과적인 의사전달을 하는 수사적인 방법인다.</p><p>비유는 뭔가를 설명하거나 묘사할 때 효과적인 방법이다. 맥락을 벗어나 너무 글자 그대로 활용하게 되면 비유가 적용되던 원래의 배경을 잃고 오해와 고정관념에  빠져버린다는 문제가 있다.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;작년 회고를 쓸 수 없었던 것에 대한 변명&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;배움의 문화를 만들면 회사에 효율적으로 열정을 주입할 수 있따. 항상 더 나은 방법을 찾고 스스로 개발하고자 하는 사람들로 가득 찬 환경을 접해본 개발자들은 그리 많지 않다는 것이
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/categories/Notes/"/>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>오늘자 의식의 흐름...</title>
+    <link href="http://yoursite.com/2020/01/08/2020-01-08-TodaysNote/"/>
+    <id>http://yoursite.com/2020/01/08/2020-01-08-TodaysNote/</id>
+    <published>2020-01-08T08:00:00.000Z</published>
+    <updated>2020-01-08T07:49:49.089Z</updated>
+    
+    <content type="html"><![CDATA[<p>오늘자 의식의 흐름… 링크가 빠진것도 있네요. 죄송합니다..</p><p>Nuxt</p><p>Nuxt는 Vue.js 어플리케이션을 만드는 프레임워크이다..</p><p>주요 범위는 클라이언트, 서버 배포를 추상화하는 동안의 UI Rendering이다.</p><p>서버사이드렌더링(SSR) vs 클라이언트사이드렌더링(CSR)</p><p><a href="https://velog.io/@zansol/확인하기-서버사이드렌더링SSR-클라이언트사이드렌더링CSR" target="_blank" rel="noopener">https://velog.io/@zansol/%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0-%EC%84%9C%EB%B2%84%EC%82%AC%EC%9D%B4%EB%93%9C%EB%A0%8C%EB%8D%94%EB%A7%81SSR-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%82%AC%EC%9D%B4%EB%93%9C%EB%A0%8C%EB%8D%94%EB%A7%81CSR</a></p><p>MVVM</p><p><a href="https://tech.kakao.com/2019/11/27/kakao-business-vue-component-test/?fbclid=IwAR03t6fGCiBjRHXzSx-ittKTVCJ9O_7fb2LGpbW-6DgGKUN8bIEPjpG2T_o" target="_blank" rel="noopener">https://tech.kakao.com/2019/11/27/kakao-business-vue-component-test/?fbclid=IwAR03t6fGCiBjRHXzSx-ittKTVCJ9O_7fb2LGpbW-6DgGKUN8bIEPjpG2T_o</a></p><p>PO(Page Object) <a href="https://martinfowler.com/bliki/PageObject.html" target="_blank" rel="noopener">https://martinfowler.com/bliki/PageObject.html</a></p><p>MVVM에서 view template이 로직을 나누어 가지지 않는게 좋다.  테스트코드가 view를 그리는 레벨과 최대한 직접 관계를 맺지 않는 장치이다. view의 변화율은 어플리케이션에서 다른 무엇보다 변화율이 높아서 프레임웍의 refs를 통해서 view에 접근하듯이 PO를 중간에 두자는 관점이다. 그래서 템플릿에 :if=isRight&amp;&amp;isNotLeft.. 처럼 view에 관여하는 로직이 포함되어있다면 어서 제거를하라.</p><p>테스트시 템플릿에 로직이 있으면.. 뷰에 직접 접근할 수 밖에 없으니 PO를 두고 로직을 제거하면 좋다는 내용..</p><ul><li>javascript test framework 테스트 프레임 웍 ava<ul><li>ava :  Nuxt 공식 가이드 문서에서 추천하는 도구</li></ul></li><li>테스트 더블을 위해 sinon (sinon.js)</li><li>Vue 컴포넌트 테스트를 좀 더 쉽게 도와주는 vue-test-util - 현재 Vue 팀 및 오픈 소스 커뮤니티로부터 제공 되는 공식 테스트 유틸리티 라이브러리다…</li></ul><p><a href="https://beomy.tistory.com/43" target="_blank" rel="noopener">https://beomy.tistory.com/43</a></p><p>MVVM (Model + View + View Model)</p><p>(User) =&gt; View =&gt; View Model &lt;=&gt; model</p><p>(View Model = View를 표현하기 위해 만든 View를 위한 Model입니다. View를 나타내주기 위한 Model이자 View를 나타내기 위한 데이터를 처리하는 부분)</p><p>(Model = 어플리케이션에서 사용되는 테이어와 그 데이터를 처리하는 부분)</p><p>MVVM의 동작</p><ol><li><p>사용자의 Action들은 View를 통해 들어온다.</p></li><li><p>View에 액션이 들어오면, Command패턴으로 View Model에 Action을 전달한다.</p></li><li><p>View Model은 Model에게 데이터를 요청한다.</p></li><li><p>Model은 View Model에게 요청 받은 데이터를 응답합니다.</p></li><li><p>View Model은 응답 받은 데이터를 가공해 저장한다.</p></li><li><p>View는 View Model과 Data Binding을 해 화면을 나타낸다.</p></li></ol><p>MVVM 특징</p><p>MVVM은 Command 패턴과 Data Biding 두가지 패턴을 사용해 구현됐다.</p><p>Command 패턴과 Data Biding을 이용해 View 와 View Model 사이의 의존성을 없앴다..</p><p>View Model과 View는 1: n 관계이다</p><p>장점</p><p>MVVM 패턴은 View와 Model 사이의 의존성이 없어졌다. 또한 Command패턴과 Data Biding을 사용해 View와 View 모델 사이의 의존성 또한 없어진 디자인 패턴이다.</p><p>각각의 부분이 독립적이기 때문에 모듈화 해서 개발할 수 있다.</p><p>단점</p><p>View Model의 설계가 쉽지 않다.</p><p>Vue컴포넌트 리팩토링 + 테스트 전략</p><ul><li>리팩토링 <ul><li>템플릿에서 로직(표현식)을 분리하고 computed, methods 활용</li></ul></li><li>테스트 전략<ul><li>돔에 접근해(ex: ref, class, id) 렌더링 된 결과물을 확인하기 보다는.. <strong>컴포넌트데이터</strong> 를 확인하자</li><li>컴포넌트 데이터의 템플릿 바인딩 여부는 … snapshot이나 e2e에게 책임을</li></ul></li><li>스냅샵 테스트</li></ul><p>Vue컴포넌트 테스트 작성 과정</p><p>유닛테스트, 컴포넌트 테스트</p><p>환경구성 - 컴포넌트 생성 테스트 - 컴포넌트 데이터 테스트 - 컴포넌트 간 테스트</p><ol><li>환경구성</li></ol><p>테스트가 필요한 이유</p><p>운영중인 코드를 리팩토링 할 때, 테스트코드가 안정성을 도와주고 추상적인 진행상황을 가시적으로 측정 가능하게 해준다.</p><p>…</p><p>Ajax, 네트워킹, 타임 아웃, 데이터베이스 또는 기타 종석송을 가진 코드를 테스트하는것은 어렵다. 예를 들어 ajax 또는 네트워킹을 사용하는 경우 요청에 응답하는 서버가 있어야한다.</p><p>DB의 경우 테스트를 위한 데이터롤 테스트 DB를 설정해야 한다. </p><p>이 모든것은 테스트 작성 및 실행이 더 어려워진다.. 테스트를 성공적으로 수행 할 수 있는 환경을 준비하고.. 설정하기 위해 추가작업이 필요하다.</p><p>sinon.js를 통해 번거로움을 피할수 있다.</p><ul><li>유닛테스트 = 단위테스트, 통합테스트(Intergration), E2E테스트</li><li>테스트 프레임웍, 단언문(assertion), 테스트 커버리지, 테스트 더블(test double, spy, stub), 테스트 케이스</li></ul><p>Javascript test framework</p><p><a href="https://www.browserstack.com/guide/top-javascript-testing-frameworks" target="_blank" rel="noopener">https://www.browserstack.com/guide/top-javascript-testing-frameworks</a></p><p>mocha - jest - jasmine - karma - puppeteer</p><p><a href="https://ui.toast.com/weekly-pick/ko_20180822/" target="_blank" rel="noopener">https://ui.toast.com/weekly-pick/ko_20180822/</a></p><p><a href="https://joshua1988.github.io/vue-camp/testing/overview.html#무엇을-어떻게-테스트-할-것인가" target="_blank" rel="noopener">https://joshua1988.github.io/vue-camp/testing/overview.html#%EB%AC%B4%EC%97%87%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%95%A0-%EA%B2%83%EC%9D%B8%EA%B0%80</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install jest @vue/<span class="built_in">test</span>-utils vue-jest babel-jest --save-dev</span><br></pre></td></tr></table></figure><p><a href="https://gongzza.github.io/javascript/vuejs/vue-unit-testing-with-jest/" target="_blank" rel="noopener">https://gongzza.github.io/javascript/vuejs/vue-unit-testing-with-jest/</a></p><p>yarn vs npm <a href="https://medium.com/@ehddnjs8989/npm-vs-yarn-3a611c89d291" target="_blank" rel="noopener">https://medium.com/@ehddnjs8989/npm-vs-yarn-3a611c89d291</a></p><p>: 퍼포먼스나 안정성 부분은.. 비등비등하다고 한다.</p><p>facebook에서 yarn을 개발한 메인 이유중 하나는 더 좋은 방법으로 npm의 시큐리티에 접근하는 것이다.</p><p>npm은 패키지가 설치될 때 자동으로..코등와 의존성을 실행할 수 있도록 허용했다. 이 특징은 편리하나 안정성의 위험도가 증가했다. </p><p>특히 정책없이 등록했던 패키지의 체출물 부분에서 위험도가 높았다.</p><p>반연에 yanr은 yanr.lock이나 package.json으로부터 설치만 한다.</p><p><strong>더 구체적으로 말하자면 yarn.lock은 모든 디바이스에 같은 패키지를 설치하는 것을 보장하여 다른 버전을 설치로부터 버그가 오는 많은 양을 줄여버렸다.</strong></p><p>npm —save와 –save-dev</p><p>–save만 하면 package.json의 dependencies 들어가고 (npm5부터는 –save옵션이 기본이라 따로 안붙여도 된다.)</p><p>–save-dev(–save-D)하면 devDependencies에 들어간다. </p><p>당연하지만 devDependencies는 프로덕션 빌드시 해당 플러그인이 포함되지 않는다.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;오늘자 의식의 흐름… 링크가 빠진것도 있네요. 죄송합니다..&lt;/p&gt;
+&lt;p&gt;Nuxt&lt;/p&gt;
+&lt;p&gt;Nuxt는 Vue.js 어플리케이션을 만드는 프레임워크이다..&lt;/p&gt;
+&lt;p&gt;주요 범위는 클라이언트, 서버 배포를 추상화하는 동안의 UI Renderin
+      
+    
+    </summary>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/categories/Notes/"/>
+    
+    
+      <category term="Notes" scheme="http://yoursite.com/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>skip worktree undo</title>
+    <link href="http://yoursite.com/2019/12/19/2019-12-19-git/"/>
+    <id>http://yoursite.com/2019/12/19/2019-12-19-git/</id>
+    <published>2019-12-19T01:12:41.000Z</published>
+    <updated>2020-04-21T23:02:04.611Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git update-index --no-skip-worktree &lt;file&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span cla
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
+    
+    
+      <category term="git" scheme="http://yoursite.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>젠킨스..?</title>
+    <link href="http://yoursite.com/2019/12/06/2019-12-06-Etc/"/>
+    <id>http://yoursite.com/2019/12/06/2019-12-06-Etc/</id>
+    <published>2019-12-06T06:41:05.000Z</published>
+    <updated>2019-12-06T06:51:17.374Z</updated>
+    
+    <content type="html"><![CDATA[<p>최근에 팀내 작업 Repository를 분리 - 이동하는 작업이 있었다. 빌드 환경 구성도 조금 변했는데.. 기존 방식과 크게 달라지지 않고 프론트에서 빌드한 파일을 서버단으로 카피하는 Jenkins 스크립트를 이용해 최종적으로 war로 떨구는 프로세스이다. 새로 리파짓토리를 옮기면서 팀장님은 ‘젠킨스 스크립트는 이력관리가 어렵다. 젠킨스 스크립트를 최소한으로 하고 별도로 빌드용 리파짓토리를 만들고 소스 형태로 형상관리를 원했다’ 라고 하셨다. 이번엔 뭐 그냥 넘어가기로 했다. 아항.. 그런거구나  라고 메모해본다.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;최근에 팀내 작업 Repository를 분리 - 이동하는 작업이 있었다. 빌드 환경 구성도 조금 변했는데.. 기존 방식과 크게 달라지지 않고 프론트에서 빌드한 파일을 서버단으로 카피하는 Jenkins 스크립트를 이용해 최종적으로 war로 떨구는 
+      
+    
+    </summary>
+    
+    
+      <category term="Etc" scheme="http://yoursite.com/categories/Etc/"/>
+    
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
+    
+      <category term="etc" scheme="http://yoursite.com/tags/etc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>첫 웹팩.. 트라이...</title>
+    <link href="http://yoursite.com/2019/11/12/2019-11-12-Webpack/"/>
+    <id>http://yoursite.com/2019/11/12/2019-11-12-Webpack/</id>
+    <published>2019-11-12T05:04:13.000Z</published>
+    <updated>2019-12-06T06:54:08.698Z</updated>
+    
+    <content type="html"><![CDATA[<p>package.json</p><p>dependencies</p><p>devDependencies : 개발 단계에서 필요한 의존성 모듈… (테스트 관련 모듈이나 트랜스 파일러 관련 모듈)</p><ul><li><code>version</code> : 명시한 버전과 일치해야 한다.</li><li><code>&gt;version</code> :  명시한  버전 보다 높아야 한다.</li><li><code>&gt;=</code></li><li><code>&lt;</code></li><li><code>&lt;version&gt;</code></li><li><code>&lt;version</code></li><li><code>&lt;=version</code></li><li><code>~version</code> : 명시한 버전과 근사한 것.</li><li><code>^version</code> : 명시한 버전과 호환 되는 것</li><li><code>*</code> : 모든 버전</li><li><code>version1 - version</code> : <code>&gt;= version1 &lt;= version2</code></li><li><code>range1 || range2</code> : range1 또는 range2</li></ul><p> <a href="http://guswnsxodlf.github.io/production-with-webpack" target="_blank" rel="noopener">http://guswnsxodlf.github.io/production-with-webpack</a> </p><p>웹 서비스를 개발할 때, 개발 모드와 배포모드에 따라 다른 결과가 나오야 하는 경우기있다. 예를 들어, 내가 요청한 api서버 주소가 내 컴퓨터에서 개발 중일때와 서버에 올라갔을 때 다를 수 있다. 또 개발중인 코드에서 보여주지 말아야 할 에러메세지가 있을 수도 있고, 캐싱 여부가 다를수도 있다. 단순하게 페이지의 내용을 다르게 하고싶을 수 있다.</p><p>보통 이런문제들을 해결하기 위해서 Node.js에서는 NODE_ENV라는 환경변수를 설정해서 분기한다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'production'</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'production mode'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'development'</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'development mode'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>… 투비컨티뉴~?</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;package.json&lt;/p&gt;
+&lt;p&gt;dependencies&lt;/p&gt;
+&lt;p&gt;devDependencies : 개발 단계에서 필요한 의존성 모듈… (테스트 관련 모듈이나 트랜스 파일러 관련 모듈)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;version&lt;/cod
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+      <category term="webpack" scheme="http://yoursite.com/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Debouncing, Throttling 용어</title>
+    <link href="http://yoursite.com/2019/11/11/2019-11-11-DebouncingAndThrottling/"/>
+    <id>http://yoursite.com/2019/11/11/2019-11-11-DebouncingAndThrottling/</id>
+    <published>2019-11-11T02:07:54.000Z</published>
+    <updated>2020-04-28T22:12:37.755Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고</p><p><a href="https://bityoungjae.com/2019/11/09/JavaScript/%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/%EB%94%94%EB%B0%94%EC%9A%B4%EC%8B%B1%EA%B3%BC%20%EC%93%B0%EB%A1%9C%ED%8B%80%EB%A7%81/" target="_blank" rel="noopener">https://bityoungjae.com/2019/11/09/JavaScript/개념정리/디바운싱과 쓰로틀링/</a> </p><h3 id="Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함"><a href="#Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함" class="headerlink" title="Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함"></a>Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함</h3><p>3초의 시간을 설정해두고 3초 내애는 버튼이 눌려도 폭죽이 발사되지 않도록 조정하는 것</p><p>마구 연타시 폭죽은 발사되지 않고 마지막 버튼을 떼는 순간 3초 뒤 발사 된다.</p><p>-&gt; 셋팅한 3초만큼 기능이 정지된다고 해야하나..</p><h3 id="Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장"><a href="#Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장" class="headerlink" title="Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장"></a>Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장</h3><p> 3초 후에는 다시 폭죽이 발사되도록 초기화 된다.</p><p>이제 버튼을 마구 연타해도 3초의 발사간격을 보장한다.</p><p>-&gt; 3초의 대기 후 다시 이벤트를 처리한다.</p><p>예) </p><ul><li>디바운싱 - 아이디 중복 검사</li><li>쓰로틀링 - 스크롤 이벤트</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://bityoungjae.com/2019/11/09/JavaScript/%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/%EB%94%94%EB%B0%94%EC%9A%B4%EC%8B%B
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vuex 살펴보기</title>
+    <link href="http://yoursite.com/2019/06/04/2019-06-04-Vuex/"/>
+    <id>http://yoursite.com/2019/06/04/2019-06-04-Vuex/</id>
+    <published>2019-06-04T02:04:41.000Z</published>
+    <updated>2019-06-05T07:52:35.277Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고 <a href="https://medium.com/@itsnothingg/%EB%8F%84%EB%8C%80%EC%B2%B4-vuex%EA%B0%80-%EB%AD%90%EA%B8%B8%EB%9E%98-ad5bc15f2371&gt;" target="_blank" rel="noopener">https://medium.com/@itsnothingg/%EB%8F%84%EB%8C%80%EC%B2%B4-vuex%EA%B0%80-%EB%AD%90%EA%B8%B8%EB%9E%98-ad5bc15f2371&gt;</a></p><h1 id="Vuex-미리-알아보기"><a href="#Vuex-미리-알아보기" class="headerlink" title="Vuex 미리 알아보기"></a>Vuex 미리 알아보기</h1><p>어플리케이션 데이터를 공유하는 구성 요소가 여러개 있으면, 그 구성요소들이 복잡하게 상호 작용할수록 데이터의 상태를 더이상 예측할 수 없거나 이해할 수 없는 지점까지 증가한다. 결국 어플리케이션을 확장하거나 유지 관리 할 수 없는 상황이 발생할 수 있다.</p><p> Flux의 개념은 이러한 결함을 충분히 완화시키는 확장 가능한 아키텍처를 설명하는 인력의 가이드 원칙들을 만든 것이다. 구성 요소 및 공유 데이터 상태가 복잡한 UI 앱에서 적용되는 개념이다.</p><p>Flux는 라이브러리가 아니라 패턴이다. (마치 MVC 같은.) Vuex나 Redux 같은 라이브러리는 마치 여러 프레임워크들이 MVC  패턴을 구현하듯이 Flux 패턴을 구현한 것이다. </p><p>Vuex는 Flux의 모든 패턴을 구현하진 않고 단지 하위의 일부분을 구현할 뿐이다.</p><h3 id="원칙1-Single-Source-of-Truth-단일-데이터-소스"><a href="#원칙1-Single-Source-of-Truth-단일-데이터-소스" class="headerlink" title="원칙1_ Single Source of Truth (단일 데이터 소스)"></a>원칙1_ Single Source of Truth (단일 데이터 소스)</h3><p>컴포넌트들은 자기만 신경쓰면 될 로컬 데이터들을 가지고 있다. 예를 들어 사용자 목록 컴포넌트의 스크롤 막대 위치는 다른 컴포넌트들에서는 관심이 없는 데이터이다.</p><p><strong>그러나 컴포넌트들 간에 공유해야 하는 데이터는 이를 사용하는 컴포넌트와는 별도로 단일 위치에 보관해야 한다.</strong></p><p>이 단일 위치를 <strong>store</strong>라고 한다. 컴포넌트는 이 위치에서 어플리케이션 데이터를 읽어야 하며 충돌이나 불일치를 방지하기 위해 복사본을 자체적으로 보관해서는 안된다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  <span class="comment">//state는 구성 요소들이 관찰할 어플리케이션 데이터</span></span><br><span class="line">  state: &#123;</span><br><span class="line">    myValue: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = &#123;</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&#123;&#123;myValue&#125;&#125;&lt;/div&gt;`</span>,</span><br><span class="line">  <span class="comment">//컴포넌트들은 computed속성에서 store의 state를 가지고 올 수 있다.</span></span><br><span class="line">  computed: &#123;</span><br><span class="line">    myValue()&#123;</span><br><span class="line">      <span class="keyword">return</span> store.state.myValue</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="원칙2-Data-i-Read-Only"><a href="#원칙2-Data-i-Read-Only" class="headerlink" title="원칙2_ Data i Read-Only"></a>원칙2_ Data i Read-Only</h3><p>컴포넌트들은 store에서 데이터를 자유롭게 읽을 수는 있지만 직접 변경할 수는 없다. </p><p>대신에 데이터를 변경할 것이라는 것을 store에 알려야 하면 store은 ‘mutations’ 라고 정의된 함수들을 통해 변경을 완수해야 할 책임이 있다.</p><p>왜 이렇게 번거롭게 접근을 할까? 이렇데 데이터 변경 로직을 중앙 집중화하면 데이터에 불일치가 일어나거나 데이터에 다른 문제들이 생겼을 때 여러곳을 일일이 뒤져볼 필요가 없다. 이것은 어떤 익명의 컴포넌트(아마도 써드파티 모듈)가 예상치 못한 방식으로 데이터를 변경할 가능성을 최소화 해준다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  state: &#123;</span><br><span class="line">    myValue: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  mutataions:&#123;</span><br><span class="line">    increasement(state, value)&#123;</span><br><span class="line">      state.myValue += value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//store.myValue += 10; ===&gt; 이렇게 직접 접근하면 안됨</span></span><br><span class="line">store.commit(<span class="string">'increasement'</span>, <span class="number">10</span>) <span class="comment">//===&gt;적절한 mutaion 호출</span></span><br></pre></td></tr></table></figure><h3 id="원칙3-Mutations-Are-Synchronous"><a href="#원칙3-Mutations-Are-Synchronous" class="headerlink" title="원칙3_ Mutations Are Synchronous"></a>원칙3_ Mutations Are Synchronous</h3><p>위에 두가지 원칙을 지기킄 App에서 데이터를 디버그 하는 것이 훨씬 쉽다. mutation의 commit을 기록하고 응답 상태가 어떻게 변경되는지 관찰할 수 있다. (Vue Devtools에서 Vuex를 사용할 때 실제로 그렇게 디버그 할 수 있다.)</p><p>그러나 만약 mutaion이 비동기적으로 일어난다면 그런 방식의 디버깅은 불가능할 것이다. commit이 언제 발생했는지는 알 수 있어도 commit안에 콜백이나 Promise 같은 것들이 들어가면 추적이 불가능해진다.</p><p>mutaion이 동기적으로 일어나는 것, 데이터가 예측할 수 없는 이벤트의 순서와 시간에 종속되지 않도록 보장한다.</p><h3 id="결국-Vuex란"><a href="#결국-Vuex란" class="headerlink" title="결국 Vuex란?"></a>결국 Vuex란?</h3><p>Vuex는 Vue App에서 Flux 아키텍처를 구현하는데 도움이 되는 라이브러리다. 위에서 설명한 원칙들을 적용함으로써 Vuex는 여러 컴포넌트에서 데이터를 공유하는 경우에도 어플리케이션 데이터를 투명하고 예측 가능한 상태로 유지한다.</p><p>Vuex를 구현하기 위해서는 store, mutator가 포함되며 store에서 데이터를 읽는 모든 컴포넌트들을 자동으로 업데이트 한다.</p><p>또한 핫 모듈 리로딩(실행중인 App에서 모듈 업데이트) 및 시간 이동 디버깅(버그 추적을 위한 mutation 이벤트 역추적)과 같은 멋진 기능을 제공한다.</p><hr><p>참고 <a href="https://joshua1988.github.io/web-development/vuejs/vuex-start/" target="_blank" rel="noopener">https://joshua1988.github.io/web-development/vuejs/vuex-start/</a></p><h3 id="Vuex란"><a href="#Vuex란" class="headerlink" title="Vuex란"></a>Vuex란</h3><p>Vue.js의 상태관리를 위한 패턴이자 라이브리러이다.</p><h3 id="상태관리-State-Management-가-왜-필요한가"><a href="#상태관리-State-Management-가-왜-필요한가" class="headerlink" title="상태관리(State Management)가 왜 필요한가?"></a>상태관리(State Management)가 왜 필요한가?</h3><p>컴포넌트 기반 프레임워크에서는 화면 구성을 위해 화면 단위를 매우 잘게 쪼개서 컴포넌트를 사용한다. 예를 들면, header, button, list 등의 작은 단위들이 컴포넌트가 되어 한 화면에서 많은 컴포넌트를 사용하게 된다. 이에 따라 컴포넌트 간의 통신이나 데이터 전달을 좀 더 유기적으로 관리할 필요성이 생긴다.</p><p>달리말해 header -&gt; button, button -&gt; list, button-&gt; footer 등의 컴포넌트 간 데이터 전달 및 이벤트 통신 등의 여러 컴포넌트의 관계를 한곳에서 관리하기 쉽게 구조화 하는 것이 State Management다.</p><h3 id="상태-관리로-해결할-수-있는-문제점"><a href="#상태-관리로-해결할-수-있는-문제점" class="headerlink" title="상태 관리로 해결할 수 있는 문제점?"></a>상태 관리로 해결할 수 있는 문제점?</h3><p>상태 관리는 중대형 규모의 웹 컴포넌트들을 좀 더 효울적으로 관리하기 위한 기법이다. 일반적으로 앱의 규모가 커지면서 생기는 문제들은 다음과 같다.</p><p>(1) Vue 의 기본 컴포넌트 통신 방식인 상위 - 하위에서 중간에 거쳐야 할 컴포넌트들이 많아지거나</p><p>(2) 이를 피하기 위해 Event Bus를 활용해 상하위 관계가 아닌 컴포넌트 간 통신 시 관리가 되지 않는 점</p><p>이런 문제들을 해결하기 위해 모든 데이터 통신(state)를 한곡에서 중앙 집중식으로 관리한다.</p><p><img src="/img/2019-06-05-vuex-01.png" alt=""></p><h3 id="상태-관리-패턴"><a href="#상태-관리-패턴" class="headerlink" title="상태 관리 패턴"></a>상태 관리 패턴</h3><p>상태관리 구성 요소는 크게 3가지가 있다.</p><ul><li>state : 컴포넌트 간 공유될 data</li><li>view : 데이터가 표현될 template</li><li>action : 사용자의 입력에 따라 반응할 methods</li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&#123;&#123;count&#125;&#125;&lt;/div&gt;`</span>,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    increasement()&#123;</span><br><span class="line">      <span class="keyword">this</span>.count++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>위 구성 요소는 아래와 같이 동작한다.</p><p><img src="/img/2019-06-05-vuex-02.png" alt=""></p><p>… 이 외에도 변경된 state값을 받아오기 위한 <strong>getters</strong>, state 값을 변경하기 위한 <strong>mutations</strong>, 비동기 mutations 로직을 위한 <strong>actions</strong>, 폴더 구조화 등을 알아야Vuex 를 잘 활용해 가독성 있는 코드를 짤 수 있다. </p><p>참고<a href="https://joshua1988.github.io/web-development/vuejs/vuex-getters-mutations/" target="_blank" rel="noopener">https://joshua1988.github.io/web-development/vuejs/vuex-getters-mutations/</a></p><h3 id="getters란"><a href="#getters란" class="headerlink" title="getters란?"></a>getters란?</h3><p>중앙 데이터식 관리 구조에서 발생하는 문제 중 하나는 각 컴포넌트에서 vuex의 데이터를 접근할 때 중복된 코드를 반복 호출하게 되는 것이다. </p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  doubleCount()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$store.state.count * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Child.vue</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  doubleCount()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$store.state.count * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>여러 컴포넌트에서 같은 로직을 비효율적으로 중복 사용하고 있다. 이 때 Vuex의 데이터(state) 변경을 각 컴포넌트에서 수행하는게 아니라 Vuex에서 수행하도록 하고 각 컴포넌트에서 수행로직을 호출하면 코드 가독성도 올라가고 성능에도 이점이 생긴다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//store.js(Vuex)</span></span><br><span class="line">getters :&#123;</span><br><span class="line">  doubleCount: <span class="function"><span class="keyword">function</span>(<span class="params">state</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> state.count * <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//App.vue</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  doubleCount()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$store.getters.doubleCount;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Child.vue</span></span><br><span class="line">computed: &#123;</span><br><span class="line">  doubleCount()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$store.getters.doubleCount;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>비슷해 보일수 있지만 로직이 길다고 생각해보면 왜 getter를 쓰는게 편할지 납득이 간다.</p><h3 id="mapGetters"><a href="#mapGetters" class="headerlink" title="mapGetters"></a>mapGetters</h3><p>Vuex에 내장된 helper 함수, mapGetters로 이미 위에서 한번 가독성이 올라간 코드를 더 직관적이게 작성할 수 있다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  Parent counter : &#123;&#123; parentCount &#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">computed: mapGetters(&#123;</span><br><span class="line">  parentCount : <span class="string">'getCount'</span> <span class="comment">//getCount는 Vuex의 getters에 선언된 속성 이름</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>또한 Vuex의 getters 속성 이름과 컴포넌트의 computed 속성을 동일하게 해 아래와 같이 선언할 수도 있다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line">&lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">  Parent counter : &#123;&#123; getCount &#125;&#125;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">computed: mapGetters([</span><br><span class="line">  <span class="string">'getCount'</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure><p>여기서 주의할 점은 위 방법들은 컴포넌트 자체에서 사용할 computed 속성과 함께 사용할 수 없다는 점이다. 해별 방안은 ES6의 <code>...</code> 문법을 사용하면 된다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//App.vue</span></span><br><span class="line"><span class="keyword">import</span> &#123; mapGetters &#125; <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line">computed: &#123;</span><br><span class="line">  ...mapGetters([</span><br><span class="line">    <span class="string">'getCount'</span></span><br><span class="line">  ]),</span><br><span class="line">    anotherCounter()&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>다만 <code>...</code> 문법을 사용하려면 Babel-Stage …</p><p>..추가 예정</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고 &lt;a href=&quot;https://medium.com/@itsnothingg/%EB%8F%84%EB%8C%80%EC%B2%B4-vuex%EA%B0%80-%EB%AD%90%EA%B8%B8%EB%9E%98-ad5bc15f2371&amp;gt;&quot; targe
+      
+    
+    </summary>
+    
+    
+      <category term="Vuejs" scheme="http://yoursite.com/categories/Vuejs/"/>
+    
+    
+      <category term="vuejs" scheme="http://yoursite.com/tags/vuejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>이벤트 종류</title>
+    <link href="http://yoursite.com/2019/05/31/2019-05-31-events/"/>
+    <id>http://yoursite.com/2019/05/31/2019-05-31-events/</id>
+    <published>2019-05-31T02:18:54.000Z</published>
+    <updated>2020-04-21T22:12:36.725Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고 <a href="http://www.nextree.co.kr/p10008/" target="_blank" rel="noopener">http://www.nextree.co.kr/p10008/</a></p><p>헷갈리는 마우스.. 키보드 이벤트</p><h3 id="마우스이벤트"><a href="#마우스이벤트" class="headerlink" title="마우스이벤트"></a>마우스이벤트</h3><ul><li>click : 마우스를 클릭할 때</li><li>dbclick : 마우스를 더블 클릭할 때</li><li>mousedown : 마우스 버튼을 누를 때</li><li>mouseup : 마우스 버튼을 뗄 때</li><li>mouseenter : 마우스가 요소의 경계 외부에서 내부로 이동할 때</li><li>mouseleave : 마우스가 요소의 경계 내부에서 외부로 이동할 때</li><li>mouseover : 마우스가 요소 안에 들어올 때</li><li>mouseout : 마우스가 요소를 벗어날 때 </li><li>mousemove : 마우스를 움질일 때</li></ul><p>자 그럼 mouseenter와 mouserover / mouserleave와 mouseout의 차이는?</p><p>mouseenter / mouserleave 이벤트 버블링 막음<br>mouseover / mouseout 이벤트 버빌링 발생</p><h3 id="키보드-이벤트"><a href="#키보드-이벤트" class="headerlink" title="키보드 이벤트"></a>키보드 이벤트</h3><ol><li>사용자가 키보드를 누른다.<ul><li>keydown : 키를 누를 때</li></ul></li><li>글자가 입력된다.<ul><li>keypress : 글자를 입력할 때</li></ul></li><li>사용자가 키보드에서 손을 땐다.<ul><li>keyup : 키로부터 손가락을 땔 때</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고 &lt;a href=&quot;http://www.nextree.co.kr/p10008/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.nextree.co.kr/p10008/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;헷갈리는 마우스.. 키보드 이
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Storage</title>
+    <link href="http://yoursite.com/2019/05/22/2019-05-22-storage/"/>
+    <id>http://yoursite.com/2019/05/22/2019-05-22-storage/</id>
+    <published>2019-05-22T08:21:41.000Z</published>
+    <updated>2019-06-26T01:14:15.756Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고</p><p><a href="https://www.zerocho.com/category/HTML&amp;DOM/post/5918515b1ed39f00182d3048" target="_blank" rel="noopener">https://www.zerocho.com/category/HTML&amp;DOM/post/5918515b1ed39f00182d3048</a></p><p>친구가 면접을 보고 나와서는 인터뷰 내용 중 하나였던 위 페이지 링크를 보내줬다.</p><p>팀내에서 localStorage사용에 대해서 이야기하는걸 들은 적이 있지만<br>하루하루가 벅찬 신입…(9개월이 지났지만)은 당시엔 ‘뭔 소리지’ 하고 일단 넘어가고<br>이런 기회에 정리하고 남겨두면 기억에 남거나 나중에 생각나면 다시 와서 찾아보거나 한다.</p><p>이번주는 어쩐지 정말 의욕이 없으니 이 정도의 학습이라도 감당하자…</p><h3 id="LocalStorage-vs-SessionStorage"><a href="#LocalStorage-vs-SessionStorage" class="headerlink" title="LocalStorage vs SessionStorage"></a>LocalStorage vs SessionStorage</h3><p>둘다 HTML 5에서 추가 된 저장소로 key - value로 저장된다.</p><p>가장 큰 차이는 영구성으로<br>로컬스토리지의 데이터는 사용자가 지우지 않으면 계속 <strong>브라우저</strong> 에 남아있고<br>세션스토리지의 데이터는 윈도우나 브라우저 탭을 닫을 때 제거된다.</p><p>로컬스토리지 - 지속 적으로 필요한 데이터 (자동 로그인 등)<br>세션스토리지 - 잠깐 필요한 정보 (일회성 로그인 등)</p><p>하지만 비밀번호 같은 중요한건 절대저장하면안된단다.. (클라에 저장하므로 언제든지 털릴 수 있다)</p><p>로컬, 세션스토리지가 나오기전에도 브라우저 저장소 역할을 하는 것 같은게 잇엇는데<br>바루 쿠키다.<br>쿠키 배우고 공부한적 있지만 잘 모른다.</p><p>… 쿠키에 관한 내용은 중략 .. 하지만</p><p>쿠키는 처음부터 서버와 클라의 지속적인 데이터 교환을 위해 만들어졌기 떄문에 계속 서버로 전송해줘야하는 단점이 있다. </p><p>…다시 중략 …</p><p>로컬 스토리지는 window.localStorage 세션 스토리지는 window.sessionStroage 에 위치한다.</p><ul><li><p>둘다 Storage 객체를 상속받기 떄문에 메소드가 공통으로 존재한다.</p></li><li><p>키밸류 저장소이기 때문에 순서대로 저장하면 된다.</p></li><li><p>밸류는 문자열,불린,숫자,널,언디파인 다 할수있는데 결국 <strong>문자열</strong>로 변환된다. 키도 문자열이다.</p></li></ul><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(<span class="string">'key1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">localStorage.getItem(<span class="string">'key1'</span>); <span class="comment">//value1</span></span><br><span class="line">localStorage.removeItem(<span class="string">'key'</span>);</span><br><span class="line">localStorage.clear() <span class="comment">//전체삭제</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//밸류에 객체를넣으면 제대로 저장되지 않고 toString메소드가 호출된 형태로 저장된다. [object object]같은...</span></span><br><span class="line"><span class="comment">//한번에 객체를 통째로 저장하려면 JSON.stringfy를 이용하자. 받을때는 JSON.parse하면되니까.</span></span><br><span class="line">localStorage.setItem(<span class="string">'obj1'</span>, <span class="built_in">JSON</span>.stringfy(&#123;<span class="attr">a</span>:<span class="string">'b'</span>&#125;));</span><br><span class="line"><span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">'obj1'</span>));</span><br></pre></td></tr></table></figure><p>핵심<br><em>로컬스토리지 - 지우기 전까지 영구 / 세션 스토리지 - 브라우저 탭,윈도우 닫을때 삭제된다!!!</em></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zerocho.com/category/HTML&amp;amp;DOM/post/5918515b1ed39f00182d3048&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://ww
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+      <category term="storage" scheme="http://yoursite.com/tags/storage/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Javascript 객체는 reference type 이다...</title>
+    <link href="http://yoursite.com/2019/04/19/2019-04-19-Javascript/"/>
+    <id>http://yoursite.com/2019/04/19/2019-04-19-Javascript/</id>
+    <published>2019-04-19T02:32:50.000Z</published>
+    <updated>2019-04-19T08:46:38.282Z</updated>
+    
+    <content type="html"><![CDATA[<p>이런 코드를 짯드랬다…(?)</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> remove_list = &#123;</span><br><span class="line">  <span class="string">"A"</span> : [<span class="string">"a01"</span>, <span class="string">"a02"</span>, <span class="string">"a03"</span>],</span><br><span class="line">  <span class="string">"B"</span> : [<span class="string">"b01"</span>, <span class="string">"b02"</span>, <span class="string">"a04"</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> url = <span class="string">"http://localhost:port/api.do"</span> </span><br><span class="line"><span class="keyword">var</span> params = &#123;</span><br><span class="line">        <span class="string">"id"</span>: <span class="string">"dataService.deleteData"</span>,</span><br><span class="line">        <span class="string">"params"</span>: &#123;</span><br><span class="line">            <span class="string">"id"</span>: [],</span><br><span class="line">            <span class="string">"data_type"</span>: <span class="string">""</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> data_type <span class="keyword">in</span> remove_list) &#123;</span><br><span class="line">    params.params.data_type = key;</span><br><span class="line">    params.params.id = remove_list[data_type];</span><br><span class="line">  </span><br><span class="line">    Vue.prototype.$http.post(url, params).then(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">    Vue.$message(&#123;</span><br><span class="line">            message: <span class="string">"잘지워짐"</span></span><br><span class="line">            type: <span class="string">'success'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;).catch(<span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        Vue.$message(&#123;</span><br><span class="line">            message: <span class="string">"안지워짐"</span></span><br><span class="line">            type: <span class="string">'error'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>이게 왜 안됐는지는… 나중에 이 포스팅 볼 때는 기억하겠지… </p><p>나 보려고 쓰는 블로그니까 설명은 생략한다. </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;이런 코드를 짯드랬다…(?)&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;l
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6 async/await</title>
+    <link href="http://yoursite.com/2019/04/11/2019-04-11-ES6-async-await/"/>
+    <id>http://yoursite.com/2019/04/11/2019-04-11-ES6-async-await/</id>
+    <published>2019-04-11T07:08:15.000Z</published>
+    <updated>2019-04-11T07:39:57.949Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고</p><p><a href="https://blog.naver.com/jhc9639/221072563346" target="_blank" rel="noopener">https://blog.naver.com/jhc9639/221072563346</a></p><p><a href="https://medium.com/@constell99/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-async-await-%EA%B0%80-promises%EB%A5%BC-%EC%82%AC%EB%9D%BC%EC%A7%80%EA%B2%8C-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%9E%88%EB%8A%94-6%EA%B0%80%EC%A7%80-%EC%9D%B4%EC%9C%A0-c5fe0add656c" target="_blank" rel="noopener">https://medium.com/@constell99/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EC%9D%98-async-await-%EA%B0%80-promises%EB%A5%BC-%EC%82%AC%EB%9D%BC%EC%A7%80%EA%B2%8C-%EB%A7%8C%EB%93%A4-%EC%88%98-%EC%9E%88%EB%8A%94-6%EA%B0%80%EC%A7%80-%EC%9D%B4%EC%9C%A0-c5fe0add656c</a></p><p>Node8 LTS는 async/await를 완벽하게 지원한다.</p><ul><li>async / await는 promise 처럼 non-blocking이다.</li><li>async/await는 비동기 코드의 겉모습과 동작을 좀 더 동기 코드와 유사하게 만들어준다. 이것이 async/await의 가장 큰 장점이다.</li></ul><p>async/await 함수를 쓰는 목적은 여러개의 프로미스들을 아릅답게 사용할 수 있게 하며 프로미스의 결과값으로 생성된 변수들을 간단하게 표현하는데에 있다.</p><p>무조건 then을 쓰는 것에서 벗어나 변수명을 정의하듯이 await 하고 변수를 이용해 로직을 짤 수 있다. 외에도 try - catch로 에러를 잡을 수 있고 디버깅 하기 쉬워지는 장점이 있다.</p><p><strong>await는 async안에서만 써야 하고 async는 promise의 resolved된 값을 반환합니다.</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> makeRequest = <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">  getJson().then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'done'</span>;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">makeRequest();</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> makeRequest = <span class="keyword">async</span>() =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> getJson());</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'done'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">makeRequest();</span><br></pre></td></tr></table></figure><p>위 두 코드의 차이점…</p><p><strong>1. 함수의 앞에 <code>async</code>라는 단어가 오게 된다. <code>await</code> 키워드는 오직 <code>async</code> 로 정의된 함수의 내부에서만 사용될 수 있다. 모든 <code>async</code> 함수는암묵적으로 promise를 반환하고.. Promise가 함수로부터 반한활 값을 resolve 한다.</strong></p><p><strong>2. 이와 같은 점 때문에 <code>await</code>을 코드의 탑 레벨에서는 사용할 수 없다. <code>async</code> 함수 안에 위치한 경우만 사용 가능하다.</strong></p><p><strong>3. <code>await getJSON</code> 는 <code>console.log</code>의 호출이 <code>getJSON()</code> Promise가 resolve 된 후에 일어나고 그 후에 값을 출력할 것이라는 것을 의미한다.</strong></p><p>오늘은 여기까지…</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.naver.com/jhc9639/221072563346&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://blog.naver.com/jhc9639/22107256334
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6 Promise</title>
+    <link href="http://yoursite.com/2019/04/11/2019-04-11-ES6-Promise/"/>
+    <id>http://yoursite.com/2019/04/11/2019-04-11-ES6-Promise/</id>
+    <published>2019-04-11T04:43:22.000Z</published>
+    <updated>2020-04-21T22:12:47.372Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고</p><p><a href="https://poiemaweb.com/es6-promise" target="_blank" rel="noopener">https://poiemaweb.com/es6-promise</a>  (랄까 거의 보면서 옮겨씀…)</p><p><a href="https://joshua1988.github.io/web-development/javascript/promise-for-beginners/" target="_blank" rel="noopener">https://joshua1988.github.io/web-development/javascript/promise-for-beginners/</a></p><p>콜백 방식의 비동기 처리가 갖는 문제점 중에서 가장 심각한 것은… 에러처리가 곤란하다는 것이다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;<span class="keyword">throw</span> <span class="string">'Error!'</span>&#125;, <span class="number">1000</span>);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'에러를 캐치하지는 못한다'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p> 이유는? 비동기 처리 함수의 콜백 함수는 해당 이벤트(DOM이벤트, timer 함수의 tick 이벤트, Ajax의 onreadystatechange이벤트 )가 발생하면 이벤트 큐(Event queue)로 이동한 후 호출 스택이 비어졌을 때  호출 스택으로 이동되어 실행 된다… setTime 은 비동기 함수이므로 콜백 함수의 실행 완료를 기다리지 않고 즉시 종료 되어 호출 스택에서 제거된다. 이후 이벤트가 발생하면 setTimeout 함수의 콜백 함수는 이벤트 큐로 이동한 후 호출스택이 비어졌을 때 호출스택으로 이동되어 실행된다. 이 때 setTimeout 함수는 이미 호출 스택에서 제거된 상태이다. 이것은 setTimeout 함수의 콜백 함수를 호출한 것은 setTimeout 함수가 아니다 라는 것을 의미한다. setTimeout 함수의 콜백 함수 호출자(caller)가 setTimeout 함수라면 호출 스택에 setTimeout 함수가 존재해야 하기 때문이다… 예외는 호출자 방향으로 전파된다. 하지만 위 설명 처럼 setTimeout 함수의 콜백 함수를 호출한 것은 setTimeout이 아니기 때문에 콜백 함수내에서 발생시킨 에러는 catch 블록에서 catch되지 않고 프로세스는 종료된다. 이러한 문제를 극복하기 위해 프로미스가 제안되었다. Promise는 ES6에 정식 채택되어 IE를 제위한 대부분의 브라우저가 지원하고 있다.</p><h3 id="프로미스의-생성"><a href="#프로미스의-생성" class="headerlink" title="프로미스의 생성"></a>프로미스의 생성</h3><p>프로미스는 Promise 생성자 함수를 통해 인스턴스화 한다. Promise 생성자 함수는 비동기 작업을 수행 할 콜백함수를 인자로 전달 받는데 이 콜백함수는 resolve와 reject 함수를 인자로 받는다…</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resove,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//비동기 작업 수행</span></span><br><span class="line">    $.<span class="keyword">get</span>('url', (response)=&gt;&#123;</span><br><span class="line">      <span class="comment">/* 비동기 작업 수행 성공 */</span></span><br><span class="line">      <span class="keyword">if</span>(response)&#123;</span><br><span class="line">        resolve(response);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">/* 비동기 작업 수행 실패 */</span></span><br><span class="line">      reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Request is failed!'</span>))</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getData().then(<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data)</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>Promise는 pending / fulfilled / rejected / settled 이렇게 4개의 상태(state) 정보를 갖는다. 단어 뜻 그대로..</p><p><img src="/img/2019-04-11-javascript-promise-01.png" alt=""></p><p>Promise 생성자 함수가 인자로 받은 콜백 함수는 내부에서 비동기 처리 작업을 수행한다. 이 때 비동기 처리가 성공하면 콜백 함수의 인자로 전달 받은 resolve라는 함수를 호출한다. 실해하면 reject 함수를 호출한다.</p><h3 id="프로미스의-후속-처리-메소드"><a href="#프로미스의-후속-처리-메소드" class="headerlink" title="프로미스의 후속 처리 메소드"></a>프로미스의 후속 처리 메소드</h3><p>Promise로 구현된 비동기 함수는 Promise 객체를 리턴한다. Promise로 구현된 비동기 함수를 호출하는 측(Promise customer)에서는 Promise 객체의 후속처리 메소드를 통해 비동기 처리 결과 또는 에러 메세지를 전달받아 처리한다.. Promise 객체는 상태를 갖는다고 위에서 얘기했는데 이 상태에 따라 후속  처리 메소드를 체이닝 방식으로 호출한다. Promise의 후속 처리 메소드는 아래와 같다.</p><p><code>then</code></p><p>then 메소드는 두개의 콜백함수를 인자로 받는다.첫번째 콜백함수 시 성공시 호출되고 두 번째 함수는 실패 시 호출된다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span>(url).then((result)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result) <span class="comment">//resolve에 비동기 함수의 리턴값</span></span><br><span class="line">&#125;, (error)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(error) <span class="comment">//error</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p><code>catch</code></p><p>예외(비동기 처리에서 발생한 에러와 then 메소드에서 발생한 에러)가 발생하면 호출 된다.  </p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span>(url).then((result)=&gt;&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;).catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.error(error);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>catch메소드는 에외처리를 한다는 점에서 then메소드의 두번째 콜백 함수와 유사하지만 미묘한 차이가 있는데, then  메소드의 두번째 콜백 함수는 비동기  처리에서 발생한 에러(reject 함수가 호출된 상태)만을 캐치한다. 하지만 catch메소드는 비동기 처리에서 발생한 에러뿐 아니라 then 메소드 내부에서 발생한 에러도 캐치한다. 따라서 에러 처리는 catch 메소드를 사용하는 편이 보다 효율적이다.</p><h3 id="프로미스-체이닝"><a href="#프로미스-체이닝" class="headerlink" title="프로미스 체이닝"></a>프로미스 체이닝</h3><p>프로미스는 후속 처리 메소드를 체이닝(chainning) 해 여러개의 프로미스를 연결해 사용할 수 있다. 이로서 콜백 헬을 해결한다.</p><p>Promise 객체를 반환한 비동기 함수는 프로미스 후속 처리 메소드인 then이나 catch 메소드를 사용할 수 있다. 따라서 thenn 메소드가 Promise 객체를 반환하도록 하면… 여러개의 프로미스를 연결하여 사용할 수있다.(then메소드를 호출하고 나면 새로운 프로미스 객체가 리턴된다.)</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    resolve(<span class="number">1</span>);</span><br><span class="line">  &#125;,<span class="number">2000</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.lot(result); <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">return</span> result+<span class="number">10</span>;</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//11</span></span><br><span class="line">  <span class="keyword">return</span> result+<span class="number">20</span>;</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(result); <span class="comment">//31</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h3 id="실무에-있을-법한-프로미스-사례-흠…"><a href="#실무에-있을-법한-프로미스-사례-흠…" class="headerlink" title="실무에 있을 법한 프로미스 사례 (흠…)"></a>실무에 있을 법한 프로미스 사례 (흠…)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getData(userInfo)</span><br><span class="line">  .then(parseValue)</span><br><span class="line">.then(auth)</span><br><span class="line">.then(display)</span><br></pre></td></tr></table></figure><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> userInfo = &#123;</span><br><span class="line">  id: <span class="string">'youmekko'</span>,</span><br><span class="line">  pw: <span class="string">'pw1234'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseValue</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>()&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">auth</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>()&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">display</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>()&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://poiemaweb.com/es6-promise&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://poiemaweb.com/es6-promise&lt;/a&gt;  (랄까 거의 보면서 옮겨
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Javascript 호출 스택(=Call Stack)</title>
+    <link href="http://yoursite.com/2019/04/11/2019-04-11-Javascript-callstack/"/>
+    <id>http://yoursite.com/2019/04/11/2019-04-11-Javascript-callstack/</id>
+    <published>2019-04-11T00:17:56.000Z</published>
+    <updated>2019-04-11T01:19:17.292Z</updated>
+    
+    <content type="html"><![CDATA[<p>참고</p><p><a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="noopener">https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</a></p><p><a href="https://joshua1988.github.io/web-development/translation/javascript/how-js-works-inside-engine/" target="_blank" rel="noopener">https://joshua1988.github.io/web-development/translation/javascript/how-js-works-inside-engine/</a></p><p><a href="https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EC%97%94%EC%A7%84-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%BD%9C%EC%8A%A4%ED%83%9D-%EA%B0%9C%EA%B4%80-ea47917c8442" target="_blank" rel="noopener">https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EC%97%94%EC%A7%84-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%BD%9C%EC%8A%A4%ED%83%9D-%EA%B0%9C%EA%B4%80-ea47917c8442</a></p><p>Node.js교과서 도서</p><p><img src="/img/2019-04-11-javascript-01.png" alt=""></p><h3 id="호출-스택-Call-Stack"><a href="#호출-스택-Call-Stack" class="headerlink" title="호출 스택(Call Stack)"></a>호출 스택(Call Stack)</h3><p>자바스크립트는 한 개의 호출 스택만 가지고 (한번에 한 작업만 처리하는) 싱글 쓰레드 언어이다. </p><p>호출 스택은 우리가 프로그램 상에서 어디있는지 기록하는 자료구조로,<br>어떤 함수를 실행하면 해당 함수는 호출 스택의 가장 상단에 위치하게 되고<br>함수의 실행이 끝나면 호출 스택에서 해당 함수를 제거한다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printSquare</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> s = multiply(x, x);</span><br><span class="line">    <span class="built_in">console</span>.log(s);</span><br><span class="line">&#125;</span><br><span class="line">printSquare(<span class="number">5</span>);</span><br></pre></td></tr></table></figure><p><img src="/img/2019-04-11-javascript-02.png" alt=""></p><p>호출의 각 단계를 스택 프레임(Stack Frame) 이라고 한다. </p><p>그리고 이것은 예외가 발생했을 때 스택 트레이스(Stack Traces)가 만들어지는 방식이다. 스택 트레이스란 기본적으로 예외가 발생 했을 때 호출 스택의 상태이다.</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'SessionStack will help you resolve crashes :)'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    bar();</span><br><span class="line">&#125;</span><br><span class="line">start();</span><br></pre></td></tr></table></figure><p>위 코드가 foo.js에 있다고 하고 크롬에서 실행을 하면 아래와 같은 스택트레이스가 만들어 진다.</p><p><img src="/img/2019-04-11-javascript-03.png" alt=""></p><p><strong>Blowing the stack (스택 날림)</strong> 은 호출 스택이 최대 크기에 다다랐을 때 나타나는데, 이런 현상은 보통 재귀 함수를 면밀히 테스트 하지 않은 경우 일어난다.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure><p><img src="/img/2019-04-11-javascript-04.png" alt=""></p><p><img src="/img/2019-04-11-javascript-05.png" alt=""></p><p>싱글 쓰레드를 기반으로 코딩하는 것은 어찌보면 쉬울 수 있다. 데드락(deadlocks)같은 멀티쓰레드 기반 환경에서 대처해야 되는 상황을 신경쓰지 않아도 되기 때문이다.</p><p>하지만 단일 쓰레드는 제한점도 많다. 특정 코드 실행이 늦어지면…?</p><h3 id="동시성과-이벤트-루프"><a href="#동시성과-이벤트-루프" class="headerlink" title="동시성과 이벤트 루프"></a>동시성과 이벤트 루프</h3><p>콜스택에 수행할 함수가 있으면브라우저는 아무것도 할 수 없다는게 문제다. 바로 ‘블록킹’ 되기 때문이다. 브라우저는 렌더링을 할 수도 없고 다른 코드를 수행할 수도 없다.</p><p>문제는또 있는데 브라우저가 호출 스택 내의 많은 작업을 수행하면서 꽤 긴시간 응답이 없으면 대부분의 브라우저에서 에러를 일으키고 사용자에게 해당 페이지를 닫을지 물어보는 상황이 발생한다.</p><p>그렇다면  어떻게 하면 페이지 렌더링 동작을 방해하지 않고 브라우 저의응답도 끊기지 않으면서 연산량이 많은코드를 실행할 수 있을까? 정답은 <strong>비동기 콜백(asynchronous callbacks)</strong>이다.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;참고&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;htt
+      
+    
+    </summary>
+    
+    
+      <category term="Javascript" scheme="http://yoursite.com/categories/Javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://yoursite.com/tags/javascript/"/>
+    
+  </entry>
+  
+</feed>

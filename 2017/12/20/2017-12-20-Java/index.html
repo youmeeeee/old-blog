@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>컬렉션 프레임워크(1) List | Youmekko</title><meta name="description" content="컬렉션 프레임워크(1) List - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">컬렉션 프레임워크(1) List</h1><div class="post-info"><a></a>2017-12-20</div><div class="post-content"><h3 id="컬렉션-프레임-워크-1"><a href="#컬렉션-프레임-워크-1" class="headerlink" title="컬렉션 프레임 워크(1)"></a>컬렉션 프레임 워크(1)</h3><p>배열의 단점(1. 크기 고정 2.객체를 삭제했을 때 해당 인덱스가 비게 되는 문제)을 해결하고 자료구조를 바탕으로 객체들을 효율적으로 추가, 삭제, 검색 할 수 있도록 java.util 패키지에 컬렉션과 관련된 인터페이스와 클래스들을 포함 시켜 놓았다.</p>
+<p><img src="/img/collectionfarmework.png" alt=""></p>
+<p>Set 인터페이스를 구현한 클래스들 : HashSet, LinkedHashSet, TreeSet<br>List 인터페이스를 구현한 클래스들 : ArrayList, Vector, LinkedList<br>Map 인터페이스를 구현한 클래스들 : HashMap, HashTable, TreeMap, Properties</p>
+<h3 id="1-List"><a href="#1-List" class="headerlink" title="1. List"></a>1. List</h3><p><strong>순서를 유지하고 저장, 중복 저장 가능하다.</strong></p>
+<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><ul>
+<li><p>ArrayList 객체 생성시 초기용량(capacity)는 10이지만 초과해도 자동증가 된다.</p>
+</li>
+<li><p>모든 객체를 저장할 수 있는 장점은 있지만 저장할때 Object 타입으로 변환되어 저장되기 때문에 타입 파라미터 → generic 사용이 권장된다.</p>
+</li>
+<li><p>객체 추가시 0번부터 차례대로 저장된다.</p>
+</li>
+<li><p>중간 객체 제거시 바로 뒤 인덱스부터 마지막 인덱스까지 모두 앞으로 1 씩 당겨진다.</p>
+</li>
+<li><p>반대로 특정 인덱스에 객체 삽입시 해당 인덱스부터 마지막까지 모두 1씩 밀려난다.</p>
+</li>
+<li><p>따라서 빈번한 객체 삭제와 삽입이 일어나는 ArrayList를 사용하는 것이 바람직하지 않다.</p>
+</li>
+<li><p>ArrayList를 생성하고 런타임시 필요에 의한 객체들을 추가하는 것이 일반적이지만, 고정된 객체들로 구성된 리스트를 생성할 때는 하기 처럼 코딩 가능하다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list1 = Array.asLint(<span class="string">"김"</span>,<span class="string">"홍"</span>.<span class="string">"박"</span>);</span><br><span class="line"></span><br><span class="line">List&lt;Integer&gt; list2 = Array.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h4><ul>
+<li>ArrayList와 동일한 내부구조</li>
+<li><del>ArrayList와 다른 점은 동기화된(synchronized) 메소드로 구성 되어 있기 때문에 멀티스레드가 동시에 이 메소드를 실행할 수 없고, 하나의 쓰레드가 실행을 완료해야만 다른 쓰레드를 실행할 수 있다. → 멀티 환경 스레드 환경에서 안전하게 객체를 추가, 삭제할 수 있다. 스레드가 안전하다. (Thread safe)</del></li>
+</ul>
+<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><ul>
+<li>ArrayList와 사용방법은 똑같지만 내부 구조는 완전히 다르다.</li>
+<li>[이 사이트에 자세히 나와있는데 무슨 인지 잘 모르겠다.][<a href="http://www.nextree.co.kr/p6506/]" target="_blank" rel="noopener">http://www.nextree.co.kr/p6506/]</a></li>
+<li>비교<br>​                         순차적 추가/삭제       중간에추가/삭제         검색<br>ArrayList                 빠르다                         느리다                빠르다<br>LinkedList               느리다                          빠르다               느리다</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2017/12/21/2017-12-21-W.I.L/">prev</a><a class="next" href="/2017/12/11/2017-12-11-Java/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

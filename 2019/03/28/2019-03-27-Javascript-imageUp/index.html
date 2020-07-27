@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>비동기로 이미지 업로드 처리하기 | Youmekko</title><meta name="description" content="비동기로 이미지 업로드 처리하기 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">비동기로 이미지 업로드 처리하기</h1><div class="post-info"><a></a>2019-03-28</div><div class="post-content"><p>참고<br><a href="https://serversideup.net/uploading-files-vuejs-axios/" target="_blank" rel="noopener">https://serversideup.net/uploading-files-vuejs-axios/</a><br><a href="https://www.zerocho.com/category/HTML&amp;DOM/post/59465380f2c7fb0018a1a263" target="_blank" rel="noopener">https://www.zerocho.com/category/HTML&amp;DOM/post/59465380f2c7fb0018a1a263</a></p>
+<h1 id="FormData-객체"><a href="#FormData-객체" class="headerlink" title="FormData 객체"></a>FormData 객체</h1><p>비동기로 폼 전송을 가능하게 해주는 객체이다. 보통은 비동기 요청로 form (태그) 전송을 할 일이 거의없다. 주로 JSON 구조로 key - value 데이터를 전송하기 때문이다.  하지만 이미지를 업로드 할 경우는  (base64나 buffer, 이진 데이터 형식으로 서버로 전송해도 되지만) 폼을 통해서 업로드 하는 것이 가장 자연스럽다. (<code>input[type=file]</code> 을 사용 )</p>
+<p>그런데 폼과 비동기 를 같이 쓴다는 것이 이상하다. 보통 폼 하면 제출 버튼을 누르면 action 속성에 지정한 페이지로 이동하면서 데이터를 전송하기 떄문이다.  비동기 처리는 반대로 제출 버튼을 누르면 기본 폼 동작은 e.preventDefault()로 멈추고 페이지 전환 없이 데이터를 전송한다.</p>
+<p>페이지 전환 없이 폼 데이터를 제출 하고 싶을 때 FormData 객체를 사용한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//formData객체를 만들고</span></span><br><span class="line"><span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line"><span class="comment">//append메소드를 이용해 키-값 형식으로 하나씩 추가해준다.</span></span><br><span class="line">formData.append(<span class="string">'name'</span>, <span class="string">'youmekko'</span>);</span><br><span class="line"><span class="comment">//같은 키를 가진 값을 여러개 넣어도 덮어씌어지지 않고 추가된다. 참고로 값을 문자로 자동 변환 된다. 숫자를 넣어도 문자열.. 배열를 넣어도 콤마로 구분한 문자열이고 객체는 무시된다.</span></span><br><span class="line">formData.append(<span class="string">'url'</span>, <span class="string">'https://youmekko.github.io'</span>)</span><br><span class="line">formData.append(<span class="string">'url'</span>, <span class="string">'https://www.github.com/youmekko'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>FormData에 이미지를 담고 싶다면 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">formData.append(<span class="string">'img'</span>, <span class="built_in">document</span>.getElementById(<span class="string">'fileInput'</span>).filed[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 넣어주고 서버로 formData를 보내버리면 된다. 파일이 여러개면 반복문으로 append를 하면 되고 주의 할점은 여러개를 append 할 때 항상 키 값(위에서는 img)은 같아야 여러 파일이 같은 키로 업로드 된다.</p>
+<p>…</p>
+<p>FormData 인터페이스는 form 필드와 그 값을 나타내는 일련의 key / value 쌍을 쉽게 생성할 수 있는 방법을 제공한다. 또한 XMLHttpRequest.send() 메소드를 사용해 쉽게 전송할 수도 있다. 인코딩 타입이 <code>multipart/form-data</code> 로 설정된 경우, form에서 상요하는 것과 동일한 포맷을 사용해야 한다. </p>
+<p>간단한 GET 전송을 하는 경우 <code>&lt;form&gt;</code>이 수행하는 방식으로 쿼리 매개 변수를 생성할 수 있다. 이 경우 <code>URLSearchParams</code>  생성자에 직접 전달할 수 있다.</p>
+<p>FormData를 구현하는 객체는 <code>entries()</code> 대신 <code>for...of</code>구조를 직접 사용할 수 있다. <code>for(var p of myFormData)</code> = <code>for(var p of myFormData.entires())</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> FormData() </span><br><span class="line"><span class="comment">//새로운 FormData 객체를 생성한다.</span></span><br></pre></td></tr></table></figure>
+
+<p><code>FormData.append()</code><br>FormData 객체안에 이미 키가 존재하면 그 키에 새로운 값을 추가하고, 키가 없으면 추가합니다.</p>
+<p><code>FormData.delete()</code><br>FormData 객체로부터 키/밸류 쌍을 삭제합니다.</p>
+<p><code>FormData.entries()</code><br>이 객체에 담긴 모든 키/밸류 쌍을 순회할 수 있는 <code>iterator</code>를 반환합니다.</p>
+<p><code>FormData.get()</code><br><code>FormData</code> 객체 내의 값들 중 주어진 키와 연관된 첫번째 값을 반환합니다.</p>
+<p><code>FormData.getAll()</code><br><code>FormData</code> 객체 내의 값들 중 주어진 키와 연관된 모든 값이 담긴 배열을 반환합니다.</p>
+<p><code>FormData.has()</code><br><code>FormData</code> 객체에 특정 키가 포함되어 있는지 여부를 나타내는 <code>boolean</code> 을 반환합니다.</p>
+<p><code>FormData.keys()</code><br>이 객체에 담긴 모든 키/벨류 쌍들의 모든 키들을 순회 할 수 있는 <code>iterator</code>를 반환합니다.</p>
+<p><code>FormData.set()</code><br><code>FormData</code> 객체 내에 있는 기존 키에 새 값을 설정하거나, 존재하지 않을 경우 키/밸류 쌍을 추가합니다.</p>
+<p><code>FormData.values()</code><br>이 객체에 포함된 모든 밸류를 통과하는 <code>iterator</code>를 반환합니다.</p>
+<h1 id="FileList-객체"><a href="#FileList-객체" class="headerlink" title="FileList 객체"></a>FileList 객체</h1><p>이 객체는 HTML <code>&lt;input&gt;</code> 엘리먼트의 <code>files</code> 속성으로부터 리턴된다. 이는 <code>&lt;input type=&#39;file&#39;&gt;</code> 엘리먼트에서 선택된 파일의 리스트에 접근 할 수 있게 한다. (drag&amp;drop API를 사용할 때 웹 컨텐츠에 드랍된 파일의 리스트에도 사용된다… 이에 관해서는 DataTransfer 객체도 봐야함)</p>
+<p>모든 <code>&lt;input&gt;</code> 엘리먼트 노드는 이 리스트의 항목에 접근 할 수 있는 <code>files</code> 배열을 가지고 있다. 예를 들어</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"fileItem"</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>여기서 받은 파일 목록에 있는 첫번째 파일을 File 객체로 가지고 온다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> file = <span class="built_in">document</span>.getElementById(<span class="string">'fileItem'</span>).files[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File item(index);</span><br></pre></td></tr></table></figure>
+
+<p>파일 리스트의 지정된 인덱스에 있는 파일을 나타내느 File 객체를 리턴한다.</p>
+<ul>
+<li>@Param : index는 리스트로 받은 파일의 인덱스로 0부터 시작한다.</li>
+<li>@Return : 요청된 파일을 나타내는 <code>File</code> 이다.</li>
+</ul>
+<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><p>input 엘리먼트를 사용해 사용자에 의해 선택된 모든 파일을 순회한다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">id</span>=<span class="string">"myfileinput"</span> <span class="attr">mutiple</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fileInput = <span class="built_in">document</span>.getElementById(<span class="string">"myfileinput"</span>);</span><br><span class="line"><span class="keyword">var</span> files = fileInput.files;</span><br><span class="line"><span class="keyword">var</span> file;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;files.length; i++)&#123;</span><br><span class="line">  file = files.item(i); <span class="comment">//or files[i];</span></span><br><span class="line">  alert(file.name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/04/10/2019-04-10-Javascript-bind/">prev</a><a class="next" href="/2019/03/26/2019-03-26-Javascript-Array/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

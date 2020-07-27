@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>2018-04-03(Tue) W.I.L | Youmekko</title><meta name="description" content="2018-04-03(Tue) W.I.L - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">2018-04-03(Tue) W.I.L</h1><div class="post-info"><a></a>2018-04-03</div><div class="post-content"><h3 id="어제-한-일-추가"><a href="#어제-한-일-추가" class="headerlink" title="어제 한 일 추가"></a>어제 한 일 추가</h3><ul>
+<li><a href="https://youmekko.github.io/2018/04/02/2018-04-02-Wiki-MVC/" target="_blank" rel="noopener">MVC 패턴 포스팅</a></li>
+</ul>
+<h3 id="한-일"><a href="#한-일" class="headerlink" title="한 일"></a>한 일</h3><ol>
+<li><p>교육센터 3차 프로젝트 목업 </p>
+</li>
+<li><p>MVC2 모델을 이용한 게시판 만들기 코드 보고 쳐보기. <a href="https://github.com/youmekko/jsp-mvc2-bbs-tutorial" target="_blank" rel="noopener">(github repository)</a></p>
+</li>
+<li><p>어제 하다 잠든  <a href="https://youmekko.github.io/2018/04/03/2018-04-03-Wiki-FileIO/" target="_blank" rel="noopener">FileIO 포스팅</a> 마무리</p>
+</li>
+<li><p>Homebrew를 통해  tree 설치</p>
+<ul>
+<li>명령어는 그냥 <code>tree</code> </li>
+<li>윈도우에서는 <code>tree -f</code></li>
+</ul>
+</li>
+<li><p>교육센터 수업 후 까페와서 <a href="http://www.edwith.org/boostcourse-web" target="_blank" rel="noopener">edwith 부스트코스 웹풀스택 과정</a> 봤다. <a href="http://localhost:4000/2018/04/02/2018-04-03(Tue)-Servlet/" target="_blank" rel="noopener">포스팅</a> 도 완료!</p>
+<ul>
+<li>Part1-1 웹 프로그래밍의 기초 <ul>
+<li>1-5. Servlet - BE<ul>
+<li>1-5-1. Servlet이란?</li>
+<li>1-5-2. Servlet작성방법</li>
+<li>1-5-3. Servlet 라이프 싸이클</li>
+<li>1-5-4.  Request, Response객체 이해하기</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h3><ol>
+<li><p>3차 프로젝트는 스프링 프로젝트다. 주제는2차 때 콘솔로 했던 것과 동일하게 성적 관리 시스템이다.(강사님이 정해주셨다.) 콘솔에서 할 때랑 웹 베이스로 할 때 화면 설계에 많은 차이가 생긴다. 효율적인 화면으로 만들고 싶은데.. 아무데서나 볼 수 있을 것 같은 단순한 프로그램도 막상 할려니까 어렵다. 일부 화면 작업을 마치고 강사님한테 얻은 피드백은</p>
+<ul>
+<li>테이블 안에 테이블이 또 들어가는 것은 html 규정에 어긋난다. 물론 td안에 잘 넣으면 되지만 액션 구현에도 생각해야 할 것이 많으므로 권장하지 않는다.</li>
+<li>다중 모달창 권장하지 않는다.</li>
+<li>콘솔에선 할 수 없었던 이미지 리소스 최대한 활용하기 (교재 등록할 때 ISBN번호도 넣어서 오픈API로 이미지 가져오기 등등 ) </li>
+</ul>
+<p>이다. 내일 또 해야지…</p>
+</li>
+<li><p>오늘 MVC 게시판 쳐본 걸 머리 속으로 정리해보자.</p>
+<ul>
+<li>일단 클라이언트는 jsp 파일에 접속한다. (VIEW)</li>
+<li>그리고 뷰에서 어떤 요쳥을 전부 frontController로 보낸다. (어노테이션 @WebServlet(“*.do”)을 사용한다.) (<u>프론트컨트롤러를 사용여부에 따른 차이는 추후 알아보자.</u> 이 게시판을 실습한 강좌의 동영상이 좀 오래되어서…) (Controller)</li>
+<li>프론트컨트롤러에서 분기를 한다. </li>
+<li>분기를 할 때 필요한게..<br>일단 request객체에서 getRequestURI랑 getContextPath를 얻어낸다.<br>그리고 uri에서 contextpath만큼 substring을 해서 원하는 문자열만 뽑아낸다.</li>
+<li>그 다음은 요청에 따라 해당 Command 객체를 만든다. (요청별 커맨드 클래스들은 기본 커맨드 인터페이스를 상속받아 기본 커맨드 인터페이스의 execute() 메소드를 오버라이딩 하고있다. ) (Model)</li>
+<li>그리고 이 커맨드들에서 DAO의 각 메소드들과 연결한다.</li>
+<li><strong>DAO에서 원하는 데이터를 얻어와서 request객체의  setAttribute한다.</strong> 여기를 아직 모르겠다..</li>
+<li>내일 to be continue…</li>
+</ul>
+</li>
+<li><p>fileIO 포스팅 어제 미완성 상태였는데.. 실수로 올라가버렸다. 주의하자. 파일 아이오는 아직 어렵다..</p>
+</li>
+<li><p>홈브루LOVE</p>
+</li>
+<li><p>부스트코스 강경미(강사)님의 팬이 될것 같다.. 쉽게 잘 설명해주셔서 감사합니다..(혼잣말) 페북 follow가 안된다… 학. JSP 실전강의의 서블릿 파트보다 간결하고 이해하기 쉬웠다! 복습 효과도 있었음.. 헤헿<del>서블릿을 하다보니까 코드스쿼드 시절(호랑이 담배피던그시절..)에 서블릿을 작성해봤던 기억이 난다…정말 아무것도 몰랐던 그시절..ㅠㅠ</del><br>부스트코스 웹 프로그래밍 기초 파트 이제 3.CSS - FE 부분만 끝나면 자기소개 페이지 프로젝트다. <strong>신난다.</strong> </p>
+</li>
+</ol>
+<p>교육센터 수업 후 까페만 오면 졸리다… 한 시간쯤 졸음이랑 싸움을 한 뒤, 그래도 한번 집중을 하면 역시 피곤해도 오길 잘 했단 생각이 든다. </p>
+<h3 id="할-일"><a href="#할-일" class="headerlink" title="할 일"></a>할 일</h3><ul>
+<li>부스트코스의 HMTL - FE 파트에서도 아하! 그렇구나 했던 나만 몰랐던 재미있던 부분.. 까먹고 있었는데 오늘 서블릿 포스팅 하다가 생각났다. 내일 중으로 포스팅 하기.</li>
+<li>MVC 게시판 (소스 읽기 - 이해 - 실습)</li>
+<li>3rd project going on~ yeah! (…)</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/04/2018-04-04-git/">prev</a><a class="next" href="/2018/04/03/2018-04-03-Java-FileIO/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

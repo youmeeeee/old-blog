@@ -1,0 +1,33 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(부스트코스) Part2 RestAPI | Youmekko</title><meta name="description" content="(부스트코스) Part2 RestAPI - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(부스트코스) Part2 RestAPI</h1><div class="post-info"><a></a>2018-05-02</div><div class="post-content"><h3 id="API란"><a href="#API란" class="headerlink" title="API란?"></a>API란?</h3><p>Application Programming Interface의 약자이다. API는 응용 프로그램에서 사용 할 수 있도록 운영 체제나 프로그래밍 언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스를 뜻한다.</p>
+<h3 id="Rest-API란"><a href="#Rest-API란" class="headerlink" title="Rest API란?"></a>Rest API란?</h3><p>Rest는 Representational State Transfer라는 용어의 약자로 2000년도에 로이 필딩의 박사학위 논문에서 최초로 소개 됐다. Rest API란 말 그대로 REST 형식의 API로, 핵심 컨텐츠 및 기능을 외부 사이트에서 활용할 수 있또록 제공 되는 인터페이스이다.</p>
+<p>(예) 우체국에서 우편 번호를 조회할 수 있는 기능을 제공하거나, 구글에서 구글 지도를 사용할 수 있도록 제공하는 것</p>
+<p>웹 브라우저 뿐 아니라 앱 등 다양한 클라이언트가 등장하면서 그러한 클라이언트들에 대응하기 위해 REST API가 널리 사용되기 시작했따. 서비스 업체들이 다양한 REST API를 제공함으로써, 클라이언트는 이러한 REST API들을 조합한 어플리케이션을 만들 수 있게 되었다. 이를 <strong>매시업(Mashup)</strong>이라고 한다.</p>
+<h3 id="이것은-REST가-아니다"><a href="#이것은-REST가-아니다" class="headerlink" title="이것은 REST가 아니다."></a>이것은 REST가 아니다.</h3><p>REST는 다음과 같은 스타일(제약조건의 집합)을 반드시 지켜야 한다.</p>
+<ul>
+<li>client-server</li>
+<li>stateless</li>
+<li>cache</li>
+<li>uniform interface</li>
+<li>layered system</li>
+<li>code-on-demand (optional)</li>
+</ul>
+<p>위 에서 언급한 내용을 잘 지켜야만 REST라고 할 수 있다.</p>
+<p>HTTP 프로토콜을 사용하면 client-server, statelss, cache, layered system, code-on-demand에 대해서는 모두 쉽게 구현 하지만, 문제는 uniform interace이다.</p>
+<p><strong>uniform interface의 스타일</strong></p>
+<ul>
+<li>리소스가 URI로 식별되야 한다.</li>
+<li>리소시를 생성, 수정, 추가하고자 할 때 HTTP 메시지에 표현을 해서 전송해야 한다.</li>
+<li>메세지는 스스로 설명할 수 있어야 한다. (Self-desciptive message)</li>
+<li>애플리케이션의 상태는 Hyperlink를 이용해 전이되어야 한다. (HATEOAS)</li>
+</ul>
+<p>첫번째와 두번째 항목은 지키기 어렵지 않은데, 메세지가 스스로 설명할 수 있어야 하는 부분과 HATEOAS를 지원하는 것은 웹과는 다르게 API로는 쉽지가 않다. </p>
+<p>응답 결과에 보통 JSON메세지를 사용하게 되는데, 이 JSON 메세지가 어디에 전달되는지 그리고 JSON 메세지를 구성하는 것이 어떤 의미를 표현해야만 메세지 스스로 설명할 수 있다고 말할 수 있는데 그게 쉽지가 않다.</p>
+<p>HATEOAS를 API에서 제공하는 것 또한 쉽지 않다.</p>
+<p><del>위 부분은 지금 단계에선 전혀 이해가 안된다. 그냥 이렇구나 하고 넘어가자.</del></p>
+<h3 id="REST-API는-쉽지않다-그래서-보통은-Web-API-혹은-HTTP-API-를-사용한다"><a href="#REST-API는-쉽지않다-그래서-보통은-Web-API-혹은-HTTP-API-를-사용한다" class="headerlink" title="REST API는 쉽지않다. 그래서 보통은 Web API(혹은 HTTP API)를 사용한다."></a>REST API는 쉽지않다. 그래서 보통은 Web API(혹은 HTTP API)를 사용한다.</h3><p>REST uniform의 interface를 지원하는 것은 쉽지 않기 때문에, 많은 서비스가 REST에서 바라는 것을 모두 지원하지 않고 API를 만들게 된다.</p>
+<ul>
+<li>REST의 모든 것을 제공하지 않으면서 REST API라고 말하는 경우도 있따.</li>
+<li>REST의 모든 것을 제공하지 않고 Web API 혹은 HTTP API라고 부르는 경우가 있다.</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/05/02/2018-05-02(Wed)-W.I.L/">prev</a><a class="next" href="/2018/05/02/2018-05-02-Maven/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

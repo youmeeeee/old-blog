@@ -1,0 +1,63 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>도서 대출 관리 프로그램 진행상황(2) | Youmekko</title><meta name="description" content="도서 대출 관리 프로그램 진행상황(2) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">도서 대출 관리 프로그램 진행상황(2)</h1><div class="post-info"><a></a>2017-12-26</div><div class="post-content"><h2 id="1차-프로젝트-개요"><a href="#1차-프로젝트-개요" class="headerlink" title="1차 프로젝트 개요"></a>1차 프로젝트 개요</h2><ul>
+<li>기간 : 2017/12/18 ~ 2018/01/05 (크리스마스, 연말연시 휴강)</li>
+<li>환경 : 콘솔 기반</li>
+<li>주제 : 도서 대출 관리</li>
+<li>기술 : JavaSE , OOP, Collection, Generic, File IO, Serialization</li>
+<li>진행절차 : 요구분석 → 화면 설계 → 자료구조 설계 → 액션 설계 → 액션 구현 → 테스트 - 최종실행 (컨펌의 기회는 하루 1번…)</li>
+</ul>
+<h3 id="2017-12-22"><a href="#2017-12-22" class="headerlink" title="2017-12-22"></a>2017-12-22</h3><p><strong><u>화면설계 회의결과</u></strong></p>
+<p>아래와 같이 화면 설계 수정.</p>
+<ol>
+<li><p>1.회원가입 2.로그인 0.종료</p>
+</li>
+<li><p>(관리자모드)</p>
+<ul>
+<li>1.도서관리 2.회원관리 0.로그아웃<ul>
+<li>(도서관리) 1.전체도서 2.도서검색 3.대출중 도서 4.연체중 도서 0.나가기<ul>
+<li>(전체도서) 1.도서등록 2.도서삭제 0.나가기</li>
+<li>(도서검색)  1.등록번호 검색 2.책제목 검색 3.저자 검색 4.출판사 검색 0.나가기<ul>
+<li>1.도서 상세 보기</li>
+</ul>
+</li>
+<li>(대출중 도서) 1.반납 예정일 수정 0.나가기</li>
+<li>(연체중 도서) 1.메세지 전송 0.나가기</li>
+</ul>
+</li>
+<li>(회원관리) 1. 전체회원 2.회원검색 0.나가기<ul>
+<li>(전체회원) 1.회원 상세 보기 0. 나가기</li>
+<li>(회원검색) (검색후) 1.회원 상세 보기 0.나가기</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>(사용자모드)</p>
+<ul>
+<li><p>관리자에게서 온 메세지가 [n]건 있습니다.<br>(1)blah blah blah<br>(2)blahhhhhh</p>
+</li>
+<li><ol>
+<li>도서 검색 2.대출 목록 3.반납 목록 4.메세지 확인 0.로그아웃</li>
+</ol>
+<ul>
+<li>(도서검색) 1.전체 도서 목록 2.제목 검색 3.저자 검색 4.출판사 검색 0.나가기<ul>
+<li>(전체도서) 1.대출하기 0.나가기</li>
+<li>(제목/저자/출판사 검색) 1.대출하기 0.나가기</li>
+</ul>
+</li>
+<li>(대출 목록) 1.반납하기 0.나가기</li>
+<li>(반납 목록) 0.나가기</li>
+<li>(메세지확인) 1.메세지 한개 삭제 2.메세지 전체 삭제 0.나가기</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>연휴 동안 조원 각자 자료구조설계(필드, 메소드, 클래스 다이어그램 등) 생각해 오기</p>
+<p><strong><u>강사님 피드백</u></strong></p>
+<ul>
+<li>화면 설계 OK!</li>
+<li>자료구조 설계하기</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2017/12/28/2017-12-28-TeamProject01/">prev</a><a class="next" href="/2017/12/22/2017-12-22-Seminar/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

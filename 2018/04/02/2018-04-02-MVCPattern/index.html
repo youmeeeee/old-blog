@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(旧인프런JSP강좌) MVC | Youmekko</title><meta name="description" content="(旧인프런JSP강좌) MVC - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(旧인프런JSP강좌) MVC</h1><div class="post-info"><a></a>2018-04-02</div><div class="post-content"><h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MVC(Model, View, Controller) 패턴이란 개발 형태의 일종이다. </p>
+<ul>
+<li><p>Model : DB와의 관계를 담당한다. 클라이언트 요청에서 필요한 자료를 DB로부터 추출하거나, 수정하거나 Controller로 전달한다.</p>
+</li>
+<li><p>View :  사용자한테 보여지는  UI화면이다. 주로 jsp파일로 작성하며 Controller에서 어떤 View Component를 보여줄 지 결정한다.</p>
+</li>
+<li><p>Controller : 클라이언트의 요청을 받고, 적절한  Model에 지시를 내리며, Model에서 전달된 데이터를 적절한  View에 전달한다.</p>
+</li>
+</ul>
+<h5 id="MVC-Model1"><a href="#MVC-Model1" class="headerlink" title="MVC Model1"></a>MVC Model1</h5><p>View와 Controlle가 같이 있는 형태이다.</p>
+<p><img src="/img/2018-04-02-wiki-mvc-01.png" alt=""></p>
+<ul>
+<li>장점 : 단순한 페이지 흐름으로 개발기간 단축 /초보자에게도 쉬움 / 중소형 프로젝트에 적합</li>
+<li>단점  : 프로그램이 커질수록 유지보수가 어려움 / 디자이너와 개발자간 활발한 의사소통이 필요함</li>
+</ul>
+<h5 id="MVC-Model2"><a href="#MVC-Model2" class="headerlink" title="MVC Model2"></a>MVC Model2</h5><p>최근은 대부분 모델2를 많이 사용한다. M/V/C가 모두 모듈화(부품화) 되어있는 형태이다. View는 어떠한 처리로직도 포함하지 않는다.</p>
+<p><img src="/img/2018-04-02-wiki-mvc-02.png" alt=""></p>
+<ul>
+<li>장점 : 비지니스 로직과 뷰의 분리로 유지보수 확장이 용이 / 개발자와 디자이너의 작업이 분리 되어 분업이 편함 / 중대형 프로젝트에 적합</li>
+<li>단점 : 시간, 비용</li>
+</ul>
+<p><img src="/img/2018-04-02-wiki-mvc-03.png" alt=""></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/03/2018-04-03-Servlet/">prev</a><a class="next" href="/2018/04/02/2018-04-02(Mon)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

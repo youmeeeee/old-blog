@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>김왼손의 미운코딩 새끼 | Youmekko</title><meta name="description" content="김왼손의 미운코딩 새끼 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">김왼손의 미운코딩 새끼</h1><div class="post-info"><a></a>2018-02-20</div><div class="post-content"><h2 id="4시간-만에-끝내는-파이썬-기초"><a href="#4시간-만에-끝내는-파이썬-기초" class="headerlink" title="(4시간 만에 끝내는 파이썬 기초)"></a>(4시간 만에 끝내는 파이썬 기초)</h2><ul>
+<li><p>변수 : 대문자 소문자 구분한다. (python, PYTHON, Python 다 다름)</p>
+</li>
+<li><p>입력 print() / 출력 input()</p>
+</li>
+<li><p>자료형 : 숫자형 / 문자형 / 불린(True/False 대문자주의!) , 자료형 확인은 type() </p>
+</li>
+<li><p>list = [] #리스트 / tuple = ()  #수정 불가 리스트 / dictionary = {key1: val1, …}  <em>#map 같은 건가… 수정 가능</em></p>
+</li>
+<li><p>자료형 변환하기 int() / float() / str()</p>
+</li>
+<li><p>주석 #</p>
+</li>
+<li><p>문자열</p>
+<ul>
+<li>%s / %f / %d</li>
+<li><strong>{}.format()</strong></li>
+<li>문자열은 “ “ (큰따옴표), ‘ ‘(작은따옴표) <em>#큰 따옴표를 세개하면 줄바꿈 문자가 들어간다.</em></li>
+<li>문자열 Indexing은 0부터 시작, 하지만 반대로 제일 끝부터 -1로 시작할 수 있다.</li>
+<li>slicing<ul>
+<li>[1:3] : 1~2번 인덱스</li>
+<li>[:3] 처음~2번 인덱스</li>
+<li>[2:] 2~끝 인덱스</li>
+</ul>
+</li>
+<li>string.split()</li>
+<li>docstring </li>
+<li>print(‘ ‘, end=’ ‘)<ul>
+<li>print() 메소드는 기본적으로 enter가 들어간다.</li>
+<li>print(‘contents’, end=’’) 하면 아무것도 안들어간다.</li>
+<li>출력의 끝을 정할 수 있다.</li>
+</ul>
+</li>
+<li>Escape Code<ul>
+<li>\n 줄바꿈</li>
+<li>\t 탭</li>
+</ul>
+</li>
+<li>; (세미콜론) : 파이썬은 한줄에 한문장만 써는게 권장된다. 한줄에 여러개 문장을 쓸때는 ; 쓰면 된다. (권장하지 않음)</li>
+</ul>
+</li>
+<li><p>list</p>
+<ul>
+<li>immutable(값을 변경할 수 없다.) / mutable(값을 변경할 수 있다.)</li>
+<li>문자열 immutable / 리스트 mutable</li>
+<li>list.append() 값 추가하기</li>
+<li>list.insert() #찾아보기</li>
+<li>list.pop() #찾아보기</li>
+<li>Indexing : 문자열 Indexing과 동일</li>
+<li><strong>del</strong> list[index] : 해당 인덱스 값 삭제하기</li>
+<li>Slicing : list[1:3] 이면 1~2번까지 인덱스</li>
+<li>list.sort() : 오름차순으로 정렬</li>
+<li>list.count() : list.count(‘value’) : 리스트 안에 value가 몇 개 있는지 카운트 하는 메소드</li>
+<li>len(list) : 전체 리스트 사이즈 리턴하는파이썬 내장함수</li>
+<li>함수와 메소드는 차이가 있다. </li>
+</ul>
+</li>
+<li><p>tuple</p>
+<ul>
+<li>리스트와 비슷하나 값을 변경할 수 없다. immutable.</li>
+<li>리스트는 [], 튜플은 (), 심지어 () 안써도 된다.</li>
+<li>packing <ul>
+<li>my_tuple = 1, 2, 3</li>
+</ul>
+</li>
+<li>unpacking<ul>
+<li>num1, num2, num3 = my_tuple</li>
+<li>num1 = 1 / num2 = 2 / num3 = 3</li>
+</ul>
+</li>
+<li>(unpacking) num 1, num2 = num2, num1 (packing)<ul>
+<li>num1 = 2 / num2 = 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>for </p>
+<ul>
+<li>for 변수 in 컨테이너:<br>실행할 명령1<br>실행할 명령2<br>( <strong>: 와 4칸 들여쓰기로 코드블럭을 구분. 필수!</strong>)</li>
+<li>range() 파이썬 내장함수<ul>
+<li>range(3) 은 range(0, 3), list=[0,1,2]과 같다.</li>
+<li>for n in range(3):<br>​    print(n)<br>하면 0,1,2가 출력된다.</li>
+</ul>
+</li>
+<li>for x 2<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> q <span class="keyword">in</span> range(<span class="number">2</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">10</span>):</span><br><span class="line">        print(<span class="string">'&#123;&#125;x&#123;&#125;=&#123;&#125;'</span>.format(q, n, q*n))</span><br></pre></td></tr></table></figure></li>
+<li>Comprehension : 어려운데 많이 쓰인다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#홀수인 수만 뽑아내는 방법</span></span><br><span class="line">number = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</span><br><span class="line">odd_numbers = []</span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> number:</span><br><span class="line">    <span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">        odd_numbers.append(num)</span><br><span class="line">print(odd_numbers)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Comprehension</span></span><br><span class="line">odd_numbers = [num <span class="keyword">for</span> num <span class="keyword">in</span> number <span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>연산자</p>
+<ul>
+<li>할당 연산자 : =, +=, -=, *=, /=</li>
+<li>산술 :  +, -, <em>, /, *</em> 제곱, // 몫, % 나머지 연산자</li>
+<li>문자열 연산자 : +, * (숫자/ 숫자만큼 문자를 반복함)</li>
+<li>비교연산자 : ==, !=, &gt; , &lt; , &gt;=, &lt;=</li>
+<li>논리연산자 : and, or, not(뒤집기)</li>
+<li>멤버쉽 : in, not in (배열에 포함된 요소인지 아닌지 체크해주는 연산자 True, False 리턴)</li>
+</ul>
+</li>
+<li><p>조건문</p>
+<ul>
+<li>if 조건 :<br>​    실행할 명령 1<br>​    실행할 명령2<br>​    ( <strong>: 와 4칸 들여쓰기로 코드블럭을 구분. 필수!</strong>)<br>elif 조건:<br>​    실행할 명령1<br>​    실행할 명령2<br>else 조건 :<br>​    실행할 명령1<br>​    실행할 명령2</li>
+</ul>
+</li>
+<li><p>while </p>
+<ul>
+<li>while 조건:<br>​    실행할 명령1<br>​    실행할 명령2</li>
+<li>continue, break</li>
+</ul>
+</li>
+<li><p>딕셔너리 (Map Collection이랑 비슷함)</p>
+<ul>
+<li>{key1: val1, …}</li>
+<li>(추가) my_dict[‘key’] = ‘value’ </li>
+<li>(삭제) del my_dct[‘key’] </li>
+<li>딕셔너리 메소드<ul>
+<li>(value가져오기) my_dict.values()</li>
+<li>(key 가져오기) my_dict.keys()</li>
+<li>(key, value 같이 가져오기) my_dict.items()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>함수 </p>
+<ul>
+<li>내장함수</li>
+<li>모듈함수 : import해서 써야하는 함수들</li>
+<li>사용자 정의 함수<ul>
+<li>def 함수이름(인자, …):<br>​    실행할 명령1<br>​    실행할 명령2<br>​    return 결과</li>
+<li>여러개 돌려주기<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_mul</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2, num1 * num2</span><br><span class="line">add_mul(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment">#2개의 값을 리턴하는게 아니라 한개의 tuple인 (2, 3)을 리턴하는게 포인트!</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>모듈 </p>
+<ul>
+<li>비슷한 함수들을 모아둔 파일?  <em>자바에서 class개념인가..?</em></li>
+<li>랜덤(One of module)<ul>
+<li>random.choice()</li>
+<li>random.sample()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line">print(random.sample(range(<span class="number">1</span>,<span class="number">46</span>), <span class="number">6</span>))</span><br><span class="line"><span class="comment">#우와.. 그 어렵게 했던 로또 번호 생성기 두줄로 끝나다니...</span></span><br></pre></td></tr></table></figure></li>
+<li>random.randint()<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(random.randit(<span class="number">8</span>,<span class="number">10</span>))</span><br><span class="line"><span class="comment">#8~10까지 중에 random한 수를 뽑아줌</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>객체 : 파이썬에서는 모든것이 객체다. </p>
+</li>
+<li><p>코딩스타일</p>
+<ul>
+<li><p><a href="https://www.python.org/dev/peps/pep-0008/" target="_blank" rel="noopener">PEP8</a> 파이썬에서 권장하는 컨벤션 </p>
+<blockquote>
+<p>A Foolish Consistency is the Hobgoblin of Little Minds.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>구글링 방법</p>
+</li>
+</ul>
+<h2 id="다보고-난-소감"><a href="#다보고-난-소감" class="headerlink" title="다보고 난 소감"></a>다보고 난 소감</h2><ul>
+<li><p>일단 정리하면서 보자는 마음으로 시작해서 강의 내용을 전부 정리해보았다. 간단해 보여도 헷갈려서 이 포스트를 또 확인할 일이 있을지도 모른다.</p>
+</li>
+<li><p>로또 번호 생성기 코드 보고 놀랐다. 자바에서 만들려면 굉장.. 했는데..! 이래서 다들 파이썬 파이썬 하는거구나. 자바 코드 짜는게 논리적이여서 재미있다고 생각했는데 파이썬의 매력도 엄청나구나. 파이썬이 뭔지 이제 알았으니까.. 본격 파이썬 공부를…</p>
+</li>
+</ul>
+<p><img src="/img/python-import-bacon.png" alt=""></p>
+<p><img src="/img/xkcd-python.png" alt=""></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/21/2018-02-21-React/">prev</a><a class="next" href="/2018/02/20/2018-02-20-Algorithm/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

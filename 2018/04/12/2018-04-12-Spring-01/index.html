@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(구멍가게코딩단) Part1-5. 모델2 방식과 스프링MVC | Youmekko</title><meta name="description" content="(구멍가게코딩단) Part1-5. 모델2 방식과 스프링MVC - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(구멍가게코딩단) Part1-5. 모델2 방식과 스프링MVC</h1><div class="post-info"><a></a>2018-04-12</div><div class="post-content"><h1 id="PART-1-프로젝트의-기본-구조-구성"><a href="#PART-1-프로젝트의-기본-구조-구성" class="headerlink" title="PART 1 프로젝트의 기본 구조 구성"></a>PART 1 프로젝트의 기본 구조 구성</h1><h3 id="5-모델2-방식과-스프링-MVC"><a href="#5-모델2-방식과-스프링-MVC" class="headerlink" title="5. 모델2 방식과 스프링 MVC"></a>5. 모델2 방식과 스프링 MVC</h3><p>최근에 모든 웹 개발은 거의 모델2 방식을 사용한다고 해도 과언이 아니다. 가장 핵심적인 내용은 화면과 데이터 처리를 분리해서 재사용이 가능하도록 하는 구조이다.</p>
+<p>모델2에서 모든 요청은 기본적으로 컨트롤러를 호출하는데, 과거에는 주로 호출 시에 마지막 확장자를 *.do 등을 이용하는 방식을 많이 사용했다. (신입 JSP 강좌 게시판 만들기에서 했던 방법 - 역시 좀 旧式이였다.)</p>
+<p>모델 2 방식은 1) 프론트엔드 개발자와 백엔드 개발자 영역을 분리할 수 있고 2) 컨트롤러의 URI를 통해 뷰를 제어하기 때문에, 뷰의 교체나 변경과 같은 유지보수에 유용하게 사용될 수 있다.</p>
+<h4 id="모델2에서-FrontController-패턴으로"><a href="#모델2에서-FrontController-패턴으로" class="headerlink" title="모델2에서 FrontController 패턴으로"></a>모델2에서 FrontController 패턴으로</h4><p>모델2 방식이 BE / BE 개발자간의 분업은 이루었지만, 각 컨트롤러 사이의 중복적인 코드의 문제와 개발자의 개발 패턴 차이 등의 문제로 모델2 좀 더 강제적인 형태인 FrontController 방식을 적용하게 됐다. </p>
+<p><img src="/img/2018-04-12-spring-01.png" alt=""></p>
+<p>[출처] <a href="https://spring.io/blog/2011/01/04/green-beans-getting-started-with-spring-mvc/" target="_blank" rel="noopener">https://spring.io/blog/2011/01/04/green-beans-getting-started-with-spring-mvc/</a></p>
+<p>FrontController 패턴의 가장 중요한 변화는 전체 로직의 일부만을 컨트롤러가 처리하도록 변경되었다는 점이다. 보통 위임(Delegation)이라고 하는데, 전체 로직의 일부를 컨트롤러에게 위임하고 모든 흐름의 제어는 앞쪽의 Front Controlelr가 담당하게 된다. </p>
+<h4 id="스프링의-MVC-구조"><a href="#스프링의-MVC-구조" class="headerlink" title="스프링의 MVC 구조"></a>스프링의 MVC 구조</h4><ol>
+<li>사용자의 모든 요청은 스프링 MVC의 FrontController에 전달된다.</li>
+<li>FrontController에 전달된 요청은 적절한 컨트롤러를 찾아서 호출하게 된다. (이 때 사용되는 컨트롤러의 작업이 개발자의 몫이다.)</li>
+<li>컨트롤러는 적절한 서비스 객체를 찾아서 호출한다.</li>
+<li>서비스는 데이터베이스 작업을 담당하는 DAO를 이용해서 원하는 데이터를 요청한다.</li>
+<li>DAO객체는 MyBatis를 이용하는 Mapper를 통해서 원하는 작업을 수행한다.</li>
+<li>서비스가 처리한 데이터를 컨트롤러에 전달한다.</li>
+<li>컨트롤러는 다시 스프링 MVC 쪽으로 데이터를 전달한다.</li>
+</ol>
+<ul>
+<li>Spring MVC가 처리해주는 일<ul>
+<li>UI를 분석해서 적절한 컨트롤러를 찾는 작업</li>
+<li>컨트롤러에 필요한 메소드를 호출하는 작업</li>
+<li>컨트롤러의 결과 데이터를 뷰로 전달하는 작업</li>
+<li>적절한 뷰를 찾는 작업</li>
+</ul>
+</li>
+<li>개발자가 직접 해야 되는 작업<ul>
+<li>특정 URI에 동작하는 컨트롤러를 설계하는 작업</li>
+<li>서비스 객체의 생성</li>
+<li>DAO 객체의 생성</li>
+<li>컨트롤러 내에 원하는 결과를 메소드로 설계</li>
+<li>뷰에서 전달받은 데이터의 출력</li>
+</ul>
+</li>
+</ul>
+<h3 id="Spring-MVC-Controller"><a href="#Spring-MVC-Controller" class="headerlink" title="Spring MVC Controller"></a>Spring MVC Controller</h3><p>src/webapp/WEB-INF/spring/appServlet/<strong>sevlet-context.xml</strong> 파일은 스프링 MVC 관련 설정만을 분리하기 위해서 만들어진 파일이다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Enables the Spring MVC @Controller programming model --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">annotation-driven</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the $&#123;webappRoot&#125;/resources directory --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resources</span> <span class="attr">mapping</span>=<span class="string">"/resources/**"</span> <span class="attr">location</span>=<span class="string">"/resources/"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">beans:bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">beans:bean</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"org.zerock.web"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>annotation-driven 설정은 클래스 선언에 애노테이션을 이용해서 컨트롤러를 작성할 수 있다는  선언이다.</li>
+<li>InternalResourceViewResolver 부분은 뷰를 어떻게 처리하는가에 대한 설정이다. 이때 주목 해야 하는 경로가 /WEB-INF/views/ 부분이다.WEB-INF는 절대로 브라우저에서 직접 접근할 수 없는 경로이기 때문에 컨트롤러의 호출이 우선시 되는 모델2 방식에 맞는 구조가 된다.</li>
+<li>resources는 웹에서 이미지나 CSS, JS파일과 같이 고정된 자원들의 위치를 의미한다.</li>
+<li>component-scan의 이미도 중요하다. base-package속성값에 해당하는 패키지 내부의 클래스를 조사한다는 뜻이다. annotation-driven과 같이 결합해서 해당 패키지에 애노테이션 처리가 된 컨트롤러만 작성해주면 자동으로 인식하게 된다.</li>
+</ul>
+<h4 id="스프링-MVC에서-주로-사용하는-애노테이션의-종류"><a href="#스프링-MVC에서-주로-사용하는-애노테이션의-종류" class="headerlink" title="스프링 MVC에서 주로 사용하는 애노테이션의 종류"></a>스프링 MVC에서 주로 사용하는 애노테이션의 종류</h4><p>스프링 MVC에서는 컨트롤러가 상속 등의 전통적인 기법을 사용하지 않는 대신 애노테이션으로 많<del>~</del>은 일을 처리한다.</p>
+<ul>
+<li>@Controller - Spring MVC 컨트롤러 객체임을 명시하는 애노테이션 (클래스)</li>
+<li>@RequestMapping - 특정 URI에 매칭되는 클래스나 메소드 임을 명시하는 애노테이션 (클래스, 메소드)</li>
+<li>@RequestParam - 요청(request)에서 특정한 파라미터의 값을 찾아낼 때 사용하는 애노태이션 (파라미터)</li>
+<li>@RequestHeader - 요청(request)에서 특정 HTTP 헤더 정보를 추출할 때 사용(파라미터)</li>
+<li>@PathVariable - 현재 URI에서 원하는 정보를 추출할 때 사용하는 애노테이션(파라미터)</li>
+<li>@CookieValue - 현재 사용자가 쿠기가 존재하는 경우 쿠키의 이름을 이용해서 쿠키의 값을 추출(파라미터)</li>
+<li>@ModelAttribute - 자동으로 해당 객체를 뷰까지 전달하도록 만드는 애노테이션(메소드, 파라미터)</li>
+<li>@SessionAttribute - 세션상에서 모델의 정보를 유지하고 싶은 경우에 사용(클래스)</li>
+<li>@InitBinder - 파라미터를 수집해서 객체로 만들 경우에 커스터마이징(메소드)</li>
+<li>@ResponseBody - 리턴 타입이 HTTP의 응답 메세지로 전송 (메소드, 리턴타입)</li>
+<li>@RequestBody - 요청(request) 문자열이 그대로 파라미터로 전달 (파라미터)</li>
+<li>@Repository - DAO 객체 (클래스)</li>
+<li>@Service - 서비스 객체 (클래스)</li>
+</ul>
+<h4 id="컨트롤러-생성-연습…"><a href="#컨트롤러-생성-연습…" class="headerlink" title="컨트롤러 생성 연습…"></a>컨트롤러 생성 연습…</h4><ul>
+<li>메소드의 리턴 타입이 void인 경우 - 현재 경로에 해당하는 JSP 파일을 실행한다.</li>
+<li>메소드의 리턴 타입이 String인 경우 - 문자열 + .jsp파일을 찾아서 실행한다.</li>
+<li>만들어진 결과 데이터를 전달해야 하는 경우</li>
+<li>리다이렉트를 해야하는 경우</li>
+<li>JSON 데이터를 생성해야 하는 경우</li>
+</ul>
+<p>등등이 있었다. <del>지금은 잘 모르겠다.</del></p>
+<h4 id="WAS-없이-컨트롤러-테스트-하기"><a href="#WAS-없이-컨트롤러-테스트-하기" class="headerlink" title="WAS 없이 컨트롤러 테스트 하기"></a>WAS 없이 컨트롤러 테스트 하기</h4><p>스프링 MVC가 특별한 이유중 하나는 spring-test 모듈을 통해 별도의 WAS 구동 없이도 컨트롤러를 테스트 하는 작업이 가능하기 때문이다.</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/12/2018-04-12-Spring-02/">prev</a><a class="next" href="/2018/04/11/2018-04-11(Wed)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

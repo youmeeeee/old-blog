@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>2018-05-23(Wed)~27(Sun) W.I.L | Youmekko</title><meta name="description" content="2018-05-23(Wed)~27(Sun) W.I.L - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">2018-05-23(Wed)~27(Sun) W.I.L</h1><div class="post-info"><a></a>2018-05-27</div><div class="post-content"><p>내용도 없는 W.I.L을 매일 매일 포스팅 하는건 여러가지로 비효율적인 것 같다. 하루치를 따로 작성하든 일주일꺼를 몰아하든 형식에 구애받지 말자.</p>
+<h5 id="2018-05-23-Wed"><a href="#2018-05-23-Wed" class="headerlink" title="2018/05/23(Wed)"></a>2018/05/23(Wed)</h5><p>두달여만에 일일 일커밋 놓쳤다. (칙쇼)</p>
+<p><u>한 일</u> </p>
+<ul>
+<li>인터뷰</li>
+</ul>
+<h5 id="2018-05-24-Thu"><a href="#2018-05-24-Thu" class="headerlink" title="2018/05/24(Thu)"></a>2018/05/24(Thu)</h5><p><u>한 일</u> </p>
+<ul>
+<li>서블릿의 역할 알기</li>
+</ul>
+<h5 id="2018-05-25-Fri"><a href="#2018-05-25-Fri" class="headerlink" title="2018/05/25(Fri)"></a>2018/05/25(Fri)</h5><p><u>한 일</u> </p>
+<ul>
+<li>인터뷰 </li>
+</ul>
+<h5 id="2018-05-26-Sat"><a href="#2018-05-26-Sat" class="headerlink" title="2018/05/26(Sat)"></a>2018/05/26(Sat)</h5><p><u>한 일</u> </p>
+<ul>
+<li>Spring-Boot를 이용한 QnA Board 만들기 반복주기 6까지 드디어 마쳤다. 진짜 오래 했다.(휴.반성의 연속) 6번째 반복주기 마지막에 쉘 스크립트를 이용해 배포 자동화를 구현 하는데 이것은 포비 말처럼 참 짜릿한 경험이다. 이번 학습을 통해서 배운거는 Spring-boot, JPA 사용이 얼마나 편리한지이다. 작성한 코드들을 다시 살펴보고 학습한 내용을 정리하자.</li>
+</ul>
+<p><u>정리</u> </p>
+<ul>
+<li><strong>ORM</strong> : Object-relational mapping = 객체와 관계(관계형 데이터베이스)와의 설정. RDB 테이블을 객체지향적으로 사용하기 위한 기술이다. RDB 테이블은 객체지향적 특징(상속, 다형성, 레퍼런스, 오브젝트 등)이 없어 자바와 같은 언어로 접근하기 쉽지 않다. ORM을 사용하면 오브젝트와 RDB사이에 존재하는 개념과 접근을 객체지향적으로 다룰 수 있다.</li>
+<li><strong>JPA</strong> : Java Persistent API. JPA는 ORM 표준기술로 Hibernate, OpenJPA, EclipseLink, TopLinkEssentiols와 같은 구현체가 있고, 표준 인터페이스가 JPA이다.</li>
+<li>간단한 입력, 조회 수정(CRU)을 한다고 가정 해보자.<ul>
+<li>일단 JDBC가 제일 불편하다. 쿼리를 생성, 실행, 데이터 매핑을 반복적으로 해야하고 connetion, close코드도 반복적으로 등장한다.</li>
+<li>MyBatis의 경우 connetion, close, parameter mapping, data mappaing은 위임되지만 여전히 쿼리문을 작성을 반복해야 한다.</li>
+<li>JPA는 connection, close 위임하고 쿼리를 자동 생성하고 실행한다.</li>
+<li><a href="https://www.slideshare.net/ssusere4d67c/jpa-53004111" target="_blank" rel="noopener">https://www.slideshare.net/ssusere4d67c/jpa-53004111</a> (참고, 우앙 slipp..)</li>
+</ul>
+</li>
+<li>학습하면서 사용한 어노테이션들…에 대해 정리해보자. spring JDBC나 MyBatis를 재학습하고 나면 더 이해하기 쉬울거 같긴하지만 나중을 다시보기 위해서라도 정리<ul>
+<li>@Entity : JPA가 관리할 객체. 해당 클래스가 엔티티임을 알리기 위해 사용한다.</li>
+<li>@Column : 필드와 테이블의 컬럼을 맵핑시켜준다. 생략시 필드의 이름이 컬럼의 이름으로 자동 매핍이 된다.<ul>
+<li>name(String) / nullable(boolean) / length(int) / unique(boolean) / insertable(boolean) / updatable(boolen)</li>
+</ul>
+</li>
+<li>@Id</li>
+<li>@GeneratedValue</li>
+<li>@RestController</li>
+<li>@JsonProperty : JSON으로 변환시 필욯하다.<ul>
+<li>@JsonProperty(“name”) : JSON으로 변환시 속성이름을 변경 할 수도 있다.</li>
+</ul>
+</li>
+<li>@JsonIgnore : JSON으로 변환시 무시한다.</li>
+<li>@ManyToOne</li>
+<li>@OneToMany</li>
+<li>@JoinColum</li>
+<li>@Lob</li>
+<li>@MappedSuprClass</li>
+<li>@EntityListeners(AuditingEntityListener.class)</li>
+</ul>
+</li>
+</ul>
+<h5 id="2018-05-27-Sun"><a href="#2018-05-27-Sun" class="headerlink" title="2018/05/27(Sun)"></a>2018/05/27(Sun)</h5><p>-</p>
+<p>2018/05/29(Tue)~2018/06/02(Sat) 5일간 도쿄에 다녀온다. 경력증명서를 떼야하는 핑계지만, 교육과정도 끝났으니 놀러..가는 것도 크다. 빠진 이빨이 한 개 생기고 말았지만 깃헙 프로필 페이지를 잔디밭으로 만드는 재미가 쏠쏠한데.. 여행기간에 어떻게 학습을 하고 커밋을 해야할지 모르겠다. 할지말지도 고민중… </p>
+<p>도쿄 다녀오고 나면 교육센터에서 엎어진 우리조 3차 프로젝트(Spring+MySQL(오라클에서 변경…)+MyBatis를 활용한 성적관리 프로그램)를 6월까지 혼자 해내보는 것을 목표로 한다. 이것을 혼자 구현하고 나면 그래도 그간에 부족한 부분을 많이 학습되지 않을까 싶다…</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/07/09/2018-07-09-Spring/">prev</a><a class="next" href="/2018/05/24/2018-05-24-Servlet/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

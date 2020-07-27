@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(최범균의JSP2.3) EL | Youmekko</title><meta name="description" content="(최범균의JSP2.3) EL - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(최범균의JSP2.3) EL</h1><div class="post-info"><a></a>2018-04-17</div><div class="post-content"><h3 id="EL-Exmpression-Language-이란"><a href="#EL-Exmpression-Language-이란" class="headerlink" title="EL(Exmpression Language)이란?"></a>EL(Exmpression Language)이란?</h3><p>EL은 JSTL(JSP Standard Tag Library) 1.0 규약에 소개된 내용으로 JSP 2.0 버전 부터 포함되었고, 2.1부터는 EL과 관련된 규약을 별도 문서로 제공하고 있다. JSP 2.3과 쌍을 이루는 EL 언어 버전은 3.0으로 이하 포스팅은 3.0 규약을 기준으로 설명한다.</p>
+<p>EL은 값을 표현하는데 사용하는 스크립트 언어로, JSP의 스크립트 요소를 보완하는 역할을 한다.</p>
+<ul>
+<li>JSP의 네 가지 기본객체가 제공하는 영역의 속성 사용</li>
+<li>수치 연산 / 관계 연산 / 논리 연산자 제공</li>
+<li>자바 클래스 메소드 호출 기능 제공</li>
+<li>쿠키, 기본 객체의 속성 등 JSP를 위한 표현 언어의 기본 객체 제공</li>
+<li>쿠키, 기본 객체의 속성 등 JSP를 위한 표현 언어의 기본 객체 제공</li>
+<li>람다식을 이요한 함수 정의와 실행(EL 3.0)</li>
+<li>스트림 API를 통한 컬렉션 처리(EL 3.0)</li>
+<li>정적 메소드 실행(EL 3.0)</li>
+</ul>
+<p>EL은 <code>${expression}</code> 을 사용하여 값을 표현한다.</p>
+<p>EL은 JSP의 스크립트 요소(스크립트릿, 표현식, 선언부)를 제외한 나머지 부분에서 사용될 수 있다.</p>
+<p>JSP 2.1부터는 <code>${expression}</code> 뿐만 아니라 <code>#{expression}</code> 구문(JSF-Java Server Faces에 서 사용한 EL 구문)(Deffered Expression)을 새롭게 지원하고 있다. JSP에서 Deffered Expression을 사용하는 경우가 드물기 때문에 <code>${expression}</code>  형식을 중심으로 EL 사용법을 살펴보자.</p>
+<h3 id="EL-기초"><a href="#EL-기초" class="headerlink" title="EL 기초"></a>EL 기초</h3><h5 id="1-데이터-타입과-리터럴"><a href="#1-데이터-타입과-리터럴" class="headerlink" title="1. 데이터 타입과 리터럴"></a>1. 데이터 타입과 리터럴</h5><ul>
+<li>boolean : true / false</li>
+<li>정수 : 0 ~ 9, 음수의 경우 -가 붙는다. 정수타입은 java.lang.long타입이다.</li>
+<li>실수 : 0 ~ 9, 소수점을 사용할수 있고 3.24e3과 같이 지수형으로 표현가능하다. 실수 타입은 java.lang.double이다.</li>
+<li>문자열 : 따옴표로 둘러싼 문자열. 만약 작은 따옴표를 사용해서 표현하는 경우 값이 포함된 작은 따옴표는 &#39; 와 같이 \기호와 함께[  사용해야한다.<code>\</code> 기호 자체는 <code>\\</code>로 표현한다. java.lang.String 타입이다.</li>
+<li>null</li>
+</ul>
+<h5 id="2-EL의-기본-객체"><a href="#2-EL의-기본-객체" class="headerlink" title="2. EL의 기본 객체"></a>2. EL의 기본 객체</h5><p>(부스트코스에서 가져온 이미지)</p>
+<p><img src="/img/2018-05-02-el-01.png" alt=""></p>
+<ul>
+<li>pageContext : JSP의 pageContext 기본 객체와 동일하다.</li>
+<li>pageScope : pageContext 기본 객체에 저장된 속성의 &lt;속성, 값&gt; 매핑을 저장한 Map객체이다.</li>
+<li>requestScope : request 기본 객체에 저장된 속성의 &lt;속성, 값&gt; 매핑을 저장한 Map객체이다.</li>
+<li>sessionScope : session 기본 객체에 저장된 속성의 &lt;속성, 값&gt; 매핑을 저장한 Map객체이다.</li>
+<li>applicationScope : application 기본 객체에 저장된 속성의 &lt;속성, 값&gt; 매핑을 저장한 Map객체이다.</li>
+<li>param : 요청 파라미터의 &lt;파라미터 이름, 값&gt; 매핑을 저장한 Map 객체이다. 파라미터 값 타입은 String이며, request.getParameter(이름)의 결과와 동일하다.</li>
+<li>paramValues : 요청 파라미터의 &lt;파라미터 이름, 값 배열&gt; 매핑을 저장한 Map 객체이다. 값 타입은 String[] 로서, request.getParameterValues(이름)의 결과와 동일하다.</li>
+<li>header : 요청 정보의 &lt;헤더이름, 값&gt; 매핑을 저장한 Map 객체이다. request.getHeader(이름)의 결과와 동일하다.</li>
+<li>headerValues : 요청 정보의 &lt;헤더이름, 값 배열&gt; 매핑을 저장한 Map 객체이다. request.getHeaders(이름)의 결과와 동일하다.</li>
+<li>cookie : &lt;쿠키이름, Cookie&gt; 매핑을 저장한 Map 객체이다. request.getCookies()로 구한 Cookie배열로부터 매핑을 생성한다.</li>
+<li>initParam : 초기화 파라미터의 &lt;이름, 값&gt; 매핑을 저장한 Map객체이다. application, getInitParameter(이름)의 결과와 동일하다.</li>
+</ul>
+<p>예제코드)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"text/html; charset=utf-8"</span> %&gt;</span><br><span class="line">&lt;%</span><br><span class="line">  request.setAttribute(<span class="string">"name"</span>, <span class="string">"유미코"</span>)</span><br><span class="line">%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;EL Object&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;!-- pageContext.getRequest().getRequestURI의 값을 출력한다. --&gt;</span><br><span class="line">        요청 URI : $&#123;pageContext.request.requestURI&#125;&lt;br&gt;</span><br><span class="line">        &lt;!-- request영역에 저장된 name의 속성 값을 출력한다. --&gt;</span><br><span class="line">        reqeust의 name 속성 : $&#123;requestScope.name&#125;&lt;br&gt;</span><br><span class="line">         &lt;!-- 이름이 code인 요청 파라미터의 값을 출력한다. code요청 파라미터가 존재하지 않으면 아무것도 출력되지 않는다. --&gt;</span><br><span class="line">        code 파라미터 : $&#123;param.code&#125;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-객체-접근"><a href="#3-객체-접근" class="headerlink" title="3. 객체 접근"></a>3. 객체 접근</h5><p>예제코드)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;cookie.ID.value&#125;</span><br></pre></td></tr></table></figure>
+
+<p>여기서 표현 언어의 cookie 기본 객체는 &lt;쿠키이름, Cookie객체&gt; 맵이기 때문에 cookie.ID는 이름이 ID인 Cookie객체를 리턴한다. </p>
+<p>EL 언어는 객체에 저장된 값에 접근 할 때 점(.)이나 대괄호([])를 사용한다. </p>
+<p><code>cookie.name</code> == <code>cookie[name]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;표현1&gt;.&lt;표현2&gt; 또는 &lt;표현1&gt;[&lt;표현2&gt;]</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>&lt;표현1&gt;을 &lt;값1&gt;로 변환한다.</li>
+<li>&lt;값1&gt;이 null이면 null을 리턴한다.</li>
+<li>&lt;값1&gt;이 null이 아닌 경우 &lt;표현2&gt;를 &lt;값2&gt;로 변환한다.<ol>
+<li>&lt;값2&gt;가 null이면 null을 리턴한다.</li>
+</ol>
+</li>
+<li>&lt;값1&gt;이 Map, List, 배열인 경우<ol>
+<li>&lt;값1&gt;이 Map이면<ol>
+<li>&lt;값1&gt;.containsKye(&lt;값2&gt;)가 false이면 null을 리턴한다.</li>
+<li>그렇지 않으면 &lt;값1&gt;.get(&lt;값2&gt;)를 리턴한다.</li>
+</ol>
+</li>
+<li>&lt;값1&gt;이 List나 배열인 경우<ol>
+<li>&lt;값1&gt;이 정수값인지 검사한다. (정수가 아니면 에러발생)</li>
+<li>&lt;값1&gt;이.get(&lt;값2&gt;) 또는 Array.get(&lt;값1&gt;, &lt;값2&gt;)를 리턴한다.</li>
+<li>위 코드가 익셉션을 발생하면 에러를 발생한다.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>&lt;값1&gt;이 다른 객체이면<ol>
+<li>&lt;값2&gt;를 문자열로 변환환다.</li>
+<li>&lt;값1&gt; 객체가 &lt;값2&gt; 를 이름으로 갖는 읽기 가능한 프로퍼티를 포함하고 있다면 프로퍼티의 값을 리턴한다.</li>
+<li>그렇지 않을 경우 에러를 발생한다.</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;cookie.ID.value&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 표현식을 분석해보자.</p>
+<ol>
+<li>cookie는 EL이 제공하는 기본 객체로 객체 타입은 Map이다. (4-1과정)</li>
+<li>cookie.ID 값을 구할 때는 cookie.containsKey(“ID”)의 존재 여부를 확인 한 후, 존재할 경우 cookie.get(“ID”)를 리턴한다.(4-1-2과정)</li>
+<li>cookie.ID가 리턴 하는 객체는 Cookie객체이므로 cookie.id.value는 위의 과정에서 5번에 해당한다. value를 문자열로 변환한 후, cookie.Id 객체에 읽기 가능한 value프로퍼티가 있는지 조사한다.(5-2과정)</li>
+<li>cookie.ID는 Cookie클래스의 객체이고 Cookie클래스는 getValue() 메소드를 제공하므로 읽기 가능한 value 프로퍼티가 존재한다. 따라서 cookie.ID.value는 이름이 ID인 쿠키의 값을 리턴한다.</li>
+</ol>
+<h5 id="4-객체-탐색"><a href="#4-객체-탐색" class="headerlink" title="4. 객체 탐색"></a>4. 객체 탐색</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;name&#125;</span><br></pre></td></tr></table></figure>
+
+<p>영역을 나타내는 EL 기본 객체를 사용하지 않고 이름만 저장하는 경우 EL 네 개의 영역 PAGE, REQUEST, SESSION, APPLICATION의 영역을 차레 대로 검사해서 이름이 name인 속성이 존재하느지 확인하고 존재하는 경우 그속성의 값을 사용한다.</p>
+<h5 id="5-수치-연산자"><a href="#5-수치-연산자" class="headerlink" title="5. 수치 연산자"></a>5. 수치 연산자</h5><p>+, -, *, /, % 또는 mod, -(단항연산자, 단항뺄셈)</p>
+<ul>
+<li>값이 null이면 정수 타입 0으로 사용한다.</li>
+<li>정수 타입보다 실수 타입이 우선한다.</li>
+<li>Float, Double, BigDecimal이 있으면 나머지 실 수  값이 Double이나 BigDemila로 변환한 뒤 연산을 수행한다.</li>
+<li>실수 타입 값이 없으면 Long타입이다 BigInteger로 변환해서 연산을 수행한다.</li>
+</ul>
+<h5 id="6-비교-연산자"><a href="#6-비교-연산자" class="headerlink" title="6. 비교 연산자"></a>6. 비교 연산자</h5><ul>
+<li>== 또는 eq</li>
+<li>!= 또는 ne</li>
+<li>&lt; 또는 lt</li>
+<li>&lt; 또는 gt</li>
+<li>&lt;= 또는 le</li>
+<li><code>&gt;</code> 또는 ge</li>
+</ul>
+<p>숫자와 경우 자바와 동일하고, 문자열을 비교할 경우는 String.compareTo() 메소드를 사용한다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;someValue &#x3D;&#x3D; &#39;2004&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 코드는 (someValue.compareTo(“2004”))와 동일한 의미이다. 객체도 compareTo 메소드를 사용하여 객체가 같은 값을 갖는지 비교한다.</p>
+<h5 id="7-논리-연산자"><a href="#7-논리-연산자" class="headerlink" title="7. 논리 연산자"></a>7. 논리 연산자</h5><ul>
+<li>&amp;&amp; 또는 and</li>
+<li>!! 또는 or</li>
+<li>! 또는 not</li>
+</ul>
+<p>자바와 완전히 도일하다</p>
+<h5 id="8-emplty-연산자"><a href="#8-emplty-연산자" class="headerlink" title="8. emplty 연산자"></a>8. emplty 연산자</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">empty &lt;값&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>값이 null / 빈문자열 / 길이가 0인 배열 / 빈Map / 빈Collection 이면 true를 리턴한다.</li>
+<li>이 외의 경우에는 false를 리턴한다.</li>
+</ul>
+<h5 id="9-비교-선택-연산자"><a href="#9-비교-선택-연산자" class="headerlink" title="9. 비교 선택 연산자"></a>9. 비교 선택 연산자</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;수식&gt;?&lt;값1&gt;:&lt;값2&gt;</span><br></pre></td></tr></table></figure>
+
+<p>true면 값1, false면 값2를 리턴</p>
+<h5 id="10-문자열-연결"><a href="#10-문자열-연결" class="headerlink" title="10. 문자열 연결"></a>10. 문자열 연결</h5><p>EL 2.2버전까지는 문자열 연결을 지원하지 않았는데 EL 3.0 버전에서 문자열 연결을 위한 += 연산자가 추가 됐다.</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% request.setAttribute(<span class="string">"title"</span>, <span class="string">"JSP 프로그래밍"</span>); %&gt;</span><br><span class="line">$&#123;<span class="string">"문자"</span> += <span class="string">"열"</span> += <span class="string">"연결"</span>&#125;</span><br><span class="line">$&#123;<span class="string">"title"</span> += title&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>EL 3.0을 버전을 지원하는 JSP는 2.3이다. JSP 2.2는 EL 2.2를 지원하므로 JSP2.2버전까지 지원하는 톰캣 7을 사용하면 문자열 연결 연산자를 사용 할 수 없다. </p>
+</blockquote>
+<h5 id="11-컬렉션"><a href="#11-컬렉션" class="headerlink" title="11. 컬렉션"></a>11. <del>컬렉션</del></h5><h5 id="12-세미콜론-연산자"><a href="#12-세미콜론-연산자" class="headerlink" title="12. 세미콜론 연산자"></a>12. <del>세미콜론 연산자</del></h5><h5 id="13-할당-연산자"><a href="#13-할당-연산자" class="headerlink" title="13. 할당 연산자"></a>13. <del>할당 연산자</del></h5><h5 id="14-연산자-우선-순위"><a href="#14-연산자-우선-순위" class="headerlink" title="14. 연산자 우선 순위"></a>14. <del>연산자 우선 순위</del></h5><h5 id="15-특수문자-처리하기"><a href="#15-특수문자-처리하기" class="headerlink" title="15. 특수문자 처리하기"></a>15. <del>특수문자 처리하기</del></h5><h3 id="EL에서-객체의-메소드-호출"><a href="#EL에서-객체의-메소드-호출" class="headerlink" title="EL에서 객체의 메소드 호출"></a>EL에서 객체의 메소드 호출</h3><p>JSP2.2/EL2.2 버전부터 객체의 메소드를 직접 호출할 수 있다. (2.1 또는 그 이하에서는 컴파일 에러)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">   Student student = <span class="keyword">new</span> Student();</span><br><span class="line">   request.setAttribute(<span class="string">"student"</span>, student);</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">   &lt;head&gt;</span><br><span class="line">       &lt;title&gt;EL Method calling&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        $&#123;student.setName(<span class="string">"유미코"</span>)&#125;</span><br><span class="line">        이름 : &#123;%student.getName&#125;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="EL에서-정적-메소드-호출하기-1"><a href="#EL에서-정적-메소드-호출하기-1" class="headerlink" title="EL에서 정적 메소드 호출하기(1)"></a><del>EL에서 정적 메소드 호출하기(1)</del></h3><h3 id="EL에서-정적-메소드-호출하기-2"><a href="#EL에서-정적-메소드-호출하기-2" class="headerlink" title="EL에서 정적 메소드 호출하기(2)"></a>EL에서 정적 메소드 호출하기(2)</h3><p>EL3.0 버전은 EL에서 정적 메소드 호출하기(1)의 복잡한 과정 없이 정적 메소드를 호출할 수 있는 기능을 추가했다.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"text/html; charset=utf-8"</span> %&gt;</span><br><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"util.FormatUtil"</span> %&gt;</span><br><span class="line">&lt;% request.setAttribute(<span class="string">"price"</span>, <span class="number">12345L</span>) %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;EL에서 정적 메소드 호출하기2&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        가격은 &lt;b&gt;$&#123;FormatUtil.number(price, '#,##O')&#125;&lt;/b&gt;원 입니다.</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>위 처럼 import하면 된다. java.lang 패키지는 기본적으로 임포트 한다.</p>
+<h3 id="람다식-사용하기"><a href="#람다식-사용하기" class="headerlink" title="람다식 사용하기"></a><del>람다식 사용하기</del></h3><h3 id="스트림-API-사용하기"><a href="#스트림-API-사용하기" class="headerlink" title="스트림 API 사용하기"></a><del>스트림 API 사용하기</del></h3><h3 id="EL-비활성화-방법"><a href="#EL-비활성화-방법" class="headerlink" title="EL 비활성화 방법"></a>EL 비활성화 방법</h3><p>(부스트코스) JSP에 명시한다.</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--기본값은 <span class="keyword">false</span> --%&gt;</span><br><span class="line">&lt;%@ page isELIgnored = <span class="string">"true"</span> %&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/img/2018-05-02-el-02.png" alt=""></p>
+<p>참고 <a href="https://docs.oracle.com/cd/E19316-01/819-3669/bnaic/index.html" target="_blank" rel="noopener">https://docs.oracle.com/cd/E19316-01/819-3669/bnaic/index.html</a></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/17/2018-04-17-git/">prev</a><a class="next" href="/2018/04/16/2018-04-16(Mon)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

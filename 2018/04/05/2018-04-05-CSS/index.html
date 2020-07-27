@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(부스트코스) Hello, CSS | Youmekko</title><meta name="description" content="(부스트코스) Hello, CSS - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(부스트코스) Hello, CSS</h1><div class="post-info"><a></a>2018-04-05</div><div class="post-content"><h3 id="스타일을-HTML-페이지에-적용하는-3가지-방법"><a href="#스타일을-HTML-페이지에-적용하는-3가지-방법" class="headerlink" title="스타일을 HTML 페이지에 적용하는 3가지 방법"></a>스타일을 HTML 페이지에 적용하는 3가지 방법</h3><p>우선순위대로</p>
+<ol>
+<li>inline  </li>
+<li>internal </li>
+<li>external</li>
+</ol>
+<blockquote>
+<p>일반적인 CSS위치는 css파일(external)에 두고 그 아래 style태그를 사용해서(internal 방식) 표현하기 때문에 그런경우 위에 나온 내용이 맞습니다.<br>하지만, internal과 external은 같은 우선순위를 가집니다.<br>같은 css내용이 있는 경우를 예로 보죠.</p>
+<style>div { color:red; }</style>
+<link rel="stylesheet" href="css.css">
+
+<p>만약 css.css에서 div color를 blue로 주었다면, 뒤에 선언된 external방식의 css내용이 반영됩니다. 따라서 blue색깔로 나오겠죠.<br>즉 internal과 external은 같은 우선순위로 결정된다고 아셔야 합니다.</p>
+</blockquote>
+<ul>
+<li><p>inline  : HTML 태그 안에 넣기</p>
+<ul>
+<li>구조(HTML)와 스타일(CSS)이 섞이게 되므로 유지보수가 어렵다.</li>
+</ul>
+</li>
+<li><p>internal : HEAD에 <code>&lt;style&gt;&lt;/style&gt;</code>태그로 넣기</p>
+<ul>
+<li>구조(HTML)와 스타일(CSS)이 섞이게 되므로 유지보수가 어렵다.</li>
+<li>별도의 CSS파일을 만들지 않아도 된다.</li>
+<li>서버에서 따로 요청을 보내지않아도 된다.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>external : 별도의 외부파일(.css)로 지정하기</p>
+<ul>
+<li>CSS 코드가 아주 짧지 않다면 가급적 이 방법으로 구현하는 것이 가장 좋다.</li>
+<li><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;main.css&quot; /&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="CSS상속-우선순위"><a href="#CSS상속-우선순위" class="headerlink" title="CSS상속 / 우선순위"></a>CSS상속 / 우선순위</h3><p>상위에서 적용한 스타일은 하위에도 반영되, 여러 단계로 중첩된 엘리먼트마다 매번 같은 색상과 글자 크기를 부여하지 않아도 된다. 하지만 모든 CSS 속성이 이런 특징을 갖게 되면, 몇 가지 문제가 생긴다. 예를 들어 width 속성이 상속되면 하위 엘리먼트가 모든 같은 크기의 넓잇값을 가질 수 있다.이런 것은 원하는 것이 아니다… 그래서 box-model이라고 불리는 속성들(width, height, margin, padding, border)과 같이 크기와 배치 관련된 속성들은 하위엘리먼트로 상속이 되지 않는다!</p>
+<h5 id="우선순위"><a href="#우선순위" class="headerlink" title="우선순위"></a>우선순위</h5><p>CSS는 여러가지 스타일 정보를 기반으로 최종적으로 경쟁에 의해서 적절한 스타일이 반영된다.</p>
+<ul>
+<li>동일한 css경우 나중의 것이 적용된다.</li>
+<li><code>body &gt; span{color:red;}</code> 과 <code>span{color:blue;}</code> 중에 더 구체적으로 표현된것이 적용된다. red 승!</li>
+<li>id &gt; class &gt; element 순으로 반영된다.</li>
+</ul>
+<h5 id="CSS-Selector"><a href="#CSS-Selector" class="headerlink" title="CSS Selector"></a>CSS Selector</h5><p>HTML의 요소를 tag, id, html 태그 속성 등을 통해 쉽게 찾아주는 방법이다.</p>
+<p>element에 style을 지정하기 위해서는 <strong>3가지 기본 선택자(tag / id / class)</strong>를 사용할 수 있다.</p>
+<ul>
+<li><p>id는 특정한 1개만 쓰는게 좋다! <code>#myId{color:red;}</code></p>
+</li>
+<li><p>class 셀렉터 사용 방법  <code>.myClass{color:blue;}</code>, <code>div.myClass{color:green;}</code></p>
+</li>
+<li><p>그룹 선택 가능<br><code>h1, span, div{color:red;}</code></p>
+<p><code>h1, span, div#id{color:red;}</code></p>
+<p><code>h1.span, div.className{color:red;}</code></p>
+</li>
+<li><p>하위요소 선택(공백)</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"youmekko"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">span</span>&gt;</span> span tag1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">span</span>&gt;</span> span tag2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#youmekko</span> <span class="selector-tag">span</span> &#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>자식선택 (&gt;)</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"youmekko"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">span</span>&gt;</span> span tag1<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">span</span>&gt;</span> span tag2<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#youmekko</span> &gt; <span class="selector-tag">span</span> &#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>n번째 자식 요소(nth-child)</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"youmekko"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>First<span class="tag">&lt;/<span class="name">p</span>&gt;</span>     <span class="comment">&lt;!-- div의 두번째 자식인 Frist가 바뀜--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Second<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Third<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Fourth<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#youmekko</span> &gt; <span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(2)</span> &#123;<span class="attribute">color</span>:red;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Element가-배치되는-방법-CSS-layout"><a href="#Element가-배치되는-방법-CSS-layout" class="headerlink" title="Element가 배치되는 방법(CSS layout)"></a>Element가 배치되는 방법(CSS layout)</h3><p>엘리먼트를 화면에 배치하는 것을 layout 작업이라고 하고 Rendering이라고도 한다.</p>
+<p>엘리먼트는 기본적으로 위에서 아래로 순서대로 블럭을 이루며 배치된다.</p>
+<p>다양하기 배치하기 위해서는 css의 중요한 추가 속성에 대해서 이해해야 한다.</p>
+<ul>
+<li>display (block, inline, inline-block)</li>
+<li>position (static, absoulte, relative, fixed)</li>
+<li>float (left, right)</li>
+</ul>
+<h4 id="블록으로-싸이는-엘리먼트-display-block"><a href="#블록으로-싸이는-엘리먼트-display-block" class="headerlink" title="블록으로 싸이는 엘리먼트 (display:block)"></a>블록으로 싸이는 엘리먼트 (display:block)</h4><p>display 속성이 block이거나 inline-block인 경우 그 엘리먼트는 벽돌을 쌓듯 블록을 가지고 쌓인다. </p>
+<p><img src="/img/2018-04-05-css-01.png" alt=""></p>
+<h4 id="옆으로-흐르는-엘리먼트-display-inline"><a href="#옆으로-흐르는-엘리먼트-display-inline" class="headerlink" title="옆으로 흐르는 엘리먼트 (display:inline)"></a>옆으로 흐르는 엘리먼트 (display:inline)</h4><p>display 속성이 inline인 경우는 우측으로, 그리고 아래쪽으로 빈자리를 차지하며 흐른다. inline 속성 엘리먼트는 높이와 넓이를 지정해도 반영이 되지 않는다. </p>
+<p><img src="/img/2018-04-05-css-02.png" alt=""></p>
+<h4 id="좀-다르게-배치시키기-position-속성"><a href="#좀-다르게-배치시키기-position-속성" class="headerlink" title="좀 다르게 배치시키기 (position 속성)"></a>좀 다르게 배치시키기 (position 속성)</h4><ol>
+<li>기본속성은 static 이다. 그냥 순서대로 배친된다.</li>
+<li>absolute는 기준점에 따라서 특별한 위치에 위치한다. (top / left / right / bottom 으로 설정한다.) 기준점을 상위 엘리먼트 단계적으로 찾아가는데 static이 아닌 positon이 기준점이다.<br>**(absolute의 경우는 left / top 값을 0, 0 이라도 꼭 주는 것이 좋다.)</li>
+<li>relative는 원래 자신이 위치해야 할 곳을 기준으로 이동한다. top / left / right / bottom 으로 설정한다.</li>
+<li>fixed는 viewport(전체화면)좌측, 맨위를 기준으로한다.</li>
+</ol>
+<p><img src="/img/2018-04-05-css-03.png" alt=""></p>
+<p><em>absolute div는 기준점이 static이 아니라 positon으로 되어있는 wrap이 기준점이다.</em></p>
+<h4 id="간격을-다르게-해서-배치하기-margin"><a href="#간격을-다르게-해서-배치하기-margin" class="headerlink" title="간격을 다르게 해서 배치하기 (margin)"></a>간격을 다르게 해서 배치하기 (margin)</h4><p>margin으로 배치가 달라질 수 있다. maring은 위/아래/좌/우 엘리먼트와 본인간의 간격이다. 따라서 그만큼 내위치가 달라진다.</p>
+<h4 id="기본-배치에서-벗어나-떠있기-float"><a href="#기본-배치에서-벗어나-떠있기-float" class="headerlink" title="기본 배치에서 벗어나 떠있기 (float)"></a>기본 배치에서 벗어나 떠있기 (float)</h4><p><img src="/img/2018-04-05-css-04.png" alt=""></p>
+<p><img src="/img/2018-04-05-css-05.png" alt=""></p>
+<p><img src="/img/2018-04-05-css-06.png" alt=""></p>
+<h4 id="하나의-블록-엘리먼트는-box-형태이다-box-model"><a href="#하나의-블록-엘리먼트는-box-형태이다-box-model" class="headerlink" title="하나의 블록 엘리먼트는 box 형태이다. (box-model)"></a>하나의 블록 엘리먼트는 box 형태이다. (box-model)</h4><p>블록 엘리먼트의 경우 box의 크기와 간격에 관한 속성으로 배치를 추가 결정한다. margin, padding,  boder, outline으로 생선된다. (box-shadowe도 box-model에 포함지어 설명할 수 있다. box-shaodw는 border밖에 테두리를 그릴 수 있는 속성이다.)</p>
+<h4 id="엘리먼트의-크기는-부모의-크기가-기본이다"><a href="#엘리먼트의-크기는-부모의-크기가-기본이다" class="headerlink" title="엘리먼트의 크기는 부모의 크기가 기본이다."></a>엘리먼트의 크기는 부모의 크기가 기본이다.</h4><p>block 엘리먼트의 크기는 기본적으로 부모의 크기만큼 가진다. 예를 들어  width:100%는 부모의 크기만큼을 다 가지는 것과 같다.</p>
+<h4 id="box-sizing과-padding"><a href="#box-sizing과-padding" class="headerlink" title="box-sizing과 padding"></a>box-sizing과 padding</h4><p>padding 속성을 늘리면 엘리먼트의 크기가 달라질 수 있다. box-sizing 속성으로 이를 컨트롤 할 수 있따. box-sizing 속성을 border-box로 설정하면 엘리먼트의 크기를 고정하면서 padding값만 늘릴 수 있다.</p>
+<p><img src="/img/2018-04-05-css-07.png" alt=""></p>
+<h3 id="그래서-layout-구현방법은"><a href="#그래서-layout-구현방법은" class="headerlink" title="그래서 layout 구현방법은?!"></a>그래서 layout 구현방법은?!</h3><ul>
+<li>전체 레이아웃은 float를 잘 사용해서 2단, 3단 컬럼배치를 구현한다. 최근에는 css-grid나 flex 속성 layout을 위한 속성을 사용하기 시작했으니 브라우저 지원 범위를 확인해서 사용하면 된다.</li>
+<li>특별한 위치에 배치하기 위해서는 position absolute를 사용하고, 기준 점을 relative로 설정한다.</li>
+<li>네비게이션과 같은 엘리먼트는 block 엘리먼트를 inline-block으로 변경해서 가로로 배치하기도 한다.</li>
+<li>엘리먼트 안의 텍스트 간격과, 다른 엘리먼트 간의 간격은 padding과 margin의 속성을 잘 활용해서 위치 시킨다.</li>
+</ul>
+<h3 id="크롬-개발자-도구"><a href="#크롬-개발자-도구" class="headerlink" title="크롬 개발자 도구"></a>크롬 개발자 도구</h3><p>Element panel을 잘 익혀두는 것이 중요하다.</p>
+<ul>
+<li>css style을 inline방식으로 빠르게 테스트 할 수 있다.</li>
+<li>현재 엘리먼트의 값을 임시로 바꿀 수 있다.</li>
+<li>최종 결정된 css 값을 확인할 수 있다.</li>
+</ul>
+<p>[강의 출처] <a href="http://www.edwith.org/boostcourse-web" target="_blank" rel="noopener">http://www.edwith.org/boostcourse-web</a></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/05/2018-04-05(Thu)-W.I.L/">prev</a><a class="next" href="/2018/04/04/2018-04-04(Web)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

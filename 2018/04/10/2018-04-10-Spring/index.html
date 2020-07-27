@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(구멍가게코딩단) Part1-1. 개발 환경 설정 | Youmekko</title><meta name="description" content="(구멍가게코딩단) Part1-1. 개발 환경 설정 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(구멍가게코딩단) Part1-1. 개발 환경 설정</h1><div class="post-info"><a></a>2018-04-10</div><div class="post-content"><h1 id="PART-1-프로젝트의-기본-구조-구성"><a href="#PART-1-프로젝트의-기본-구조-구성" class="headerlink" title="PART 1 프로젝트의 기본 구조 구성"></a>PART 1 프로젝트의 기본 구조 구성</h1><h3 id="1-개발-환경-설정"><a href="#1-개발-환경-설정" class="headerlink" title="1. 개발 환경 설정"></a>1. 개발 환경 설정</h3><ul>
+<li><p>스프링 웹 프로젝트를 시작하는 방법은 두가지가 있다.</p>
+<ul>
+<li><u>Spring Boot</u>를 이용하는 Srping Starter Project<ul>
+<li>장점<ol>
+<li>별도의 설정이 필요없다.</li>
+<li>WAS 없이 실행이 가능하다.</li>
+<li>로딩 시간이 짧아서 테스트 하기 편한다.</li>
+</ol>
+</li>
+<li>단점<ol>
+<li>기존의 설정과 다른 방식으로 사용한다.</li>
+<li>JSP 설정 등은 별도로 해야한다.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><u>Spring Template Project</u>를 이용하는 Spring Legacy Project <ul>
+<li>장점<ol>
+<li>현재까지 실무에서 많이 사용되고 있다.</li>
+<li>다양한 자료가 존재한다.</li>
+<li>기존 프로젝트를 이해하는데 도움이 된다.</li>
+<li>모든 버전의 스프링에서 사용할 수 있다.</li>
+</ol>
+</li>
+<li>단점<ol>
+<li>초반 데스트 환경 구성 등이 어렵다.</li>
+<li>WAS와 연동하는 경우 결과 확인에 많은 리소스를 소모한다.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>스프링 부트는 그 목적 자체가 최대한 간단하게 실행하고 배포가 가능한 수준의 웹 어플리케이션을 제작하는 것이다. 스프링 부트는 개발에 필요한 기본적인 모든 환경을 맞춰주고 최소한의 개발을 해야 하는 경우에 좋은 선택이 된다.</p>
+</li>
+<li><p>프로젝트를 생성하면 Maven이라는 빌드 도구를 이용해서 필요한 jar 파일들과 프로젝트를  구성하게 된다. 프로젝트가 최초로 구성 되면 필요한 라이브러리들을 다운로드 받는데 시간이 필요하다. 가끔은 네트워크 상의 문제로 인해 구성시에 에러가 나는 경우가 있다. 그럴 경우 STS를 종료하고 (대부분의 경우) STS가 설치된 드라이브 밑에 사용자 이름 폴더 내부에 .m2 폴더(Maven이 다운로드를 받은 라이브러리를 사용하는 경로의 하위 폴더들을 삭제 후 재시작하는 방법이나 프로젝트 삭제 후 다시 생성하는 방법 등을 이용하여 다시 다운로드를 시도하는 것이 좋다.</p>
+</li>
+<li><p>Spring은 Maven을 내장하고 있다. <strong>Maven</strong>은 엄밀이 말해서 프로젝트 관리 도구로서, 프로젝트의 시작과 끝까지의 단계에 맞춰서 사용하는 개발 도구이지만, 가장 많이 사용되는 용도는 프로젝트에 필요한 의존적인 라이브러를 자동으로 관리해주는 용도로 많이 사용 된다.</p>
+</li>
+<li><p>Spring regacy project를 생성하고 나서 Run - Run on Server를 선택하면 WAS 설정이 이루어지 않은 상태에서도 기본적으로 제공 되는 서버를 이용해서 테스트를 진행한다. 별도의 코딩 작업 없이 스프링이 실행된느 것을 확인 할 수 있다.</p>
+</li>
+<li><p>스프링 MVC 프로젝트의 템플릿 구조</p>
+</li>
+</ul>
+<p><img src="/img/2018-04-10-spring-01.png" alt=""></p>
+<p>STS가 위와 같이 별도의 설정 없이 웹 개발에 필요한 모든 경로를 만들어 주기 때문에 개발의 시간을 단축 시킬 수 있다.</p>
+<ol>
+<li><p>STS를 이용해서 Spring MVC 프로젝트를 생성하고 나면 JDK 버전은 1.6 버전을 기준으로 생성된다. JDK 1.7 이상의 버전을 사용하고 싶다면 해당 프로젝트의 Project Facets를 변경해줘야 한다.</p>
+</li>
+<li><p>스프링 프레임 워크의 버전 변경 (pom.xml의 수정 내용)</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java-version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java-version</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!-- 이 부분 수정- ---&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">org.springframework-version</span>&gt;</span>5.0.5.RELEASE<span class="tag">&lt;/<span class="name">org.springframework-version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">org.aspectj-version</span>&gt;</span>1.6.10<span class="tag">&lt;/<span class="name">org.aspectj-version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">org.slf4j-version</span>&gt;</span>1.6.6<span class="tag">&lt;/<span class="name">org.slf4j-version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><u>JDK랑 스프링 버전을 변경하고 나서 서버를 실행하면 페이지가 잘 안떠서 몇번이고 프로젝트를 다시 만들고 STS를 껐다가 .m2 폴더를 지웠다가 했다. (주의해서 천천히 하자)</u><br>3. Tomcat 서버 사용 설정 (기존에 이클립스에서 진행했던 것과 같아서 별도로 기록하진 않겠다.)</p>
+<ul>
+<li><p>스프링 프로젝트는 기본적으로 프로젝트 생성시 지정하는 패키지의 마지막 경로가 웹 어플리케이션의 중간 경로가 된다. 교재의 예제의 경우 ‘org.zerock.web’ 패키지를 작성했기 때문에 중간경로를 /web이 지정되므로, 최소 실행 경로는 브라우저 상에서 <code>http://localhost:portNumber/web</code>이 된다.</p>
+</li>
+<li><p>설치 작업 정리</p>
+<ul>
+<li>STS 를 이용해 Spring MVC 프로젝트를 다운로드 받아 생성한다.</li>
+<li>JDK 버전 설정을 변경한다.</li>
+<li>pom.xml을 이용해서 Srping 버전에 맞는 라이브러리를 추가한다.</li>
+<li>Tomcat 서버를 설정에 추가한다.</li>
+<li>만들어진 프로젝트를 Tomcat 을 이용해 실행해 본다.</li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/11/2018-04-11-Spring-01/">prev</a><a class="next" href="/2018/04/10/2018-04-10(Tue)-W.I.L%20/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

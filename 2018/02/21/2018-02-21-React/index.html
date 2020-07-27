@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(노마트코더) ReactJS WebService DAY1 | Youmekko</title><meta name="description" content="(노마트코더) ReactJS WebService DAY1 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(노마트코더) ReactJS WebService DAY1</h1><div class="post-info"><a></a>2018-02-21</div><div class="post-content"><h2 id="ReactJS로-웹서비스-만들기-DAY1"><a href="#ReactJS로-웹서비스-만들기-DAY1" class="headerlink" title="ReactJS로 웹서비스 만들기 DAY1"></a>ReactJS로 웹서비스 만들기 DAY1</h2><p><strong>Nomade Academy</strong></p>
+<ul>
+<li><p>윈10에서 Ubuntu Bash shell 사용할 수 있게 설정 <a href="http://lhjin.tistory.com/entry/Window10-Bash-Shell-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%EB%B2%95" target="_blank" rel="noopener">(참고페이지)</a></p>
+</li>
+<li><p>npm/ Node.js / Yarn install</p>
+<ul>
+<li>필요한 것들을 전부 설치했는데 bash shell에서는 동작을 안했다. <a href="https://aigeec.com/installing-node-js-on-windows-10-bash/" target="_blank" rel="noopener">참고페이지</a> 보고 bash shell에서 다시 설치하니 되긴 된다. 흠. 근데 create react app install하다가 또 오류. 이번엔 <a href="https://stackoverflow.com/questions/20031849/how-can-i-find-my-node-js-files-in-linux-usr-bin-node-is-not-working/32740546" target="_blank" rel="noopener">스택오버플로우 참고</a>. 그래도 안되서 전부 sudo에서 설치와 실행. 이 부분 잘 모르겠다. 맥사고 싶다. 리눅스 커맨드 공부는 따로..</li>
+</ul>
+</li>
+<li><p>React는 프레임워크가 아니라 UI Library이다.</p>
+</li>
+<li><p>여기서 사용하는 코드는 리액트 코드이기 떄문에 이걸 자바스크립트로 바꿔주는 툴이 필요하다. → 트랜스파일러 → 웹팩(리액트 코드를 브라우저가 이해할 수 있는 코드로 바꿔준다.) </p>
+</li>
+<li><p>자바스크립트의 가장 최신은 JS6(ES6, ECMAScript6). 모든 브라우저가 ES6을 이해하지 못하기 때문에 웹팩을 이용해서 JS를 브라우저가 이해할 수 있게 변경해줘야한다.</p>
+</li>
+<li><p>즉, 리액트로 작업하려면 webpack과 같은 모듈번들러가 필요하다. 하지만 이 강의에선 시간이 없기떄문에?! 페이스북에서 초보자들을 위해 재공하는 create react app(CRA)을 사용한다. 웹 팩과 같은 툴을 사용할 필요없이 손쉽게 리액트 앱을 만들어주는 툴이다. </p>
+</li>
+<li><p>pre-built development server</p>
+</li>
+<li><p>리액트는 components 컴포넌츠에 기반하고 있다. 이번 실습에선 무비리스트 / 영화카드 컴포넌트 / 이미지 컴포넌트가 있다.</p>
+</li>
+<li><p>자바스크립트 안에 html이 자리잡고 있다. 이것을 JSX라고 한다. JSX는 리액트 컴포넌트를 만들때 사용하는 언어다. </p>
+</li>
+<li><p>컴포넌트는 각기 다른 functions와 methods를 가지고 있다. 그걸 다 지금 배울건 아니고 하나만 기억하기! <strong>모든 컴포넌트는 render function을 가지고 있다.</strong> renden의 기능은 뭔가를 보여주는, 출력하는 기능이다. 이 컴포넌트가 나에게 보여주는 것이 무엇인가! 이게 render의 기능이다.</p>
+</li>
+<li><p>우리는 index.js에 파일을 만들고 있다. index.js는 react, reactDOM, css, (가장 큰)컴포넌트’app’ 을 import한다.</p>
+</li>
+<li><p>react와 reactDOM의 차이점. react는 UI 라이브러리다. reactDOM은 리액트틀 웹사이트에 출력(render)하는 걸 도와주는 모델이다. DOM(Document Object Model). 리액트를 사용해서 웹사이트에 올려놓고 싶다 할때 reactDOM을 쓰면 된다. 리액트를 모바일 앱에 올려놓고 싶을때는 reactNative를 쓴다. <u>리액트돔은 1개의 컴포넌트를 출력(render)하고, 그 다큐먼트 안에 엘리먼트가 있는데, 엘리먼트 아이디는 root이다. 이건 index.html에 있다.</u></p>
+</li>
+<li><p>컴포넌트 생성 &gt; 렌더 &gt; 리턴 &gt; html내용 &gt; 브라우저에서 확인</p>
+</li>
+<li><p>import react &gt; class &gt; RENDER( 필수기능)</p>
+</li>
+<li><p>큰 컴포넌트 안에 작은 컴포넌트를 작은 컴포넌트를 집어 넣는 방식으로 작업한다.</p>
+</li>
+<li><p>모든 컴포넌트는 render 해야하고 return해야 한다.</p>
+</li>
+<li><p>컴포넌트 &gt; render &gt; return &gt; JSX (is the way rewrite HTML on react)</p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/22/2018-02-22-JavaScript/">prev</a><a class="next" href="/2018/02/20/2018-02-20-Python/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

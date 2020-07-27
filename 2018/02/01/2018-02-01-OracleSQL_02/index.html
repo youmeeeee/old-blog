@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>OracleSQL(7) DDL (Data Definition Language) | Youmekko</title><meta name="description" content="OracleSQL(7) DDL (Data Definition Language) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">OracleSQL(7) DDL (Data Definition Language)</h1><div class="post-info"><a></a>2018-02-01</div><div class="post-content"><h3 id="5장-DDL-Data-Definition-Language"><a href="#5장-DDL-Data-Definition-Language" class="headerlink" title="5장. DDL (Data Definition Language)"></a>5장. DDL (Data Definition Language)</h3><ul>
+<li>오라클에서 사용하는 다양한 명령어들도 아래와 같이 구분된다.</li>
+<li>DDL(Data Definition Language) : CREATE(생성), ALTER(수정), TRUNCATE(잘라내기), DROP(삭제)</li>
+<li>DML(Data Manipulation Language) : INSERT(입력), UPDATE(변경), DELETE(삭제), MERGE(병합)</li>
+<li>DCL(Date Control Language) : GRANT(권한주기), REVOKE(권한뺏기)</li>
+<li>TCL(Transaction Control Language) : COMMIT(확정), ROLLBACK(취소)</li>
+<li>SELECT : 어떤 분류에서는 DQL(Data Query Language)이라고 한다.</li>
+<li>오라클은 데이터베이스 내부에 데이터를 관리하기 위해 다양한 저장 객체를 생성하게 되는데 이것을 오브젝트라고 부르고, 오브젝트 중에서 특별히 데이터를 저장하기 위한 공간을 가지는 것을 세그먼트(Segment)라고 부른다. 쉽게 이야기 하면 데이터베이스 라는 것은 많은 물건들이 저장되어 있는 커다란 창고이고 오브젝트나 세그먼트는 그 창고안에서 물건을 담아두는 통이라고 생각하면 된다.이런 오브젝트를 생성하고, 변경하고, 관리 하는 명령어를 DDL이라고 한다.</li>
+</ul>
+<ol>
+<li><p>CREATE</p>
+<ul>
+<li><p>새로운 오브젝트 스키마를 생성할 때 사용하는 명령어이다.</p>
+</li>
+<li><p>1-1. 일반 테이블 생성하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test_table</span><br><span class="line">( <span class="keyword">no</span> <span class="built_in">NUMBER</span>(<span class="number">3</span>),</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">2</span>),</span><br><span class="line">  birth <span class="built_in">DATE</span>);</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+<li><p>1-2. 기본 입력 값을 설정하면서 생성하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--테이블을 만들때 사용자가 값을 입력하지 않는 경우 기본적으로 NULL이 자동으로 입력된다.</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> test_table2</span><br><span class="line">( <span class="keyword">no</span> <span class="built_in">NUMBER</span>(<span class="number">3</span>, <span class="number">1</span>) <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="string">'NO Name'</span>,</span><br><span class="line">hiredate <span class="built_in">DATE</span> <span class="keyword">DEFAULT</span> <span class="keyword">SYSDATE</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--DEFAULT 명령어는 사용자가 값을 입력하지 않으면 DEFAULT 뒤에 적힌 값을 자동으로 넣으라는 의미이다.  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">--INSERT 명령어는 뒤에 추후로...</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> test_table2 (<span class="keyword">no</span>) <span class="keyword">VALUES</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+<li><p>1-3. 한글 이름으로 테이블 생성하기</p>
+<ul>
+<li>테이블 이름이나, 컬럼 이름이 한글로도 가능하다. 다만 실제 사용 할 때 불편함이 있으니 잘 고려한 후 사용해야 한다.</li>
+</ul>
+</li>
+<li><p>테이블을 생성할 때 제한 사항</p>
+<ul>
+<li>(1) 테이블 이름은 반드시 문자로 시작해야 한다. 즉, 숫자로 시작할 수 없다. 특수문자도 가능하지만 테이블 생성시 “”로 감싸야 하며 권장하지 않는다.</li>
+<li>(2) 테이블 이름이나 컬럼 이름은 최대 30바이트까지 가능하다. 즉 한글로 테이블 이름을 생성할 경우 최대 15까지만 가능하다는 뜻이다.</li>
+<li>(3) 테이블 이름은 한명의 사용자가 다른 오브젝트의 이름과 중복으로 사용할 수 없다.</li>
+<li>(4) 테이블 이름이나 오브젝트 이름은 오라클이 사용하는 키워드를 사용하지 않기를 권장한다. 생성이 안되는 것은 아니지만 사용시에 아주 불편하고 위험할 수도 있기에 절대로 사용하지 않기를 권장한다.</li>
+</ul>
+</li>
+<li><p>1-4. Gloabl Temporary Table(임시테이블)</p>
+<ul>
+<li><p>오라클 8.1부터 등장한 기능으로 데이터베이스에 저장할 목적이 아닌 임시 작업용 데이터를 저장하기 위해 만들어졌다.</p>
+</li>
+<li><p>테트스가 목적인 작업에서 주로 사용한다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">GLOBAL</span> <span class="keyword">TEMPORARY</span> <span class="keyword">TABLE</span> 테이블 이름</span><br><span class="line">(컬럼<span class="number">1</span> 데이터타입,</span><br><span class="line">컬럼<span class="number">2</span> 데이터타입, ...)</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">COMMIT</span>[<span class="keyword">delete</span> | <span class="keyword">preserve</span>] <span class="keyword">ROWS</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--마지막 행의 ON COMMIT deletes ROWS를 상용하면 COMMIT시에 데이터를 삭제한다는 뜻이고</span></span><br><span class="line"><span class="comment">--ON COMMIT preserve ROWS를 사용하면 세션을 종료해야 데이터가 사라진다.</span></span><br><span class="line"><span class="comment">--기본값은 ON COMMIT delete ROWS이다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1-4-1. 명령을 입력하는 터미널을 2개 열어서 한쪽에서 생성 후 다른쪽에서 조회 확인하기</p>
+<ul>
+<li>다른 터미널에서는 조회가 안된다. 즉, 같은 계정이라고 할지라도 다른 창에서는 다른 사람이 어떤 작업을 하는지 알 수 없다는 뜻이다.</li>
+<li>임시테이블의 생성 옵션이 ON COMMIT delete ROWS 일 때 커밋을 하면 데이터는 모두 삭제 된다.</li>
+<li>임시테이블의 생성 옵션을 ON COMMIT preserve ROWS 주면 COMMIT 훼도 데이터는 남아있으며 해당 세션이 종료되어야 테이블의 데이터가 삭제 된다.</li>
+<li>Redo Log를 생성하지 않는다.</li>
+<li>Index, View, Trigger를 생성할 수 있으나 이 오브젝트 타입도 전부 Temporary 이다.</li>
+<li>이 테이블에 들어 있는 데이터는 이전이나 백업을 할 수 없다.</li>
+</ul>
+</li>
+<li><p>1-4-2. 생성되어 있는 Temporary Table조회하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">GLOBAL</span> <span class="keyword">TEMPORARY</span> <span class="keyword">TABLE</span> temp01</span><br><span class="line">(<span class="keyword">no</span> <span class="built_in">NUMBER</span>,</span><br><span class="line"> <span class="keyword">name</span> <span class="built_in">VARCHAR2</span>(<span class="number">10</span>))</span><br><span class="line"> <span class="keyword">ON</span> <span class="keyword">COMMIT</span>  <span class="keyword">delete</span> <span class="keyword">ROWS</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">temporary</span>, <span class="keyword">duration</span></span><br><span class="line"><span class="keyword">FROM</span> user_tables</span><br><span class="line"><span class="keyword">WHERE</span> table_name=<span class="string">'temp01'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>1-5. 테이블 복사하기(CATS라고도 한다)</p>
+<ul>
+<li><p>새로운 테이블을 생성할 때 기존에 만들어져 있는 테이블을참조하여 새성하는 방법이다. 즉 테이블을 복사하는 의미를 가지고 있다.</p>
+</li>
+<li><p>모든 컬럼 다 복사하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employees2</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>특정 컬럼만 복사하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employees3</span><br><span class="line"><span class="keyword">AS</span> </span><br><span class="line"><span class="keyword">SELECT</span> employee_id, first_name</span><br><span class="line"><span class="keyword">FROM</span> employees;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>테이블의 구조(컬럼)만 가지고 오고 데이터는 가져오지 않기</p>
+<ul>
+<li><p>WHERE 절에 틀린 조건을 적어주면 그 조건에 해당하는 데이터가 없기 때문에 데이터는 가져오지 못하고 그냥 테이블 구조만 생성한다. 아주 많이 사용하는 기법이다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employees4</span><br><span class="line"><span class="keyword">AS</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> <span class="number">1</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ALTER </p>
+<ul>
+<li><p>만들어져 있는 오브젝트를 변경하는 명령어이다.</p>
+</li>
+<li><p>부하가 많이 걸리는 명령이므로 사용량이 많은 시간에 수행하는 것은 아주 위험하니 특히 조심해야 한다.</p>
+</li>
+<li><p>2-1. 새로운 컬럼 추가하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employees5</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> employee_id, first_name</span><br><span class="line"><span class="keyword">FROM</span> employees</span><br><span class="line"><span class="keyword">WHERE</span> department_id = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5</span><br><span class="line"><span class="keyword">ADD</span> (salary <span class="built_in">NUMBER</span>(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5</span><br><span class="line"><span class="keyword">ADD</span> (city <span class="built_in">VARCHAR2</span>(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees5;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5</span><br><span class="line"><span class="keyword">ADD</span> (location <span class="built_in">VARCHAR2</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="string">'GANGNAM'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2-2. 테이블의 컬럼 이름 변경하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5 <span class="keyword">RENAME</span> <span class="keyword">COLUMN</span> city <span class="keyword">TO</span> WITCH_CITY;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employees5;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2-3. 컬럼의 데이터 크기 변경하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DESC employees5;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5</span><br><span class="line"><span class="keyword">MODIFY</span> (location <span class="built_in">VARCHAR2</span>(<span class="number">20</span>));</span><br><span class="line"><span class="comment">--늘릴 수도 있지만, 줄일 수도 있다. 이 때 최소 크기는 들어있는 데이터 값 까지 이다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2-4. 컬럼 삭제하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees5 <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> WITCH_CITY;</span><br><span class="line"></span><br><span class="line"><span class="comment">--만약 참조키로 설정 되어 있는 부모 테이블의 컬럼을 삭제하려 할 경우 에러가 발생하는데, 아래와 같은 방법으로 지우면 된다.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--제약부분에서 다시 언급할 예정</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> employees <span class="keyword">DROP</span> <span class="keyword">COLUMN</span> WITCH_CITY <span class="keyword">CASCADE</span> <span class="keyword">CONSTRAINTS</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>TRUNCATE </p>
+<ul>
+<li><p>테이블의 데이터 전부를 삭제하고 사용하고 있던 공간을 반납하는 명령어 이다.</p>
+</li>
+<li><p>이 명령어를 수행하면 해당 테이블의 데이터가 모두 삭제되지만 테이블 자체가 지워지는 것은 아니다.</p>
+</li>
+<li><p>또한 해당 테이블에 생생 되어 있던 인덱스 내용도 함께 TRUNCATE 된다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> <span class="keyword">TABLE</span> employees4;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>DROP </p>
+<ul>
+<li>테이블 자체를 삭제하는 명령이다.</li>
+<li>테이블 자체가 모두 지워지며 해당 테이블에 있던 인덱스 또한 함께 삭제된다.</li>
+<li>오라클 10g부터는 DROP 명령어로 테이블을 삭제할 경우 테이블이 삭제되는 것이 아니라 마치 윈동서 파일 삭제시 휴지통으로 가는 것처럼 휴지통으로 보내진다. 그리고 삭제된 테이블의 이름은 BIN$… 로 변경된다.</li>
+</ul>
+</li>
+<li><p>DELETE / TRUNCATE / DROP 비교</p>
+</li>
+</ol>
+<p><img src="/img/oracle_ddl.png" alt=""></p>
+<ol start="6">
+<li><p>11g에서 추가된 기능 소개</p>
+<ul>
+<li><p>6-1. 읽기 전용 테이블로 변경하기</p>
+<ul>
+<li><p>만약 어떤 경우에 특정 테이블의 내용을 모두 변경은 할 수 없게 하고 조회만 가능하도록 설정해햐 한다면 트리거를 사용하거나 아니면 제약 조건을 DISALBE NOVALIDATE 해서 작업해야한다. 가능은 하지만 번거롭게 여러가지 작업을 해야한다. 그러나 11g 버전에서는 아주 간단하게 테이블을 읽기 전용으로 변경 할 수 있다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t_readonly</span><br><span class="line">(<span class="keyword">no</span> <span class="built_in">NUMBER</span>,</span><br><span class="line">name_ <span class="built_in">VARCHAR2</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t_readonly <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'AAA'</span>);</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> t_readonly <span class="keyword">read</span> <span class="keyword">only</span>; <span class="comment">--읽기 전용으로 변경한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>읽기 전용 테이블은 데이터 입력이나 테이블 구조 변경은 불가하지만 테이블 자체는 DROP할 수 있다.</p>
+</li>
+<li><p>현재 테이블이 읽기 전용인지를 조회하려면 user_tables의 read_only 컬럼의 값이 YES이면 읽기 전용이고 NO면 읽기/쓰기 모드이다.</p>
+</li>
+</ul>
+</li>
+<li><p>6-2.가상 테이블 컬럼 사용하기</p>
+<ul>
+<li><p>11g 부터는 테이블을 생성할 떄 가상 컬럼이라는 것을 설정할 수 있다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> vt1 (</span><br><span class="line">col1 <span class="built_in">NUMBER</span>,</span><br><span class="line">col2 <span class="built_in">NUMBER</span>,</span><br><span class="line">col3 <span class="built_in">NUMBER</span> <span class="keyword">GENERATED</span> <span class="keyword">ALWAYS</span> <span class="keyword">AS</span> (col1 + col2));</span><br><span class="line"></span><br><span class="line"><span class="comment">--가상 컬럼에는 데이터를 입력할 수 없다.</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> vt1 (col1, col2) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"><span class="comment">--하지만 확인해보면 col3에 잘 들어가 있다!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--새로운 가상 컬럼 추가하기</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> vt1 <span class="keyword">ADD</span> (col4 <span class="keyword">GENERATED</span> <span class="keyword">ALWAYS</span> <span class="keyword">AS</span> ((col1*<span class="number">12</span>)+col2));</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--테이블에서 가상 컬럼 내역 조회하기</span></span><br><span class="line"><span class="keyword">SELECT</span> column_name, data_type, data_default</span><br><span class="line"><span class="keyword">FROM</span> user_tab_columns</span><br><span class="line"><span class="keyword">WHERE</span> table_name = <span class="string">'vt1'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_id;</span><br><span class="line"><span class="comment">--하지만 어쩐지 잘 조회되지 않았음.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><del>Data Dictionray</del></p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/01/2018-02-01-OracleSQL_03/">prev</a><a class="next" href="/2018/02/01/2018-02-01-OracleSQL_01/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

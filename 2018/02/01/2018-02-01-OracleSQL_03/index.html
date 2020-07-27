@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>OracleSQL(8) DML (Data Manipulation Language) | Youmekko</title><meta name="description" content="OracleSQL(8) DML (Data Manipulation Language) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">OracleSQL(8) DML (Data Manipulation Language)</h1><div class="post-info"><a></a>2018-02-01</div><div class="post-content"><h3 id="6장-DML-Data-Manipulation-Language"><a href="#6장-DML-Data-Manipulation-Language" class="headerlink" title="6장. DML (Data Manipulation Language)"></a>6장. DML (Data Manipulation Language)</h3><ul>
+<li>DDL 데이터를 탐는 통 자체를 관리하는 명령이였다.</li>
+<li>DML은 통 안에 들어 있는 데이터를 관리하는 명령어 이다.</li>
+</ul>
+<ol>
+<li><p>INSERT</p>
+<ul>
+<li><p>1-1. INSERT를 사용하여 한행씩 입력하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">table</span>(column1, column2] <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>샘플테이블 생성</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> dept_test</span><br><span class="line">( dcode <span class="built_in">NUMBER</span>(<span class="number">5</span>)</span><br><span class="line">, dname <span class="built_in">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">, dept <span class="built_in">NUMBER</span>(<span class="number">5</span>)</span><br><span class="line">, area <span class="built_in">VARCHAR</span>(<span class="number">20</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예1) </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dept_test(dcde, dname, dept, area) </span><br><span class="line"><span class="keyword">VALUES</span>(<span class="number">9000</span>, <span class="string">'temp_1'</span> , <span class="number">1006</span>, <span class="string">'temp_area'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예2) 모든 컬럼에 데이터를 넣을 경우에는 아래와 같이 테이블 이름 뒤에 컬럼 이름 생략이 가능하다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dept_test <span class="keyword">VALUES</span>(<span class="number">9001</span>, <span class="string">'temp_2'</span> , <span class="number">1007</span>, <span class="string">'temp_area'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예3) 특정 컬럼에 값을 입력하기</p>
+<ul>
+<li><p>반드시 테이블 이름 뒤에 입력하고자 하는 컬럼 이름을 적어주고 VALUES에 해당 컬럼에 들어갈 값을 명시해야 한다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dept_test(dcode, dname, dept) <span class="keyword">VALUES</span>(<span class="number">9002</span>, <span class="string">'temp_3'</span>, <span class="number">1008</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>예4) 날짜 데이터 입력하기</p>
+<ul>
+<li>윈도우와 유닉스 계열은 날짜 형태가 다르므로 날짜 데이터를 입력할 때 형태를 잘 맞춰야한다.</li>
+</ul>
+</li>
+<li><p>예5) NULL값 입력하기</p>
+<ul>
+<li>자동 NULL 값 입력하기 : 데이터를 입력할때 컬럼에 값을 입력하지 않으면 자동으로 NULL값이 들어간다.</li>
+<li>수동 NULL 값 입력하기 : 입력할때 데이터를 적는 부분에 NULL을 적어주면 입력 된다.</li>
+</ul>
+</li>
+<li><p>예6) 음수 값 입력하기</p>
+<ul>
+<li>음수를 입력하는 방법도 양수와 동일하다.</li>
+<li>하지만 컬럼의 자료형에 정수부 자리수만 지정하면 소수점 이하가 표시되지 않는다. 아예 자리수 지정을 하지 않거나, 소수점 이하 자리수까지 지정해야 한다.</li>
+</ul>
+</li>
+<li><p>1-2. INSERT와 Sub Query를 사용하여 여러행 입력하기</p>
+</li>
+<li><p>실습을 위해 professor테이블을 복사해 professor3을 생성한다</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> professor3</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> professor</span><br><span class="line"><span class="keyword">WHERE</span> <span class="number">1</span>=<span class="number">2</span>;</span><br><span class="line"><span class="comment">--데이터를 일부러 입력되지 않게했다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> professor3 <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> professor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>서브쿼리를 이용해서 여러 데이터를 가져와서 입력하는 방법을 현업에서는 ITAS라고 부르기도 한다.</p>
+</li>
+<li><p>위 문장으로 여래항을 입력할 때 professor3 과 professor테이블의 컬럼의 개수와 데이터형이 동일해야 하며 아래 쿼리의 2행이 WHERE절을 사용하여 원하는 조건을 줘도 되고 서브쿼리를 사용해도 된다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> professor4</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> profno, <span class="keyword">name</span>, pay</span><br><span class="line"><span class="keyword">FROM</span> professor</span><br><span class="line"><span class="keyword">WHERE</span> <span class="number">1</span>=<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--ITAS에서도 얼마든지 조건을 사용하여 원하는 데이터를 한꺼번에 가져와서 입력할 수 있다.</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> professor4</span><br><span class="line"><span class="keyword">SELECT</span> profno, <span class="keyword">name</span>, pay</span><br><span class="line"><span class="keyword">FROM</span> professor</span><br><span class="line"><span class="keyword">WHERE</span> profno &gt; <span class="number">40000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">--INSERT ALL을 이용한 여러개 테이블에 여려행 입력하기</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> prof_3</span><br><span class="line">(profno <span class="built_in">NUMBER</span>,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">VARCHAR2</span>(<span class="number">25</span>));</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> prof_4</span><br><span class="line">(profno <span class="built_in">NUMBER</span>,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">VARCHAR2</span>(<span class="number">25</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예1) 다른 테이블의 데이터를 가져와서 입력하기</p>
+<ul>
+<li>Professor테이블에서 교수번호가 1000번에서 1999번까지인 교수의 번호와 교수 이름은 prof_3 테이블에 입력하고 교수 번호가 2000번에서 2999번까지인 교수의 번호와 이름은 prof_4에 입력하기</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">ALL</span> <span class="keyword">WHEN</span> profno <span class="keyword">BETWEEN</span> <span class="number">1000</span> <span class="keyword">AND</span> <span class="number">1999</span> <span class="keyword">THEN</span> <span class="keyword">INTO</span> prof_3 <span class="keyword">VALUES</span> (profno, <span class="keyword">name</span>)</span><br><span class="line">           <span class="keyword">WHEN</span> profno <span class="keyword">BETWEEN</span> <span class="number">2000</span> <span class="keyword">AND</span> <span class="number">2999</span> <span class="keyword">THEN</span> <span class="keyword">INTO</span> prof_4 <span class="keyword">VALUES</span> (profno, <span class="keyword">name</span>)</span><br><span class="line"><span class="keyword">SELECT</span> profno, <span class="keyword">name</span></span><br><span class="line"><span class="keyword">FROM</span> professor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예2) 다른 테이블에 동시에 같은 데이터 입력하기</p>
+<ul>
+<li>prof_3과 prof_4테이블의 데이터를 TRUNCATE로 삭제한 후 professor테이블에서 교수번호가 3000번에서 3999번인 교수들의 교수번호와 이름을 prof_3 테이블과 prof_4 테이블에 동시에 입력하기</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">ALL</span> <span class="keyword">INTO</span> prof_3 <span class="keyword">VALUES</span> (profno, <span class="keyword">name</span>) </span><br><span class="line">           <span class="keyword">INTO</span> prof_4 <span class="keyword">VALUES</span> (profno, <span class="keyword">name</span>)</span><br><span class="line"><span class="keyword">SELECT</span> profno, <span class="keyword">name</span></span><br><span class="line"><span class="keyword">FROM</span> professor</span><br><span class="line"><span class="keyword">WHERE</span> profno <span class="keyword">BETWEEN</span> <span class="number">3000</span> <span class="keyword">AND</span> <span class="number">3999</span>;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>UPDATE</p>
+<ul>
+<li><p>기본의 데이터를 다른 데이터로 변경할 때 사용하는 방법이다.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> 테이블 <span class="keyword">SET</span> <span class="keyword">column</span> = <span class="keyword">value</span> <span class="keyword">WHERE</span> 조건;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예1) professor테이블에서 직급이 조교수인 교수들의 bonus를 20만원으로 인상하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> professor </span><br><span class="line"><span class="keyword">SET</span> bonus = <span class="number">200</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">position</span> = <span class="string">'assistant professor'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예2)  professor테이블에서 Sharon Stone 교수의 직급과 동일한 직급을 가진 교수들 중에서 현재 급여가 250이 안되는 교수들의 급여를 15퍼센트 인상하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> professor </span><br><span class="line"><span class="keyword">SET</span> pay = pay * <span class="number">1.15</span></span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">position</span> = (<span class="keyword">SELECT</span> <span class="keyword">position</span> <span class="keyword">FROM</span> professor <span class="keyword">WHERE</span> <span class="keyword">name</span> = <span class="string">'Sharon Stone'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>DELETE</p>
+<ul>
+<li><p>데이터를 삭제하는 구문</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> 테이블 <span class="keyword">WHERE</span> 조건;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> dept2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예1) dept2테이블에서 부서번호가 9000번에서 9999번 사이인 매장들을 삭제하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> dept2 <span class="keyword">WHERE</span> dcode &gt;= <span class="number">9000</span> <span class="keyword">AND</span> dcode &lt;= <span class="number">9999</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>DELET은 데이터를 삭제한다고 알고 있지만, 사실 데이터는 삭제되지도 않고 해당 블록에 그대로 남아 있다. 특별한 툴(BBDE 등)을 이용하면 DELETE 된 데이터도 전부 복구할 수 있다. 그래서 DELETE 를 한 후 에 테이블의 크기를 확인해보면 크기가 줄어들지 않고 그대로이다.</p>
+</li>
+</ul>
+</li>
+<li><p><del>MERGE</del></p>
+</li>
+<li><p><del>UPDATE JOIN</del></p>
+</li>
+<li><p><del>TRANSACTION</del> 관리</p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/01/2018-02-01-OracleSQL_04/">prev</a><a class="next" href="/2018/02/01/2018-02-01-OracleSQL_02/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

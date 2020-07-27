@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(헬로코딩알고리즘) chapter6 너비우선탐색 | Youmekko</title><meta name="description" content="(헬로코딩알고리즘) chapter6 너비우선탐색 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(헬로코딩알고리즘) chapter6 너비우선탐색</h1><div class="post-info"><a></a>2018-04-11</div><div class="post-content"><p><del>9일만에 알고리즘 포스팅…</del></p>
+<p>너비 우선 탐색(BFS : breadth-first-search)을 사용하면 두 항목의 최단 경로를 찾을 수 있다. 그런데 이 최단 경로라는 말은 여러가지를 의미할수 있다. </p>
+<ul>
+<li>체커 게임에서 가장 적은 수로 승리할 수 있는 방법을 계산하는 인공지능</li>
+<li>맞춤법 검사기(실제 단어에서 가장 적은 개수의 글자를 고쳐서 올바른 단어를 만든다.)</li>
+<li>내 네트워크에서 가장 가까운 의사선생님 찾기</li>
+</ul>
+<p>그래프 알고리즘은 가장 유용한 알고리즘 중 하나이다. (그래보인다!)</p>
+<p>일단, 그래프란 무엇인가? (x, y축을 가지고 있는 그래프를 뜻하는건 아니다.)</p>
+<p>그래프란 연결의 집합을 모형화 한 것이다.  예를 들어 포커를 치고 있다고 가정해보자. 누가 누구에게 돈을 빚지고 있는지 모형화 하고 싶다. </p>
+<p><img src="/img/2018-04-11-algorithm-01.png" alt=""></p>
+<p>파이리는 꼬부기한테 빚을지고, 잠만보는 피카츄랑 꼬부기에게 빚을 지고, 꼬부기는 피카츄에게 빚을 지고 있다.</p>
+<p><img src="/img/2018-04-11-algorithm-02.png" alt=""></p>
+<p>그래프에 대해 알아야할 것을 이것뿐이다. 정점과 간선으로 이루어져 있다. 정점은 다른 여러개의 정점과 바로 이어질 수 있다. 이렇게 이어진 정점을 이웃(neighbor)라고 한다. 이 그래프에서 파이리는 꼬부기의 이웃이다. 파이리랑 피카츄는 이웃이 아니다.</p>
+<h1 id="너비-우선-탐색"><a href="#너비-우선-탐색" class="headerlink" title="너비 우선 탐색"></a>너비 우선 탐색</h1><p>우리는 이미 이진 탐색이라는 탐색 알고리즘을 배웠다. 너비 우선 탐색은 그래프를 대상으로 하는 다른 종류의 탐색 알고리즘이다. 너비 우선 탐색은 두 가지 종류의 질문에 대답하는데 도움이 된다.</p>
+<p>질문1) 정점 A에서 정점B로 가는 경로가 존재하는가?</p>
+<p>질문2) 정점 A에서 정점B로 가는 최단 경로는 무엇인가?</p>
+<p>예) 나는 취준생이다. 개발자로 취업하기 위한 조언을 듣기 위해서 페이스북 친구들중에 개발자가 있는지 찾아보기로 한다. 일단 찾아볼 목록을 만든다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 김국진</span><br><span class="line">- 윤종신</span><br><span class="line">- 김구라</span><br></pre></td></tr></table></figure>
+
+<p>위 목록 중에서 각각의 사람이 개발자인지 아닌지 확인한다.</p>
+<p>만약 위 목록에서 개발자인 사람이 없다고 가정해보자. 이제 내 친구들의 친구들을 목록에 추가 해본다.</p>
+<p><img src="/img/2018-04-11-algorithm-03.png" alt=""></p>
+<p>문제! 김구라와 서장훈 중에 누구를 먼저 확인해야할까?<br>정답! 김구라는 1촌 관계이고, 서장훈은 2촌 관계니까 서장훈 보다 김구라를 먼저 확인해야한다.</p>
+<p>또 다른 목록에 2촌 관계를 추가하기 전에 1촌 관계부터 모두 추가하는 것이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;1촌&gt;</span><br><span class="line">- 김국진</span><br><span class="line">- 윤종신</span><br><span class="line">- 김구라</span><br><span class="line">&lt;2촌&gt;</span><br><span class="line">- 강수지</span><br><span class="line">- 조정치</span><br><span class="line">- 서장훈</span><br></pre></td></tr></table></figure>
+
+<p>목록의 위에서부터 차례대로 개발자가 있는지 확인한다면, 1촌 관계에 있는 개발자를 2촌 관계에 있는 개발자보다 먼저 찾을 수 있따. 너비 우선 탐색은 단순히 A에서 B로 가는 경로를 찾는 것이 아니라 최단 경로를 찾을 수 있다. 이 방법은 목록에 추가한 순서대로 사람을 찾을 때만 가능하다.</p>
+<p>이를 위한 자료구조가 있다. 큐(Queue) 또는 대기열이라고 불리는 자료 구조이다.</p>
+<h3 id="큐"><a href="#큐" class="headerlink" title="큐"></a>큐</h3><p>큐(대기열)은 실생활에서와 완전히 똑같이 동작한다. 만약 버스 정류장에 줄을 서있다고 가정해보자. 만약 앞에 서있으면 뒤에 서있는 사람 보다 먼저 버스를 타게 된다. 큐도 마찬가지이다. 큐는 큐 안의 원소에 임의로 접근할 수 없다는 점에서 스택과 비슷한다. 큐에는 삽입(enqueue)과 제거(dequeue)라는 두가지 연산이 있다.</p>
+<p><img src="/img/2018-04-11-algorithm-04.png" alt=""></p>
+<p>만약 목록에 두개의 항목을 삽입하면 두번째로 삽입된 항목보다 첫번째로 삽입된 항목이 먼저 제거된다. 큐는 탐색 목록에도 쓸 수 있다. 큐를 사용하면 목록에 먼저 추가된 사람들을 먼저 꺼내서 탐색한다. 그래서 큐를 선입 선출(FIFO - First in Frist out) 자료 구조라고 한다. 반대로 스택은 후입 선출(LIFO - Last in Frist out) 자료구조 이다.</p>
+<p><img src="/img/2018-04-11-algorithm-05.png" alt=""></p>
+<h3 id="그래프의-구현"><a href="#그래프의-구현" class="headerlink" title="그래프의 구현"></a>그래프의 구현</h3><p>우선 코드로 그래프를 구현해야 한다. 그래프는 몇개의 정점으로 이루어져있다. 관계를 표시하는 자료구로조 해시테이블을 사용할 수 있다. (키에 값을 할당할 수 있다.)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;&#125;</span><br><span class="line">graph[<span class="string">"나"</span>] = [<span class="string">"김국진"</span>, <span class="string">"윤종신"</span>, <span class="string">"김구라"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#아래와 같이 확장할 수 있다.</span></span><br><span class="line">graph[<span class="string">"김국진"</span>] = [<span class="string">"강수지"</span>]</span><br><span class="line">graph[<span class="string">"윤종신"</span>] = [<span class="string">"조정치"</span>]</span><br><span class="line">graph[<span class="string">"김구라"</span>] = [<span class="string">"서장훈"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>해시테이블은 순서를 가지지 않기 떄문에 키/값 쌍을 어떤 순서로 추가해도 상관없다.</p>
+<p>강수지, 조정치, 서장훈은 이웃이 없다. 그러니까 이들은 향한 화살표는 있어도 이들로 부터 누군가를 향해 나가는 화살표는 없다. 이렇게 방향을 가지는 그래프를 방향 그래프(direct graph)라고 한다. 관계에는 방향성이 있다. 그러니까 강수지는 김국진의 이웃이지만, 강수지는 김국지의 이웃이 아니다.무방향 그래프(undirect graph)는 화살표(방향성)을 가지지 않기 때문에 이어진 두 정점은 서로 이웃이 된다.</p>
+<p><img src="/img/2018-04-11-algorithm-06.png" alt=""></p>
+<h3 id="알고리즘의-구현"><a href="#알고리즘의-구현" class="headerlink" title="알고리즘의 구현"></a>알고리즘의 구현</h3><ol>
+<li>확인할 사람의 명단을 넣을 큐를 준비한다.</li>
+<li>큐에서 한사람을 꺼낸다.</li>
+<li>이 사람이 개발자인지 확인한다.</li>
+<li>‘예’ 라면 작업 완료</li>
+<li>‘아니오’ 라면 그 사람의 이웃을 모두 큐에 추가한다. - 반복문</li>
+<li>만약 큐가 비어 있으면 네트워크에는 개발자가 없다.</li>
+</ol>
+<blockquote>
+<p>큐를 갱신할 때는 삽입과 삭제라는 용어를 사용하지만, 푸시와 팝을 사용하는 경우도 있다. 푸시는 삽입과 거의 같은 의미이고, 팝은 삭제와 거의 같은 의미이다.</p>
+</blockquote>
+<p>일단 큐를 생성하자. 파이썬에서는 양방향 큐인 deque 함수를 사용할 수 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collection <span class="keyword">import</span> deque</span><br><span class="line"><span class="comment">#새 큐를 생성</span></span><br><span class="line">search_que = deque() </span><br><span class="line"><span class="comment">#모든 이웃을 탐색큐에 추가</span></span><br><span class="line">search_que += graph[<span class="string">"나"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#큐가 비어있지 않는 한 계속 실행한다.</span></span><br><span class="line"><span class="keyword">while</span> search_que:</span><br><span class="line">    <span class="comment">#큐의 첫번째 사람을 꺼낸다.</span></span><br><span class="line">    person = search_que.popleft()</span><br><span class="line">    <span class="comment">#개발자인지 확인</span></span><br><span class="line">    <span class="keyword">if</span> person_is_developer(person):</span><br><span class="line">        <span class="comment">#개발자가 맞으면!</span></span><br><span class="line">        <span class="keyword">print</span> person + <span class="string">"is a developer!"</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#개발자가 아님, 모든 이웃을 탐색 목록에 추가</span></span><br><span class="line">        search_que += graph[person]</span><br><span class="line"><span class="comment">#여기에 도달 했단 것은 개발자가 아무도 없다는 의미이다.</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>마지막으로 개발자인지 확인하는 person_is_developer함수가 있어야 한다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">person_is_developer</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> name[<span class="number">-1</span>] == <span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+
+<p>이 함수는 사람의 이름이 d로 끝나는지 확인한다. 만약 d로 끝난다면 그 사람이 개발자이다. (그냥 하나의 예시)</p>
+<p>이 알고리즘은 두가지의 경우에 종료 된다. 1)개발자를 발견하거나 2)큐가 비게 되는 경우이다.(개발자가 존재하지 않는 경우)</p>
+<p>예를 들어 윤종신과 김구라가 모두 유재석이라는 친구가 있다. 그래서 유재석은 큐에 두번 들어간다. 윤종신의 친구로 한번 들어가고 김구라의 친구로 다시 들어간다. 그러니까 탐색 큐에는 유재석이 둘이 된다.</p>
+<p>하지만 결국 유재석이 개발자인지 한번만 확인 하면된다. 두번 한다면 쓸데 없는 짓이다. 그래서 어떤 사람을 확인하고 나면 그 사람이 다시 탐색되지 않도록 표시를 해야한다. 그렇지 않으면 무한 반복에 빠질 수도 있다.</p>
+<p>이렇게 하려면 이미 확인한 사람의 명단을 가지고 있어야 한다.</p>
+<ul>
+<li>최종 코드</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(name)</span>:</span></span><br><span class="line">    search_que = deque()</span><br><span class="line">    search_que += graph[<span class="string">"나"</span>]</span><br><span class="line">    searched = []</span><br><span class="line">    <span class="keyword">while</span> search_que:</span><br><span class="line">        person = search_que.popleft()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> person <span class="keyword">in</span> searched:</span><br><span class="line">            <span class="keyword">if</span> person_is_developer(person):</span><br><span class="line">                <span class="keyword">print</span> person + <span class="string">"is a developer!"</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_que += graph[person]</span><br><span class="line">                searched.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>실행시간</li>
+</ul>
+<p>개발자를 찾기 위해서 네트워크 전체를 탐색한다는 것은 모든 정점을 따라서 움직인다는 뜻이 된다. 그러니까 실행시간은 최소한 O(간선의 개수)가 된다.</p>
+<p>그리고 탐색할 사람을 저장하는 큐도 있어야 한다. 큐에 사람을 추가하는 데는 상수시간 즉 O(1)이 걸린다. 모든 사람에 대해 이것을 적용하면 총O(사람의 수) 시간이 걸린다. 따라서 너비 우선 탐색은 O(사람의 수 + 간선의 수)가 되고 보통 <strong>O(V+E)</strong>라고 표기한다. (V는 정점의 수, E는 간선의 수)</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/11/2018-04-11(Wed)-W.I.L/">prev</a><a class="next" href="/2018/04/11/2018-04-11-Spring-03/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

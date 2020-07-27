@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Javascript module | Youmekko</title><meta name="description" content="Javascript module - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Javascript module</h1><div class="post-info"><a></a>2018-11-26</div><div class="post-content"><p>모듈이란 어플리케이션을 구성하는 개별적 요소로서 재사용 가능한 코드 조각을 말한다. 모듈은 세부 사항을 캡슐화하고 공개가 필요한 API만을 외부에 노출한다.</p>
+<p>일반적으로 모듈은 파일 단위로 분리되어 있으며 어플리케이션은 필요에 따라 명시적으로 모듈을 로드하여 재사용한다. 즉, 모듈은 어플리케이션에 분리되어 개별적으로 존재하다가, 어플리케이션의 로드에 의해서 비로서 어플리케이션의 일원이 된다. 모듈은 기능별로 분리되어 작성되므로 코드의 단위를 명확히 분리하여 어플리케이션을 구성할 수 있으며 재사용성이 좋아 개발 효율성과 유지보수성을 높일 수 있다.</p>
+<p>JS는 script 태그를 사용해 외부의 스크립트 파일을 가져올 수는 있지만 파일마다 독립적인 스코프를 갖지 않고 하나의 전역 객체(Global Object)에 바인딩 되기 때문에 전역 변수가 중복되는 등의 문제가 발생할 수 있다. 이것으로는 모듈화를 구현할 수 없다.</p>
+<p>… 자바스크립트를 클라이언트 사이드에 국한하지 않고 범용적으로 사용하고자 하는 움직임이 생기면서 모듈 기능은 반드시 해결해야하는 핵심과제가 되었고 이런 상황에서 제안 된것이 CommonJS와 AMD(Asynchronous Module Definition)이다. </p>
+<p>결국 자바스크립트의 모듈화는 크게 CommonJS진영과 AMD진영으로 나뉘게 되었고 브라우저에서 모듈을 사용하기 위해서는 CommonJS또는 AMD를 구현한 모듈 로더 라이브러를 사용해야하는 상황이 되었다.</p>
+<p>Nodejs의 사실상 모듈 시스템의 표준인 CommonJS를 채택했고 현재는 독자적인 진화를 거쳐 CommonJS 사양과 100% 동일하지는 않지만 기본적으로 CommonJS 방식을 따르고 있다.</p>
+<p>이런 상황에서 ES6에서는 클라이언트 사이드 자바스크립트에서도 동작하는 모듈 기능을 추가했다. 단 현재 대부분의 브라우저가 ES6 모듈을 지원하지 않고 있으므로 현재의 브라우저에서 ES6 모듈을 사용하려면 SystemJS, requireJS등의 모듈 로더 또는 Webpack 등의 모듈 번들러를 사용해야 한다.</p>
+<p>ES6 모듈은 단 두개의 키워드 <strong>export</strong>와 <strong>import</strong>를 제공한다.</p>
+<h2 id="export"><a href="#export" class="headerlink" title="export"></a>export</h2><p>모듈은 독립적인 파일 스코프를 갖기 때문에 모듈안에 선언한 모든 것들은 기본적으로 해당 모듈 내부에서만 참조할 수 있다. 만약 모듈 안에 선언한 항목을 외부에 공개해 다른 모듈들이 사용할 수 있게 하고 싶다면 export해야한다. 선언된 변수, 함수, 클래스 모두 export할 수 있다.</p>
+<p>모듈을 공개하려면 선언문 앞에 export 키워드를 사용한다. 여러개를 export할수 있는데 이때 각각의 export는 이름으로 구별할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//변수 export</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> pi = <span class="built_in">Math</span>.PI;</span><br><span class="line"></span><br><span class="line"><span class="comment">//함수 export</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">square</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//클래스 export</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//또는 한꺼번에 아래처럼 할 수도 있다.</span></span><br><span class="line"><span class="keyword">export</span> &#123;pi, square, Person&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="import"><a href="#import" class="headerlink" title="import"></a>import</h2><p>export한 모듈을 로드하려면 export한 이름으로 import 해야한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//같은 폴더내의 lib.js 모듈을 로드. 확장자 js는 생략 가능하다.</span></span><br><span class="line"><span class="keyword">import</span> &#123;pi, square, Person &#125; <span class="keyword">from</span> <span class="string">'./lib'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(pi); <span class="comment">//3.141592653589793</span></span><br><span class="line"><span class="built_in">console</span>.log(square(<span class="number">10</span>)); <span class="comment">//100</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Person(<span class="string">'Lee'</span>)); <span class="comment">// Person &#123;name:'Lee'&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>각가의 이름을 정하지 않고 하나의 이름으로 한번에 import할 수 도 있따.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> lib <span class="keyword">from</span> <span class="string">'./lib'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(lib.pi);</span><br><span class="line"><span class="built_in">console</span>.log(lib.square(<span class="number">10</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> Person(<span class="string">'Lee'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>이름을 변경하여 import 할 수 도 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;pi <span class="keyword">as</span> PI, square <span class="keyword">as</span> sq, Person <span class="keyword">as</span> P &#125; <span class="keyword">from</span> <span class="string">'./lib'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(PI);</span><br><span class="line"><span class="built_in">console</span>.log(sq(<span class="number">10</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> P(<span class="string">'Lee'</span>))</span><br></pre></td></tr></table></figure>
+
+<p>모듈에서 하나만을 export할 떄는 default 키워드를 사용할 수 있다. 다만 default를 사용하는 경우 var, let, const는 사용할 수 없다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//위와 동일한 코드</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>default 키와드와 함께 export한 모듈은 {} 없이 임의의 이름으로 import한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> square <span class="keyword">from</span> <span class="string">'./lib'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(square(<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<p>현재 대부분의 브라우저가 ES6 모듈을 지원하지 않고 있으므로 ES6 모듈을 현재의 브라우저에 사용하기 위해서는 SystemJs, RequireJS등의 모듈 로더 또는 Webpack 등의 모듈 번들러를 사용해야 한다.</p>
+<p>출처 <a href="https://poiemaweb.com/es6-module" target="_blank" rel="noopener">https://poiemaweb.com/es6-module</a></p>
+<p><em>추가적인 이해를 위해</em></p>
+<p>모듈이란? 구현 세부사항을 캡슐화 하고 공개 API를 노출해 다른 코드에서 쉽게 로드하고 사용할 수 있도록 재상요 가능한 코드 조각이다.</p>
+<p>기술적으로 모듈 없이도 코드를 작성할 수 있지만 모듈은 60, 70년대 이후 개발자들이 다양한 형식과 프로그래밍 언어로 사용해온 패턴으로 자바스크립트에서 뮤들은 이론적으로 다음 사항을 허용해야한다.</p>
+<ul>
+<li>코드 추상화 : 특수한 라이브러리에 기능을 위임해 실제 구현의 복잡도를 이해할 필요가 없다.</li>
+<li>코드 캡슐화 : 코드를 변경하지 않으려면 모듈 내부에 코드를 숨긴다.</li>
+<li>코드 재사용 : 같은 코드를 반복해서 작성하는 것을 피한다.</li>
+<li>의존성 관리 : 코드를 다시 작성하지 않고도 쉽게 의존성을 변경한다.</li>
+</ul>
+<p>EchmaScript5 및 이전 버전은 모듈을 염두해두고 디자인되지 않았다. 시간이 지나면서 개발자들은 자바스크립트의 모듈화 디자인을 시뮬레이션 하기위해 다양한 패턴을 고안해 냈다.</p>
+<p>이러한 패턴이 어떻게 생겼는지 아이디어를 제공하기 위해, </p>
+<p><strong>즉시 실행 함수 표현식(IIFE, Immediately Invoked Function Expression)</strong>과 <strong>노출식 모듈(Revealing Module)</strong> 2가지를 살펴보자.</p>
+<h3 id="즉시-실행-함수-표현식"><a href="#즉시-실행-함수-표현식" class="headerlink" title="즉시 실행 함수 표현식"></a>즉시 실행 함수 표현식</h3><p>즉시 실행 함수식은 선언 되었을 때 바로 싱행되는 익명함수다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="comment">//</span></span><br><span class="line"> &#125;()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">    console.log(&#39;test&#39;);</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<p>즉시 실행 함수 표현식은 다음과 같이 이해된다.</p>
+<ul>
+<li>IIFE 내분의 코드 복잡도를 캡슐화해 IIFE 코드가 무엇을 하는지 이해하지 않아도 된다.</li>
+<li>IIFE 안에 변수를 정의해 전역 스코프를 오염시키지 않는다. (IIFE 내부의 var문의 IIFE의 클로저 안에 남아 있는다.)</li>
+</ul>
+<p>하지만 IIFE는 의존성 관리를 위한 메커니즘은 제공하지 않는다.</p>
+<h3 id="노출식-모듈-패턴"><a href="#노출식-모듈-패턴" class="headerlink" title="노출식 모듈 패턴"></a>노출식 모듈 패턴</h3><p>노출식 모듈 패턴은 IIFE와 유사하지만 변수에 반환 값을 할당한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Expose module as global variable</span></span><br><span class="line"><span class="keyword">var</span> singleton = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//inner logic</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Expose API</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> </span>&#123;</span><br><span class="line">        sayHello: sayHello</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>funcion 키워드가 시작되는 줄에 함수를 둘러싼 가로가 없다. 이제 모듈 API에 변수를 통해 접근할 수 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Access module functionality</span></span><br><span class="line">singleton.sayHello();</span><br><span class="line"><span class="comment">//=&gt;Hello</span></span><br></pre></td></tr></table></figure>
+
+<p>모듈은 싱글톤 대신 함수 생성자를 내보낼수도 있다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        sayHello: sayHello</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="keyword">var</span> modeul = <span class="keyword">new</span> Module();</span><br><span class="line">moduel.sayHello();</span><br><span class="line"><span class="comment">//=&gt;Hello</span></span><br></pre></td></tr></table></figure>
+
+<p>노출식 모듈 패턴은 IIFE와 유사한 장점이 있지만, 이것 또한 의존성 관리에 대한 매커니즘은 제공하지 않는다. </p>
+<p>자바스크립트가 진화하면서 모듈을 정의하기 위해 다양한 문법이 개발되었으며, 이 문법들은 각각 고유의 장단점을 가진다. 우리는 이것을 모두 모듈 포맷이라 부른다.</p>
+<h2 id="모듈-포맷"><a href="#모듈-포맷" class="headerlink" title="모듈 포맷"></a>모듈 포맷</h2><p>모듈 포맷은 모듈을 정의하기 위해 사용할 수 있는 문법이다.</p>
+<p>EcmaScript6 또는 ES2015 이전에 자바스크립트는 모듈을 정의하기 위한 공식적인 문법을 가지고 있지 않앗다. 그 결과 영리한 개발자들은 자바스크립트에서 모듈을 정의하기 위해 다양한 포맷을 고안해 냈다. </p>
+<p>다음이 많이 채택되고 잘 알려진 포맷들이다.</p>
+<ul>
+<li><p>비동기 모듈 정의(AMD, Asynchronous Module Definition)</p>
+<ul>
+<li>AMD 포맷은 브라우저에서 사용되고 define 함수를 이용해 모듈을 정의한다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'dep1'</span>, <span class="string">'dep2'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">dep1, dep2</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> funtion()&#123;&#125;; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>CommonJS</p>
+<ul>
+<li>Node.js에서 사용되고 require와 module.exports를 사용해 의존성과 모듈을 정의한다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dep1 = <span class="built_in">require</span>(<span class="string">'./dep1'</span>);</span><br><span class="line"><span class="keyword">var</span> dep2 = <span class="built_in">require</span>(<span class="string">'./dep2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>만능 모듈 정의(UMD, Universal Module Definition)</p>
+<ul>
+<li>브라우저와 Node.js에서 둘 다 사용될 수 있다. (복잡해보임…)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">root, factory</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd) &#123;</span><br><span class="line">    <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">    define([<span class="string">'b'</span>], factory);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span> &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">    <span class="comment">// Node. Does not work with strict CommonJS, but</span></span><br><span class="line">    <span class="comment">// only CommonJS-like environments that support module.exports,</span></span><br><span class="line">    <span class="comment">// like Node.</span></span><br><span class="line">    <span class="built_in">module</span>.exports = factory(<span class="built_in">require</span>(<span class="string">'b'</span>));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Browser globals (root is window)</span></span><br><span class="line">    root.returnExports = factory(root.b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;(<span class="keyword">this</span>, <span class="function"><span class="keyword">function</span> (<span class="params">b</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Just return a value to define the module export.</span></span><br><span class="line">  <span class="comment">// This example returns an object, but the module</span></span><br><span class="line">  <span class="comment">// can return a function as the exported value.</span></span><br><span class="line">  <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>System.register</p>
+<ul>
+<li>System.register 포맷은 ES5에서 ES6 모듈 분법을 지원하기 위해 디자인 되었다.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;p <span class="keyword">as</span> q&#125; <span class="keyword">from</span> <span class="string">'./dep'</span>;</span><br><span class="line"><span class="keyword">var</span> s = <span class="string">'local'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">C</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>ES6 모듈 포맷</strong> (여기가 메인)</p>
+<ul>
+<li>위에 잘 써있음</li>
+</ul>
+</li>
+</ul>
+<h2 id="모듈-로더"><a href="#모듈-로더" class="headerlink" title="모듈 로더"></a>모듈 로더</h2><p>모듈 로더는 주요 모듈 포맷으로 작성된 모듈을 해석하고 로드한다. 모듈 로더는 런타임에 실행된다.</p>
+<ul>
+<li>브라우저에서 모듈 로더를 로드한다.</li>
+<li>모듈 로더에게 어떤 메인 어플리케이션 파일을 로드할 것인지 알려준다.</li>
+<li>모듈 로더는 메인 어플리케이션 파일을 다운로드하고 해석한다.</li>
+<li>필요한 경우 모듈 로더가 파일을 다운로드 한다.</li>
+</ul>
+<p>브라우저 개발자 콘솔에서 네트워크 탭을 열면, 모듈 로더에 의해 많은 파일들이 로드된 것을 볼 수 있다.</p>
+<p>인기 있는 모듈 로더</p>
+<ul>
+<li>RequireJS : AMD 포맷 모듈을 위한 로더</li>
+<li>SystemJS : AMD, CommonJS, UMD 또는 System.register 포맷 모듈을 위한 로더</li>
+</ul>
+<h1 id="모듈-번들러"><a href="#모듈-번들러" class="headerlink" title="모듈 번들러"></a>모듈 번들러</h1><p>모듈 번들러는 모듈 로더를 대체한다. 모듈 로더와 반대로 모듈 번들러는 빌드 타임에 실행된다.</p>
+<ul>
+<li>빌드 타임에 번들 파일을 생성하기 위해 모듈 번들러를 실행한다. (예: bundle.js)</li>
+<li>브라우저에서 번들 파일을 로드한다.</li>
+</ul>
+<p>브라우저 개발자 콘솔에서 네트워크 탭을 열먼 모듈 로더에 의해 1개 파일만 로드된 것을 볼 수 있다. 브라우저에서 모듈 로더를 필요로 하지 않는다. 모든 코드는 번들안에 포함되어 있다.</p>
+<p>인기 있는 모듈 번들은 </p>
+<ul>
+<li>Browserify : CommonJS 모듈을 위한 번들러</li>
+<li>Webpack : AMD, CommonS, ES6 모듈을 위한 번들러</li>
+</ul>
+<blockquote>
+<p>여기서!</p>
+<p>번들러는 번들링 하는 것.<br>번들링은 여러가지 파일을 모아서 하나로 만드는 것이다.<br>여러 모듈을 하나로 합쳐서 http 리퀘스트 횟수를 줄여서 퍼포먼스를 향상 시키는 등등의 효과를 불러일으킬 수 있다.</p>
+</blockquote>
+<p><img src="https://d2.naver.com/content/images/2016/02/webpack-1.png" alt=""></p>
+<h2 id="요약"><a href="#요약" class="headerlink" title="요약"></a>요약</h2><p>모던 자바스크립트 개발 환경에서 툴링을 잘 이해하기 위해서는 모듈, 모듈 포맷, 모듈 로더와 모듈 번들러 사이의 차이를 이해하는 것이 중요하다.</p>
+<p><strong>모듈</strong>은 구현 세부 사항을 캡슐화하고 공개 API를 노출해 다른 코드에서 쉽게 로드하고 사용할 수 있도록 재사용 가능한 코드 조각이다.</p>
+<p><strong>모듈 포맷</strong>은 모듈을 정의하기 위해 사용하는 문법이다. AMD, CommonJS, UMD, System.register와 같은 여러 모듈 포맷이 과거에 등장했으며 ES6부터 내장된 모듈 포맷을 사용할 수 있다.</p>
+<p><strong>모듈 로더</strong>는 주요 모듈 포맷으로 작성된 모듈들을 런타임떄 로드하고 재해석 한다. RequireJS와 SystemJS가 있다.</p>
+<p><strong>모듈번들러</strong>는 모듈 로더를 대처하고 빌드타임에 모든 코드의 번들을 생성한다. browerify와 Webpack이 있다.</p>
+<p>출처 <a href="https://github.com/codepink/codepink.github.com/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%AA%A8%EB%93%88,-%EB%AA%A8%EB%93%88-%ED%8F%AC%EB%A7%B7,-%EB%AA%A8%EB%93%88-%EB%A1%9C%EB%8D%94%EC%99%80-%EB%AA%A8%EB%93%88-%EB%B2%88%EB%93%A4%EB%9F%AC%EC%97%90-%EB%8C%80%ED%95%9C-10%EB%B6%84-%EC%9E%85%EB%AC%B8%EC%84%9C" target="_blank" rel="noopener">https://github.com/codepink/codepink.github.com/wiki/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%AA%A8%EB%93%88,-%EB%AA%A8%EB%93%88-%ED%8F%AC%EB%A7%B7,-%EB%AA%A8%EB%93%88-%EB%A1%9C%EB%8D%94%EC%99%80-%EB%AA%A8%EB%93%88-%EB%B2%88%EB%93%A4%EB%9F%AC%EC%97%90-%EB%8C%80%ED%95%9C-10%EB%B6%84-%EC%9E%85%EB%AC%B8%EC%84%9C</a></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/11/26/2018-11-26-Obejct/">prev</a><a class="next" href="/2018/11/19/2018-11-19-crossdomain/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

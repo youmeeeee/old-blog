@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>도서 대출 관리 프로그램 완성(4) | Youmekko</title><meta name="description" content="도서 대출 관리 프로그램 완성(4) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">도서 대출 관리 프로그램 완성(4)</h1><div class="post-info"><a></a>2018-01-06</div><div class="post-content"><h4 id="1차-프로젝트-개요"><a href="#1차-프로젝트-개요" class="headerlink" title="1차 프로젝트 개요"></a>1차 프로젝트 개요</h4><ul>
+<li>기간 : 2017/12/18 ~ 2018/01/05 (크리스마스, 연말연시 휴강)</li>
+<li>환경 : 콘솔 기반</li>
+<li>주제 : 도서 대출 관리</li>
+<li>기술 : JavaSE , OOP, Collection, Generic, File IO, Serialization</li>
+<li>진행절차 : 요구분석 → 화면 설계 → 자료구조 설계 → 액션 설계 → 액션 구현 → 테스트 - 최종실행 (컨펌의 기회는 하루 1번…) 1번째 팀 프로젝트</li>
+</ul>
+<p><strong>2017-12-29~2018-01-05</strong></p>
+<p><u><strong>진행과정과 완성</strong></u></p>
+<p>연말연시 동안 내가 담당한 메소드를 코딩했다.<br>1월 2일 각자 작업한 것들을 합치고 추가로 필요한 메소드들과 예외 처리, 화면 출력를 진행할 예정이 였으나 담당한 메소드들을 작업해오지 못한 친구들이 있어서, 도와주는 작업을 했다.<br>그리고 개인 사정으로 수업에 불참하는 이틀동안 PM을 맡은 친구의 주도로 프로젝트가 거의 완성 되어 있었다. 정말이지 어쩔수 없는 사정이였지만, 너무 아쉽다. 첫 프로젝트이고, 누구보다 주도적으로 참여하고 싶었는데…<br>처음에 내 github의 어카운트에 프로젝트의 repository를 만들고 시작했기에, PM이 완성한 코드를 pull request 해주고, 나는 merge하는 작업을 했다. git은 알다가도 잘 모르겠다. 블로그도 프로젝트도 어째저째 사용은 하고 있지만… 그래도 pull과 merge에 대한 이해가 생기고 처음으로 사용해 보았다.<br>완성된 코드를 받아서, 화면 출력을 통일성 있게 하기 위한 정리, 예외 처리 추가, 일부 메소드 수정의 작업을 담당했다.<br><a href="https://github.com/youmekko/bookmng" target="_blank" rel="noopener">도서 대출 관리 프로그램 github repository</a></p>
+<iframe width="640" height="360" src="https://www.youtube.com/embed/470U_UYn8hI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p><u><strong>프로젝트를 진행 하면서 느낀 점</strong></u></p>
+<ul>
+<li>사실은 혼자서도 만들 수 있을 정도의 규모의 작은 프로그램이였지만, 여러명이서 분담해서 작업하는 것을 잘 실천한 것이 좋았다. 잘하는 친구 위주로 대부분의 작업이 진행 된 팀도 있지만, 그에 비해 우리 팀은 역할 분담이 잘 되었고, 각자 맡은 바를 최선을 다해서 수행해 주었다.</li>
+<li>코딩하는 것보다 설계가 어려웠다.  완벽하진 않았지만, 그래도 처음 설계에서 큰 수정 없이 설계에 맞춰서 결과물이 나왔다. 프로젝트 경험이 많은  PM이 없었더라면 힘들었겠지만, 조원들 대부분 처음해보는 프로젝트였는데 이 정도로 설계에 충실해서 작업할 수 있었던 것은 처음 설계에 많은 시간을 투자하고 완성도 있게 작업했던 덕분인 것 같다.</li>
+<li>프로젝트 기간은 끝났고, 프로그램은 완성 되었지만 개인적으로 리팩토링 해보고 싶은 부분이 많다. 처음부터 끝까지 혼자서 다시 짜볼까도 생각했지만, 그것보다는 다른 사람들이 짠 코드도 읽어가면서 리팩토링 해보는게 도움이 더 많이 될 것 같다. (취업하면 내가 코딩하는 시간보다 다른 사람이 한 코딩을 읽는 일이 훨씬 더 많다고 하니)</li>
+<li>개인적으로 File IO, Serialization에 대해서는 이해를 잘 못하고 있다. 추가로 더 공부해야 한다.</li>
+<li>다음주 월요일 프로젝트 발표다! 전체 프로젝트 PPT와 개인별 코드리뷰를 따로 진행한다. 이번 주말까지 완성되는 대로 포스팅 해야겠다.</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/01/07/2018-01-08-OracleSQL/">prev</a><a class="next" href="/2018/01/06/2018-01-06-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

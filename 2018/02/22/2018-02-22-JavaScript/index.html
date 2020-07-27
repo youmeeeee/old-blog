@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Do it 자바스크립트(1) | Youmekko</title><meta name="description" content="Do it 자바스크립트(1) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Do it 자바스크립트(1)</h1><div class="post-info"><a></a>2018-02-22</div><div class="post-content"><h1 id="DAY-1"><a href="#DAY-1" class="headerlink" title="DAY-1"></a>DAY-1</h1><ul>
+<li><p><strong>var</strong> 변수선언이 필요하다. (파이썬이랑 헷갈림) </p>
+</li>
+<li><p>객체의 종류</p>
+<ol>
+<li>내장객체 : String, Date, Array, Math 등</li>
+<li>BOM (Browser Object Model) : window, screen, location, history, navigator 등(아래 그림이 이해하기 쉬워서 그려 봄)<br><img src="/img/js_bom.png" alt=""></li>
+<li>DOM (Document Object Model) : (X)HTML 문서 구조를 말한다. (X)HTML 문서의 기본 구조는 최상위 객체로 html이 있고, 그 하위 객체로는 head와 body가 있다. 자바스크립트를 이용해 src속성을 바꾸고자 한다면, 지정된 img를 선택해 src속성을 바꿔줘야 한다. 이 때 지정요소를 잘 선택해 가져오려면 문서 객체의 구조를 잘 이해하고 있어야 한다. DOM에서는 (X)HTML의 모든 요소들을 문서 객체로 선택해서 자유롭게 속성을 바꿀 수 있고, 선택한DOM에 원하는 CSS를 적용할 수 도있다.</li>
+</ol>
+</li>
+<li><p>내장객체</p>
+<ul>
+<li>내장 객체 생성은 new 연산자를 사용한다. (자바와 동일)</li>
+<li>내장 객체 메소드는 일단 따로 정리하지 않는다. 필요할때마다 찾아쓰기.</li>
+</ul>
+</li>
+<li><p>BOM</p>
+<ul>
+<li><p>계층적 구조로 이루어져있다.<br><img src="/img/js_bom2.png" alt=""></p>
+</li>
+<li><p>window 객체 : BOM의 최상위 객체이다.</p>
+<ul>
+<li><p>open() : 새 창 열기</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.open(<span class="string">"url경로"</span>, <span class="string">"창이름"</span>, <span class="string">"옵션설정"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 옵션으로 사용할 수 있는 속성</span></span><br><span class="line"><span class="comment">width, height, left, top, location, status, scrollbars, toolbars</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>alert() : 경고창</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// window객체를 따로 작성하지 않아도 사용가능</span></span><br><span class="line">alert(<span class="string">"message"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>prompt() : 질의응답 창</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// window객체를 따로 작성하지 않아도 사용가능</span></span><br><span class="line">prompt(<span class="string">"질의내용"</span>, <span class="string">"기본답변"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>confirm() : 확인/취소창</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// window객체를 따로 작성하지 않아도 사용가능</span></span><br><span class="line">confirm(<span class="string">"정말로 삭제하시겠습니까?!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//확인을 누르면 true, 취소를 누르면 false를 리턴</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>그 밖에 movieTo(), resizeTo(), setInterval(), clearInterval(), setTimeout(), clearTimeout() 등</p>
+</li>
+</ul>
+</li>
+<li><p>Screen 객체</p>
+<ul>
+<li><p>사용자 모니터 정보(속성)을 제공하는 객체이다.</p>
+</li>
+<li><p>기본형 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">screen.속성; </span><br><span class="line"><span class="comment">//witdh, height, availWidth, availHeight, colorDepth</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Location 객체</p>
+<ul>
+<li><p>브라우저의 주소창에 ulr에 대한 정보(속성)와 새로고침 기능(메소드)을 제공하는 객체이다.</p>
+</li>
+<li><p>기본형</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.속성; 또는 location.메소드();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>속성 : href, hash, hostname, host, port, protocol, search</p>
+</li>
+<li><p>메소드 : reload() : 새로 고침이 일어난다.</p>
+</li>
+</ul>
+</li>
+<li><p>Histroy 객체</p>
+<ul>
+<li><p>사용자가 방문한 사이트 중 이전에 방문한 사이트와 다음 방문한 사이트로 다시 돌아갈 수 있는 속성과 메소드를 제공한다.</p>
+</li>
+<li><p>기본형</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">histroy.속성; 또는 history.메소드();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>속성 : length : 방문 기록에 저장된 목록의 개수</p>
+</li>
+<li><p>메소드 : back(), forward(), go(이동숫자)</p>
+</li>
+</ul>
+</li>
+<li><p>Navigator 객체</p>
+<ul>
+<li><p>현재 사용자가 사용하는 브라우저의 정보와 운영체제의 정보를 제공하는 객체</p>
+</li>
+<li><p>기본형</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.속성;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>속성 : </p>
+<ul>
+<li><p>addCodeName : 브라우저의 코드명 리턴</p>
+</li>
+<li><p>appName : 브라우저의 이름 리턴</p>
+</li>
+<li><p>appVersion : 브라우저의 버전정보 리턴</p>
+</li>
+<li><p>language : 브라우저의 사용언어 리턴</p>
+</li>
+<li><p>product  : 브라우저 사용 엔진 이름 리턴</p>
+</li>
+<li><p>platform : 브라우저를 실행하는 운영체제 리턴</p>
+</li>
+<li><p>userAgent : 브라우저와 운영체제 종합정보 제공</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>오늘은 여기까지~!</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/22/2018-02-22-Algorithm/">prev</a><a class="next" href="/2018/02/21/2018-02-21-React/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>컬렉션 프레임워크(1) Set, Map | Youmekko</title><meta name="description" content="컬렉션 프레임워크(1) Set, Map - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">컬렉션 프레임워크(1) Set, Map</h1><div class="post-info"><a></a>2017-12-21</div><div class="post-content"><h3 id="2-Set"><a href="#2-Set" class="headerlink" title="2. Set"></a>2. Set</h3><ul>
+<li><p>수학의 집합에 비유될 수 있다.</p>
+</li>
+<li><p>저장 순서가 유지되지 않는다.</p>
+</li>
+<li><p>객체를 중복해서 저장할 수 없다</p>
+</li>
+<li><p>하나의 null만 저장 할 수 있다.</p>
+</li>
+<li><p>주요 메소드<br><em>순서가 유지되지 않기 때문에 인덱스를 활용한 메소드는 없다.</em></p>
+<ul>
+<li><p><strong>boolean add(E e)</strong><br>주어진 객체를 저장, 객체가 잘 저장되면 true, 중복 객체면 false리턴</p>
+</li>
+<li><p><strong>boolean contains(Object o)</strong><br>주어진 객체가 저장 되어있는지 여부 확인</p>
+</li>
+<li><p><strong>boolean isEmpty()</strong><br>컬렉션이 비어 있는지 조사</p>
+</li>
+<li><p><strong>Iterator <E> iterator()</strong><br>저장된 객체를 한번씩 가져오는 반복자 리턴</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; set = ...;</span><br><span class="line">Iterator&lt;String&gt; iterator = set.iterator();</span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext()&#123;</span><br><span class="line"> String str = iterator.next(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>boolean hasNext()</strong><br>: 가져올 객체가 있으면 true, 없으면 false 리턴</li>
+<li><strong>E next()</strong><br>: 컬렌션에서 하나의 객체를 가져온다.</li>
+<li><strong>void remove()</strong><br>: Set 컬렉션에서 객체를 제거한다.</li>
+</ul>
+</li>
+<li><p>*<em>int size() *</em><br>저장된 객체 수 리턴</p>
+</li>
+<li><p><strong>void clear()</strong> }<br>저장된 모든 객체를 삭제</p>
+</li>
+<li><p><strong>boolean remove(Object o)</strong><br>주어진 객체를 삭제</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="HastSet"><a href="#HastSet" class="headerlink" title="HastSet"></a>HastSet</h4><ul>
+<li><p><u>동일 객체</u> 및 <u>동등 객체</u>는 중복 저장하지 않는다.</p>
+<ul>
+<li><p><strong>동등 객체 판단 방법</strong></p>
+<ul>
+<li>hashcode() 리턴값이 다르면 다른 객체;</li>
+<li>hashcode() 리턴값이 같은데 equals() 리턴값이 false면 다른객체</li>
+<li>hashcode() 리턴값이 다르고 eqauls() 리턴값이 true면 동등 객체</li>
+</ul>
+</li>
+<li><p>동등 객체가 되기 위해서는 hashcode와 equals 메소드를 오버라이딩 해야한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//매개변수가 obj 가  Member타입이라면</span></span><br><span class="line">	<span class="keyword">if</span> (obj <span class="keyword">instanceof</span> Member) &#123;</span><br><span class="line">		Member member = (Member) obj;</span><br><span class="line">		<span class="keyword">return</span> member.name.equals(name) &amp;&amp; member.age == age;</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> name.hashCode() + age;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="추가공부"><a href="#추가공부" class="headerlink" title="추가공부"></a><u>추가공부</u></h4><ul>
+<li>eqauls 메소드의 오버라이딩</li>
+<li>hashCode 메소드의 오버라이딩</li>
+</ul>
+<h3 id="3-Map"><a href="#3-Map" class="headerlink" title="3. Map"></a>3. Map</h3><ul>
+<li><p>키(key)와 값(value)로 구성된 Map.Entry 객체를 저장하는 구조</p>
+</li>
+<li><p>키와 값은 모두 객체</p>
+</li>
+<li><p>키는 중복 될 수 없지만, 값은 중복 저장 가능하다.</p>
+</li>
+<li><p>주요메소드</p>
+<ul>
+<li>객체추가<ul>
+<li>V put(K key, V value)<br>: 주어진 키와 값을 추가, 저장이 되면 값을 리턴</li>
+</ul>
+</li>
+<li>객체 검색<ul>
+<li>boolean containsKey(Object key)<br>: 주어진 키가 있는지 여부</li>
+<li>boolean containsValue(Object value)<br>: 주어진 값이 있는지 여부</li>
+<li>Set&lt;Map.Entry &lt;K, V&gt;&gt; entrySet()<br>: 키와 값을 쌍으로 구성된 모든 Map.Entry 객체를 Set에 담아서 리턴</li>
+<li>V get(Object Key)<br>: 주어진 키의 값을 리턴</li>
+<li>boolean isEmpty()<br>: 컬렉션이 비어있는지 여부</li>
+<li>Set<K> keySet()<br>: 모든 키를 Set 객체에 담아서 리턴</li>
+<li>int size()<br>: 저장된 키의 총 수를 리턴</li>
+<li>Collection<V> values()<br>: 저장된 모든 값 Collection 에 담아서 리턴</li>
+</ul>
+</li>
+<li>객체 삭제<ul>
+<li>void clear()<br>: 모든 Map.Entry(키와 값)을 삭제</li>
+<li>V remove(Object key)<br> : 주어진 키와 일치하는 Map.Entry 삭제,<br>   삭제가 되면 값을 리턴</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>전체 객체를 대상으로 반복해서 얻기 방법(1)<br>keySet 메소드 이용</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;K, V&gt; map = ~;</span><br><span class="line"><span class="comment">//Map 컬렌션에서 key의 값만 모아서 Set 컬렉션으로 만들어줌</span></span><br><span class="line">Set&lt;K&gt; keySet = map.keySet();</span><br><span class="line">Iterator&lt;K&gt; keyIterator = keySet.iterator();</span><br><span class="line"><span class="keyword">while</span>(keyIterator.hasNext())&#123;</span><br><span class="line">  K key = keyIterator.next();</span><br><span class="line">  V value = map.get(key)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>전체 객체를 대상으로 반복해서 얻기 방법(2)<br>Set&lt;Map.Entry &lt;K, V&gt;&gt; entrySet() 이용</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//entrySet() 메소드를 이용해서 Map 엔트리를 저장하는 Set 컬렉션으로 만듬</span></span><br><span class="line">Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySet = map.entrySet();</span><br><span class="line">Iterator&lt;Map.Entry &lt;K, V&gt;&gt; entryIterator = entrySet.iterator();</span><br><span class="line"><span class="keyword">while</span>(entryIterator.hasNext())&#123;</span><br><span class="line">  Map.Entry&lt;K, V&gt; entry = entryIterator.next();</span><br><span class="line">  K key = entry.getKey();</span><br><span class="line">  V value = entry.getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h4><p><code>Map&lt;K, V&gt; map = new HashMap&lt;K, V&gt;();</code></p>
+<ul>
+<li>특징 <ul>
+<li>키 객체는 hashCode()와 equlas()를 재정의 해서 동등 객체가 될 조건을 정해야 한다. <ul>
+<li>hashCode() 리턴 값이 같고 equlas()리턴 값도 값으면 같은 </li>
+<li>haseCode() 리턴 값이 다르면 다른 키</li>
+<li>hashCode() 리턴 값이 같은데 equals() 리턴 값이 false이면 다른 키</li>
+<li>equals(), hashCode() 오버라이딩 해줘야 함</li>
+</ul>
+</li>
+<li>키 타입은 String 많이 사용한다.<br>(문자열이 같을 경우 동등 객체가 될 수 있또록 hashCode()와 equlas() 메소드가 재정의되어 있기 때문에.)</li>
+</ul>
+</li>
+<li>같은 키를 가진 객체를 값을 다르게 해서 넣어주면 마지막에 넣은 객체만 들어간다.</li>
+</ul>
+<h4 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h4><p><code>Map&lt;K, V&gt; map = new HashTable&lt;K, V&gt;();</code></p>
+<ul>
+<li>특징<ul>
+<li>키 객체는 hashCode()와 equals() 메소드를 재정의 해서 동등 객체가 될 조건을 정애햐 한다.</li>
+<li><del>hashTable은 스레드 동기화(synchronization) 가 되어 있기 때문에, 복수의 스레드가 동시에 HashTable에 접근해서 객체를 추가, 삭제하더라고 스레드에 안전(thread safe) 하다.</del></li>
+</ul>
+</li>
+</ul>
+<h4 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h4><p><del>어렵지만 일단 기록해 둔다.</del></p>
+<ul>
+<li><p>특징</p>
+<ul>
+<li><p>키와 값을 String 타입으로 제한한 Map 컬렉션이다.</p>
+</li>
+<li><p>Properties는 프로퍼티(~.properties) 파일을 읽어 들일 때 주로 사용한다.</p>
+<ul>
+<li><u>프로퍼티 파일(~.properties)</u><br>: 애플리케이션의 옵션 정보, 데이터베이스 연결 정보, 국제화(다국어) 정보를 기록한 테스트 파일로 활용<br>: 애플리케이션에서 주로 변경이 잦은 문자열을 저장해서 유지 보수를 편하게 만들어줌 </li>
+<li>키와 값이 = 기호로 연결되어 있는 텍스트 파일로 ISO 8859-1 문자셋으로 저장(what!!!!?!!?!?!)</li>
+<li>한글은 유니코드(Unicode)로 변환되어 저장</li>
+</ul>
+</li>
+<li><p>Properties 객체 생성</p>
+<ul>
+<li><p>파일 시스템 경로를 이용</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line"><span class="comment">//프로퍼티 파일 경로</span></span><br><span class="line">properties.load(<span class="keyword">new</span> FileReader(<span class="string">"C:/~/database.properties"</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ClassPath를 이용</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String path = 클래스.class.getResource("database.properties").getPath();</span><br><span class="line">path = URLDecoder.decode(path, <span class="string">"utf-8"</span>) <span class="comment">// 경로에 한글이 있을 경우 한글을 복원</span></span><br><span class="line">Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">properties.load(<span class="keyword">new</span> FileReader(path));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String path = A.class.getResource("config/database.propertise").getPath();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>값 읽기</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String value = properties.getProperty(<span class="string">"key"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+</li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2017/12/22/2017-12-22-TeamProject01/">prev</a><a class="next" href="/2017/12/21/2017-12-21-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

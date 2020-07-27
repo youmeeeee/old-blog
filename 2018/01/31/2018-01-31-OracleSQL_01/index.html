@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>OracleSQL(5) Sub Quuery | Youmekko</title><meta name="description" content="OracleSQL(5) Sub Quuery - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">OracleSQL(5) Sub Quuery</h1><div class="post-info"><a></a>2018-01-31</div><div class="post-content"><h3 id="10장-Sub-Query"><a href="#10장-Sub-Query" class="headerlink" title="10장. Sub Query"></a>10장. Sub Query</h3><ul>
+<li><p>서브쿼리는 하나의 쿼리안에 또 다른 하나의 쿼리가 담겨있는 것을 말한다.</p>
+</li>
+<li><p>문법</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 셀렉트_리스트</span><br><span class="line"><span class="keyword">FROM</span> 테이블 또는 뷰</span><br><span class="line"><span class="keyword">WHERE</span> 조건 연산자 (<span class="keyword">SELECT</span> 셀렉트_리스트 <span class="keyword">FROM</span> 테이블 <span class="keyword">WHERE</span>조건식);</span><br></pre></td></tr></table></figure></li>
+<li><p>괄호 안에 있는 쿼리를 Sub Query 또는 Inner Query라고 부르고 나머지 괄호 밖에 있는 쿼리를 Main Query(Outer Query)라고 부른다.</p>
+</li>
+<li><p>서브쿼리의 예</p>
+<ul>
+<li>emp테이블에서 WARD보다 comm을 적게 받는 사람의 이름과 comm출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ename, comm</span><br><span class="line"><span class="keyword">FROM</span> emp</span><br><span class="line"><span class="keyword">WHERE</span> comm &lt; (<span class="keyword">SELECT</span> comm <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> ename = <span class="string">'WARD'</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>위 커리의 수행 순서를 보면 Sub Query가 먼저 수행되어 결과를 만들고 그 결괏값을 Main Query로 전달해 준다.</p>
+</li>
+<li><p>하지만, 반드시 Sub Query가 먼저 수행되는 것은 아니며 어떤 경우는 Main Query가 먼저 수행되는 경우도 있다.</p>
+</li>
+<li><p>Sub Query를 작성할 때 주의사항</p>
+<ul>
+<li>Sub  Query 부분은 WHERE절에 연산자 올느쪽에 위치해야 하며 반드시 괄호로 묶어야 한다.</li>
+<li>특별한 경우(Top-n 분석등)를 제외하고 Sub Query절에 Order By절이 올 수 없다.</li>
+<li>단일행 Sub Query와 다중행 Sub Query 연산자를 잘 선택해야 한다.</li>
+</ul>
+</li>
+<li><p>Sub Query의 종류</p>
+<ol>
+<li><p><u>단일행Sub Query(Single Row Sub Query)</u></p>
+<ul>
+<li>단일행 서브쿼리란 서브쿼르의 수행 결과값이 1개의 행만 출력되는 것을 말한다.</li>
+<li>가장 일반적으로 많이 사용되는 유형이며, 서브 쿼리를 수행한 결과가 1건만 나오고 이 결과를 메인 쿼리로 전달해서 메인 쿼리를 수행하게 된다.</li>
+<li>단일 행 연산자(=,&gt;, &gt;=, &lt;, &lt;=, &lt;&gt;, !=) 만 사용된다</li>
+<li>문제 1) Student 테이블과 department테이블을 이용해서 Anthony Hopkins 학생과 1 전공(deptno1)이 동일한 학생의 1전공과 이름 출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> s.name, d.dname</span><br><span class="line"><span class="keyword">FROM</span> student s, department d</span><br><span class="line"><span class="keyword">WHERE</span> s.deptno1 = (<span class="keyword">SELECT</span> deptno1 <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> <span class="keyword">name</span> = <span class="string">'Anthony Hopkins'</span>)</span><br><span class="line"><span class="keyword">AND</span> s.deptno1 = d.deptno;</span><br></pre></td></tr></table></figure></li>
+<li>문제2)  Professeor테이블과 department테이블을 조회하여 Meg Ryan교수보다 나중에 입사한 사람의 이름과 입사일, 학과명 출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.name, p.hiredate, d.dname</span><br><span class="line"><span class="keyword">FROM</span> professor p, department d</span><br><span class="line"><span class="keyword">WHERE</span> p.hiredate &gt; (<span class="keyword">SELECT</span> hiredate <span class="keyword">FROM</span> professor <span class="keyword">WHERE</span> <span class="keyword">name</span> = <span class="string">'Meg Ryan'</span>)</span><br><span class="line"><span class="keyword">AND</span> p.deptno = d.deptno;</span><br></pre></td></tr></table></figure></li>
+<li>문제3)  Student테이블에서 1전공이 201번인 학과의 평균 몸무게보다 몸무게가 많은 학생들의 이름과 몸무게 출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, weight</span><br><span class="line"><span class="keyword">FROM</span> student</span><br><span class="line"><span class="keyword">WHERE</span> weight &gt; (<span class="keyword">SELECT</span> <span class="keyword">AVG</span>(weight) <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> deptno1 = <span class="number">201</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><u>다중행 Sub Query(Multi Row Sub Query)</u></p>
+<ul>
+<li>다중행 서브쿼리란 서브쿼리의 결과가 2건이상 출력되는 것을 말한다.</li>
+<li>결과가 여러건 출력되기 때문에 단일행 연산자를 사용할 수 없다. </li>
+<li>다중행 서브쿼리에서 사용되는 연산자<ul>
+<li><strong>IN</strong> : 서브쿼리 결과와 같은 값을 찾는다.</li>
+<li><strong>EXISTS</strong> : 서브쿼리 값이 있을 경우 메인쿼리를 수행한다.</li>
+<li><strong>&gt;ANY</strong> : 서브쿼리 결과값 중에서 최솟값을 반환한다.</li>
+<li><strong>&lt;ALL</strong> : 서브쿼리 결과값 중에서 최솟값을 반환한다.</li>
+<li><strong>&lt;ANY</strong> : 서브쿼리 결과값 중에서 최댓값을 반환한다.</li>
+<li><strong>&gt;ALL</strong> : 서브쿼리 결과값 중에서 최댓값을 반환한다.</li>
+</ul>
+</li>
+<li>ANY와 ALL는 연산자의 방향에 따라 최댓값, 최솟값이 달라진다.</li>
+<li>예1) IN<ul>
+<li>Emp2 테이블과 Dept2 테이블을 참조하여 근무 지역 (Dept2 테이블의 area컬럼) 이 Pohang Main Office인 모든 사원들의 사번과 이름, 부서번호 출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> empno, <span class="keyword">name</span>, deptno</span><br><span class="line"><span class="keyword">FROM</span> emp2</span><br><span class="line"><span class="keyword">WHERE</span> deptno <span class="keyword">IN</span> (<span class="keyword">SELECT</span> dcode <span class="keyword">FROM</span> dept2 <span class="keyword">WHERE</span> area = <span class="string">'Pohang Main Office'</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>예2) EXITST<ul>
+<li>Exists연산자는 이름 그대로 ‘존재하면’ 이라는 의미가 있다.</li>
+<li>이 연산자는 서브쿼리의 내용을 먼저 수행해서 그 결과가 1건이라도 나오면 메인 쿼리를 수행하고, 만약 서브쿼리의 내용이 한건도 나오지 않으면 메인 쿼리를 아예 실행하지 않는다.</li>
+<li>EXISTS연산자와 IN연산자가 서로 비슷하지만 차이점은 IN 연산자는 서브쿼리에서 검색된 조건만 메인 쿼리에서 연산하지만 EXIST연산자는 서브쿼리의 결과와 상관없이 메인 커리 수행 여부를 결정한다는 점이다.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> dept</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> deptno <span class="keyword">FROM</span> dept <span class="keyword">WHERE</span> deptno = &amp;dno );</span><br><span class="line"><span class="comment">--20을 입력하면 detpno가 20인건이 있으면, 메인쿼리를 실행하고 전부 출력된다.</span></span><br><span class="line"><span class="comment">--50을 입력하면 50에 해당하는 deptno이 없으니까 한개도 출력안함.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> dept</span><br><span class="line"><span class="keyword">WHERE</span> deptno <span class="keyword">IN</span> (<span class="keyword">SELECT</span> deptno <span class="keyword">FROM</span> dept <span class="keyword">WHERE</span> deptno = &amp;dno) ;</span><br><span class="line"><span class="comment">--20을 입력하면 deptno가 20인건만 출력된다.</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>즉, EXISTS 연산자는 서브쿼리 결과가 있으면 그 결과와 관계없이 메인 쿼리를 수행하는 연산자이지만 IN 연산자는 서브쿼리의 결과가 있으면 그 결과에 해당되는 메인 쿼리를 수행하는 연산자이다. 이 두가지를 잘 구분해서 사용해야 하며, 특히 EXISTS 연산자는 실전에서 어떤 데이터가 있는지 없는지를 확인해서 쿼리를 실행할때 아주 많이 사용하는 함수이므로 꼭 이해하고 있어야 한다.</li>
+<li>문제1) emp2 테이블을 사용해서 전체 직원중 Section Head 직급의 최소 연봉자보다 연봉이 높은 사람의 이름과 직급, 연봉을 출력하세요. 단 연봉 출력 형식은 천 단위 구분기호와 $를 표시하세요.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, <span class="keyword">position</span>, TO_CHAR(pay, <span class="string">'$999,999,999'</span>)</span><br><span class="line"><span class="keyword">FROM</span> emp2</span><br><span class="line"><span class="keyword">WHERE</span> pay &gt; <span class="keyword">ANY</span> (<span class="keyword">SELECT</span> pay <span class="keyword">FROM</span> emp2 <span class="keyword">WHERE</span> <span class="keyword">position</span> = <span class="string">'Section head'</span>);</span><br></pre></td></tr></table></figure></li>
+<li>문제2) Student 테이블을 조회하여 전체 학생 중에서 추젱이 2학년 학생들의 체중에서 가장 적게나가는 학생보다 몸무게가 적은 한생의 이름과 학년 몸무게를 출력하세요.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, grade, weight</span><br><span class="line"><span class="keyword">FROM</span> student</span><br><span class="line"><span class="keyword">WHERE</span> weight &lt; <span class="keyword">ALL</span> (<span class="keyword">SELECT</span> weight <span class="keyword">FROM</span> student <span class="keyword">WHERE</span> grade = <span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
+<li>문제3)  emp2 이블과 dept2 테이블을 조회하여 각 부서별 평균 연봉을 구하고 그중에서 평균 연봉이 가장 적은 부서의 평균 연봉보다 적게 받는 직원들의 부서명, 직원명, 연봉을 출력하세요.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.name, d.dname , TO_CHAR(e.pay,<span class="string">'$999,999,999'</span>)</span><br><span class="line"><span class="keyword">FROM</span> dept2 d , emp2 e</span><br><span class="line"><span class="keyword">WHERE</span> d.dcode = e.deptno <span class="keyword">AND</span> pay &lt; <span class="keyword">all</span> ( <span class="keyword">SELECT</span> <span class="keyword">avg</span>(pay) <span class="keyword">FROM</span> emp2 <span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><u>다중쿼리 Sub Query (Multi Column SubQuery)</u></p>
+<ul>
+<li>다중 컬럼 서브쿼리란 서브쿼리의 결과가 여러 컬럼인 경우를 말한다.</li>
+<li>주로 프라이머리 키를 여러 컬럼을 합쳐서 만들었을 경우 한꺼번에 비교하기 위해서 자주 사용한다.</li>
+<li>예1) Student테이블을 조회하여 각 학년별로 최대 몸무게를 가진 학생들의 학년과 이름과 몸무게를 출력하기<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> grade, <span class="keyword">name</span>, weight</span><br><span class="line"><span class="keyword">FROM</span> student</span><br><span class="line"><span class="keyword">WHERE</span> (grade, weight) <span class="keyword">IN</span> (<span class="keyword">SELECT</span> grade, <span class="keyword">MAX</span>(weight) <span class="keyword">FROM</span> student <span class="keyword">GROUP</span> <span class="keyword">BY</span> grade);</span><br></pre></td></tr></table></figure></li>
+<li>쿼리문을 보면, 서브쿼리에서 학년별로 최대몸무게를 구한후 한행씩 메인쿼리로 넘겨줘서 메인쿼리를 수행한 후 그 조건에 맞는 행을 출력한다. 여기서 중요한 것은 서브쿼리에서 두개의 컬럼을 동시에 메인 쿼리로 넘겨서 비교한다는 것이다.</li>
+<li>문제1) Professor 테이블과 Department 테이블을 조회하며 각 학과별로 입사일이 가장 오래된 교수의 교수 번호와 이름, 학과명을 출력하세요(입사일 순으로 오름차순 정렬)<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> profno, <span class="keyword">name</span>, dname, hiredate</span><br><span class="line"><span class="keyword">FROm</span> professor p, department d</span><br><span class="line"><span class="keyword">WHERE</span> p.deptno = d.deptno</span><br><span class="line"><span class="keyword">AND</span> (p.deptno, p.hiredate) <span class="keyword">IN</span> (<span class="keyword">SELECT</span> deptno, <span class="keyword">MIN</span>(hiredate) <span class="keyword">FROM</span> professor <span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno);</span><br></pre></td></tr></table></figure></li>
+<li>문제2) Emp2 테이블을 조회하여 직급별로 해당 직급에서 최대 연봉을 받는 직원의 이름과 직급, 연봉을 출력하기. 연봉 오름차순.<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, <span class="keyword">position</span>, pay</span><br><span class="line"><span class="keyword">FROM</span> emp2</span><br><span class="line"><span class="keyword">WHERE</span> (<span class="keyword">position</span>, pay) <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">position</span>, <span class="keyword">MAX</span>(pay) <span class="keyword">FROM</span> emp2 <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">position</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><u>상호연관 Sub Query</u></p>
+<ul>
+<li><p>상호 연관 서브쿼리란 메인 쿼리 값을 서브쿼리에 주고 서브쿼를 수행한 후 그 결과를 다시 메인 쿼리로 반환해서 수행하는 서브쿼리를 말한다.</p>
+</li>
+<li><p>즉, 메인 쿼리와 서브쿼리가 서로 데이터를 주고받는 형태인데, 성능이 아주 나쁜 유형이므로 아주 조심해서 사용해야 한다.</p>
+</li>
+<li><p>예1) emp2 테이블을 조회해서 직원들 중에 자신의 직급 평균 연봉과 같거나 많이 받은 사람들의 이름과 직급, 현재 연봉을 출력하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, <span class="keyword">position</span>, TO_CHAR(pay, <span class="string">'$999,999,999'</span>) SALARY</span><br><span class="line"><span class="keyword">FROM</span> emp2 a</span><br><span class="line"><span class="keyword">WHERE</span> pay &gt;= (<span class="keyword">SELECT</span> <span class="keyword">AVG</span>(pay) <span class="keyword">FROM</span> emp2 b <span class="keyword">WHERE</span> a.position = b.position);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>이 쿼리는 메인 쿼리를 먼저 수행해서 직급을 구한다음에 서브쿼리에 전달해주고 그 값을 받은 서브쿼리가 수행되어 결과를 다시 메인쿼리로 전달해준다. 그 이후에 다시 받은 값을 가지고 메인 쿼리가 최종적으로 수행되는 그런 형태이다. 잘못 사용할 경우 성능저하의 원이이 될 수 있으니 조심해야 한다.</p>
+</li>
+</ul>
+</li>
+<li><p><del>Scalar Sub Query(스칼라 서브쿼리)</del></p>
+</li>
+</ol>
+</li>
+</ul>
+<p>서브쿼리.. 넘나 헷갈리는 그것…</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/01/31/2018-01-31-Algorithm/">prev</a><a class="next" href="/2018/01/31/2018-01-31-Note/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

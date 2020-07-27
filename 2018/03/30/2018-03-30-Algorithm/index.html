@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(헬로코딩알고리즘) chapter4 퀵정렬 | Youmekko</title><meta name="description" content="(헬로코딩알고리즘) chapter4 퀵정렬 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(헬로코딩알고리즘) chapter4 퀵정렬</h1><div class="post-info"><a></a>2018-03-30</div><div class="post-content"><h3 id="분할-정복"><a href="#분할-정복" class="headerlink" title="분할 정복"></a>분할 정복</h3><p>가끔 공부한 어떤 알고리즘으로도 풀 수 없는 문제를 만날 수 있다. 이런 문제를 풀기 위해서는 다양한 기술을 통해 해결 방법을 알아내야 한다. _분할 정복(divide-and-conquer)_전략은 첫번째 범용 기술(general technique)이다.</p>
+<p>문제 해결 방법 중에서 가장 유명한 재귀적 기술 분할정복 전략에 대해서 살펴 보자. 이 장에서는 본격적으로 알고리즘의 핵심에 다가간다. </p>
+<p><strong>예제1)</strong> 일정 크기의 토지를 가장 큰 정사각형으로 동일하게 나누는 예제</p>
+<p><img src="/img/2018-03-30-algorithm-01.png" alt=""></p>
+<p>분할 정복 전략은 다음과 같이 동작한다.</p>
+<ol>
+<li>가장 간단한 경우로 기본 단계를 찾는다.</li>
+<li>주어진 문제를 작게 줄여서 기본 단계가 되도록 만드는 법을 찾아낸다.</li>
+</ol>
+<p><strong>예제2)</strong> [2, 4, 6] 이라는 숫자배열이 주어졌다. 이 숫자를 모두 더하여 합계를 구해야한다. 반복문을 사용하면 간단하다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(arr)</span>:</span></span><br><span class="line">    total=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> arr:</span><br><span class="line">        total += x</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> sum([<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+
+<p>재귀함수를 사용해서 합개를 구하려면 어떻게 해야할까?</p>
+<ul>
+<li>1단계 : 기본단계를 찾는다. 가장 간단한 배열은 무엇일까? 원소의 개수가 0개이거나 1개인 배열을 받으면 합계를 구하는 것은 간단하다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ ] : 원소의 개수가 0개이면 합계는 0</span><br><span class="line">[2] : 원소의 개수가 1개이면 합계는 2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2단계 : 이제 재귀 함수를 호출 할 때마다 호출 대상이 되는 배열의 크기가 점점 감소해야한다. </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum([2,4,6]) &#x3D; 12</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 + sum([4,6]) &#x3D; 2 + 10 &#x3D; 12</span><br></pre></td></tr></table></figure>
+
+<p>두 번째 방법에서 sum 함수에 더 작은 배열을 넘긴다. 즉, 문제의 크기를 줄였다.</p>
+<ul>
+<li>sum 함수는 리스트를 받는다.<br>→ 만약 리스트가 비어있으면 0을 반환한다.<br>→ 그렇지 않으면 총합은 리스트의 첫번째 숫자와 나머지 리스트의 총합을 더한 값이 된다.</li>
+</ul>
+<p>재귀에서는 상태룰 추적한다는 점을 명심하자!<br>배열을 포함하는 재귀 함수를 만들때, 기본 단계는 보통 빈 배열이나 원소가 하나뿐인 배열이 된다. </p>
+<blockquote>
+<p>반복문으로 풀 수 있는데 왜 재귀적으로 해야하나요? 이렇게 생각할 수 있다. 사실 이 방법은 함수형 프로그래밍(functional programming)을 살짝 맛본 것이다. 하스켈(Haskell)과 같은 함수형 프로그래밍 언어네는 반복문이란 것이 없다. 그러니 무조건 재귀 함수를 사용해야만 한다. 만약 재귀를 잘 알고 있음녀 함수형 언어를 익히는 것이 더 쉬워진다.</p>
+</blockquote>
+<h3 id="퀵-정렬-quicksort"><a href="#퀵-정렬-quicksort" class="headerlink" title="퀵 정렬(quicksort)"></a>퀵 정렬(quicksort)</h3><p>퀵 정렬을 정렬 알고리즘이다. 선택 정렬보다 훨씬 빠르고 실제로도 자주 사용한다.퀵 정렬도 마찬가지로 분할 정복 전략이다.정렬을 하는데 가장 간단한 배열은 무엇일까? 정답은 아예 정렬할 필요더 없는 정렬이다.</p>
+<p>예 ) 비어있는 배열, 원소가 하나인 배열</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quicksort</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> array</span><br></pre></td></tr></table></figure>
+
+<p>원소가 세개인 배열은 어떨까~?!</p>
+<p>지금은 분할 정복 전략을 사용하고 있다. 그러니까 이 배열을 기본단계가 될 때까지 나눠야 한다. 퀵 정렬의 동작은 다음과 같다. 우선 배열에서 원소를 하나 고른다. 이 원소를 기준 원소(pivot)라고 한다. 기준 원소를 어떻게 선택하는지는 나중에 보고 일단 배열의 첫번째 원소가 기준 원소라고 하자. 이제 모든 원소를 기준 원소보다 작은 원소와 큰 원소로 분류한다. 이것을 분할(partitioning)이라고 한다. 그렇게 하면</p>
+<ul>
+<li>(1번) 기준 원소보다 작은 숫자들로 이루어진 하위배열</li>
+<li>(2번) 기준 원소</li>
+<li>(3번) 기준 원소보다 큰 숫자들로 이루어진 하위배열</li>
+</ul>
+<p>가 남는다. 이 두개의 하위 배열(sub-array)는 정렬되어 있지 않다. 하지만 만약 이것들이 정렬 되어 있다면 전체 배열을 정렬하는 일은 아주 쉽다.</p>
+<ul>
+<li>1번배열 + 2번 기준원소 + 3번배열</li>
+</ul>
+<p>그렇다면 하위 배열은 어떻게 정렬해야 할까? 퀵 정렬의 기본단계에서 원소의 개수가 두개인 배열이나 원소가 없는 빈 배열을 정렬하는 법은 이미 알고 있다. 그러니까 이 두개의 하위 배열에 대해서도 퀵 정렬을 호출하고, 그 결과를 합치면 전체 배열이 정렬이 된다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quicksort</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="comment"># 기본단계 : 원소의 개수가 0이나 1이면 이미 정렬되어 있는 상태</span></span><br><span class="line">    <span class="keyword">if</span> len(arr) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> arr</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#재귀 단계</span></span><br><span class="line">        pivot = arr[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">#기준 원소보다 작거나 같은 모든 원소로 이루어진 하위 배열</span></span><br><span class="line">        less = [i <span class="keyword">for</span> i <span class="keyword">in</span> arr[<span class="number">1</span>:] <span class="keyword">if</span> i &lt;= pivot]</span><br><span class="line">        <span class="comment">#기준 원소보다 큰 모든 원소리 이루어진 하위배열</span></span><br><span class="line">        greater = [i <span class="keyword">for</span> i <span class="keyword">in</span> arr[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; pivot]</span><br><span class="line">        <span class="keyword">return</span> quicksort(less) + [pivot] + quicksort(greater)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">print</span> quicksort([<span class="number">10</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>귀납적 증명은 알고리즘이 제대로 동작하는지 증명한느 방법 중 하나이다. 귀납적 증명에도 기본단계(base case)와 귀납 단계(inductive case)라는 두가지 단계가 필요하다. </p>
+<p>예를 들어 사다리 끝에 올라갈 수 있다 라는 것을 증명하고 싶다고 가정하자. 귀납 단계에서는 내 다리가 사다리의 어떤 단계에 있으면 다음 계단에도 다리를 올려놓을 수 있다. 그러니까 만약 두번째 계단에 있으면 세번쨰 계단에도 오를 수 있다. 이것이 귀납단계이다. </p>
+<p>퀵 정렬에서도 비슷한 논리를 주장할 수 있다. 배열의 크기가 0이나 1인 경우에 해당 알고리즘이 동작한다는 것을 보여주고, 귀납 단계에서는 퀵 정렬이 크기가 1인 배열에서 동작하면 2인 배열에서도 동작한다는 것을 보여준다, 3,4… 일때도 마찬가지다.</p>
+</blockquote>
+<h3 id="빅오표기법-복습"><a href="#빅오표기법-복습" class="headerlink" title="빅오표기법 복습"></a>빅오표기법 복습</h3><p><img src="/img/2018-03-30-algorithm-02.png" alt=""></p>
+<p>퀵 정렬은 선택한 기준원소에 따라 처리 속도가 달라진다는 특징이 있다.</p>
+<h5 id="병합-정렬과-퀵-정렬-비교"><a href="#병합-정렬과-퀵-정렬-비교" class="headerlink" title="병합 정렬과 퀵 정렬 비교"></a>병합 정렬과 퀵 정렬 비교</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_items</span><span class="params">(list)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        <span class="keyword">print</span> item</span><br></pre></td></tr></table></figure>
+
+<p>위 함수는 리스트에 있는 모든 원소를 훑어보고 하나씩 출력한다. 리스트 전체에 반복문을 실행하므로 이 함수의 실행시간은 O(n)이다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line">dep print_item2(list):</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">print</span> item</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 함녀 하나의 원소를 출력하기 전에 1초동안 멈춰있다. 두 개의 함수를 이용해서 5개의 원소를 가지는 리스트를 출력한다고 가정해보자.</p>
+<p>두 함수 모두 리스트를 한번만 훝어보기만 훝어보기 때문에 똑같이 O(n)의 실행시간을 가지지만 print_items의가 원소 출력전에 1초 동안 기다리지 않기 떄문에 훨씬 빠르다. 빅오 표기법으로는 두 함수 모두 같은 속도를 가지지만, 실제로는 print_items가 훨씬 빠르다.빅오 표기법을 사용한다는 것은 이런 의미이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c * n</span><br></pre></td></tr></table></figure>
+
+<p>여기서 c는 알고리즘이 소비하는 어떤 특정 시간으로 이를 상수(constant)라고 부른다. 예를 들어 print_items 함수는 10 milliseconds x n 시간이 걸리고 print_items2 함수는 1 second x n 시간이 걸린다.</p>
+<p>만약 두 개의 알고리즘이 서로 다른 빅오 표기법의 시간을 가진다면 상수는 크게 문제가 되지 않기 때문에, 이런 상수들은 보통 무시한다. 이진 탐색과 단순 탐색을 예로 들어보자. 두 알고리즘 모두 다음과 같은 상수를 가진다고 가정하자.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[단순탐색]</span><br><span class="line">10밀리초 * n</span><br><span class="line">10밀리초 * 40억개 &#x3D; 463초</span><br><span class="line">-------------------------</span><br><span class="line">[이진탐색]</span><br><span class="line">1초 * log n</span><br><span class="line">1초 * 32 &#x3D; 32초</span><br></pre></td></tr></table></figure>
+
+<p>이진 탐색이 훨씬 빠르다. 그러니까 상수는 전혀 문제가 되지 않는다. </p>
+<p>가끔은 상수 때문에 차이가 발생하기도 한다. 퀵 정렬과 병합 정렬이 그 예이다. 퀵 정렬이 병합 정렬보다 더 작은 상수를 가진다. 그래서 실행시간이 O(n log n)으로 동일하다면 퀵 정렬이 더 빠르다. 퀵 정렬을 사용할 때 최악의 경우보다는 일반적인 경우가 훨씬 더 많기 때문에 현실에서는 퀵 정렬이 빠르다.</p>
+<p>최악의 경우를 살펴보자.</p>
+<h5 id="평균적인-경우와-최악의-경우-비교"><a href="#평균적인-경우와-최악의-경우-비교" class="headerlink" title="평균적인 경우와 최악의 경우 비교"></a>평균적인 경우와 최악의 경우 비교</h5><p>퀵 정렬의 성능은 선택한 기준 원소에 크게 의존한다. 만약 첫번째 원소를 항상 기준 원소로 선택한다고 하자. 그리고 이미 정렬 되어있는 배열에 대해 퀵 정렬을 호출해자. 퀵 정렬은 입력으로 주어진 배열이 이미 정렬되어 있는지, 아닌지는 확인하지 않기 때문에 그냥 정렬하려고 한다.</p>
+<p>이 경우 배열을 절반으로나누지 않고 진행하는 것을 확인 할 수있다. 두 개의 하위 배열 중 하나는 항상 빈 배열이다. 그래서 호출 스택이 아주 길어진다. </p>
+<p>이번에는 정렬되어있는 배열 가운데 정 가운데 있는 원소를 항상 기준 원소로 선택한다고 가정해보자. 매번 배열을 절반으로 나누기 때문에 재귀적 호출을 많이 할 필요가 없다. 기본 단계에 더 빨리 도달하기 때문에 호출 스택이 짧아진다. </p>
+<p>첫번째 경우가 최악의 시나리오이다, 그리고 두번째 경우가 최선의 시나리오이다. 최악의 경우에는 스택의 크기가 O(n)이 된다. 하지만 최악의 경우는 스택의 크기가 O(log n)이 된다.</p>
+<p> 그리고 각각의 단계는 O(n)시간이 걸린다.</p>
+<p> 따라서 최선의 경우 전체 알고리즘은 O(n) x O(log n) = O(n log n) 시간이 걸린다. 최악의 경우는는 O(n) x O(n) = O(n²) 시간이 걸린다.</p>
+<p>그런데 퀵 정렬에서는 일반적인 경우에도 최선의 경우와 같은 실행 속도를 가진다. 만약 기준 원소를 전체배열에서 무작위로 선택한다면 퀵 정렬을 평균적으로 O(n log n) 실행 시간을 가진다. 퀵 정렬을 가장 빠른 정렬 방법 중 하나이고 분할 정복의 좋은 예이다.</p>
+<h5 id="정리"><a href="#정리" class="headerlink" title="정리"></a>정리</h5><ul>
+<li>빅오 표기법에서 가끔씩 상수가 중요해질 때도 있다. 퀵 정렬이 병합 정렬보다 빠른 이유도 상수 때문이다.</li>
+<li>단순 탐색과 이진 탐색을 비교할 떄는 상수항이 전혀 문제가 되지 않는다. 왜냐면 리스트가 길어지면 O(log n)이 O(n)보다 훨씬 빨라지기 때문이다.</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/03/30/2018-03-30(Fri)-W.I.L/">prev</a><a class="next" href="/2018/03/29/2018-03-29(Thu)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

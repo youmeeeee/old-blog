@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>OracleSQL(9) VIEW | Youmekko</title><meta name="description" content="OracleSQL(9) VIEW - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">OracleSQL(9) VIEW</h1><div class="post-info"><a></a>2018-02-02</div><div class="post-content"><h3 id="9장-View"><a href="#9장-View" class="headerlink" title="9장. View"></a>9장. View</h3><ul>
+<li>오라클에서 아주 많이 사용되는 데이터 관리용 Object</li>
+<li>View란 가상 테이블을 의미하는데 원래 테이블은 데이터가 들어있지만 View에는 데이터가 없고 원본 테이블에가서 데이터를 불러오는 SQL Query만 저장디어 있다.</li>
+<li>사용자가 해당 View를 사용하는 SQL문장을 수행하면 그 때 View에 들어있떤 SQL이 실행된다.</li>
+<li>View를 사용하는 이유는 다양하겠지만 대부분은 보안과 사용자 편의성 때문이다.</li>
+<li>View를 이용해서 데이터 조회도 할수있고 DML도 수행할 수 있다. 그러나 일반적으로 View의 주요 용도는 조회다.</li>
+</ul>
+<ol>
+<li><p>Simple View (단순 뷰)</p>
+<ul>
+<li><p>View를 생성할 서브쿼리에 조인 조건이 안들어가고 1개의 테이블로만 만들어지는 간단한 View를 의미한다.</p>
+</li>
+<li><p>생성문법</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span>  <span class="keyword">OR</span> <span class="keyword">REPLACE</span>  <span class="keyword">VIEW</span> <span class="keyword">view</span> [ ( <span class="keyword">alias</span>, <span class="keyword">alias</span>, ...) ]</span><br><span class="line"><span class="keyword">AS</span> sub-<span class="keyword">query</span></span><br><span class="line">[ <span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span> [ <span class="keyword">CONSTRAINT</span> 제약조건 ] ]</span><br><span class="line">[ WTIH <span class="keyword">READ</span> <span class="keyword">ONLY</span> ]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OR REPLACE : 같은 이름의 view 가 있을 경우 삭제후 다시 생성한다.</li>
+<li>FORCE : 기본 테이블의 존재 여부에 상관없이 View를 생성한다</li>
+<li>NO FORCE : 기본 테이블이 존재할 경우에만 VIEW 생성, 기본값이다.</li>
+<li>ALIAS : 기본 테이블의 컬럼 이름과 다르게 지정한 View 컬럼의 이름을 지정한다.</li>
+<li>WITH CHECK OPTION : 주어진 제약 조건에 맞는 데이터만 입력 및 수정을 허용한다.</li>
+<li>WITH READ ONLY : SELECT만가능한 읽기 전용 뷰를 생성한다.</li>
+</ul>
+</li>
+<li><p>1-1. 일반 단순 뷰 생성하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> v_emp1</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> empno, ename, hiredate</span><br><span class="line"><span class="keyword">FROM</span> emp;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> v_emp1;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>오라클은 View 정보를 딕셔너리에 저장해놓고 사용자가 이 View를 사용하게 되면 3,4번 라인에 있는 서브쿼리가 수행되어 원본 테이블인 emp에 가서 SELECT 절에 있는 컬럼을 가져오게 된다.</li>
+<li>즉, v_emp1 View에는 아무런 데이터가 없다는 뜻이고, 그렇기 때문에 제약조건이나 인덱스 등을 생성할 수 없다.</li>
+</ul>
+</li>
+<li><p>1-2. View를 통한 데이터 변경하기</p>
+<ul>
+<li><p>일반적으로 View는 조회용으로 많이 사용하지만  데이터를 변경할 수도 있다.</p>
+</li>
+<li><p>예1) View를 통하여 DML작업 수행하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> o_table</span><br><span class="line">(a <span class="built_in">NUMBER</span>,</span><br><span class="line">b <span class="built_in">NUMBER</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view1</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> a, b</span><br><span class="line"><span class="keyword">FROM</span> o_table;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> view1 <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--o_table 테이블과 view1 View에 전부 데이터가 들어가 있다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예2) With Read Only 테스트하기(읽기 전용생성하는 옵션)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view2</span><br><span class="line"><span class="keyword">AS</span> </span><br><span class="line"><span class="keyword">SELECT</span> a,b</span><br><span class="line"><span class="keyword">FROM</span> o_table</span><br><span class="line"><span class="keyword">WITH</span> <span class="keyword">READ</span> <span class="keyword">ONLY</span>; <span class="comment">-- 읽기 전용 뷰로 생성</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> view2 <span class="keyword">VALUES</span>(<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"><span class="comment">--읽기전용 뷰에 데이터를 입력하면 에러발생</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> view1 <span class="keyword">VALUES</span>(<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line"><span class="comment">--앞서 만든 view1로 입력시도하고나서</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> view2;</span><br><span class="line"><span class="comment">--view2를 확인해보면 데이터가 잘 들어가있다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>예3) With Check Option 테스트하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">NSERT INTO view1 <span class="keyword">VALUES</span>(<span class="number">5</span>,<span class="number">6</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> view3</span><br><span class="line"><span class="keyword">AS</span> </span><br><span class="line"><span class="keyword">SELECT</span> a,b</span><br><span class="line"><span class="keyword">FROM</span> o_table</span><br><span class="line"><span class="keyword">WHERE</span> a = <span class="number">3</span></span><br><span class="line"><span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>; <span class="comment">--with check option으로 생성</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> view3;</span><br><span class="line"><span class="keyword">UPDATE</span> VIEW3</span><br><span class="line"><span class="keyword">SET</span> a=<span class="number">5</span></span><br><span class="line"><span class="keyword">WHERE</span> b=<span class="number">4</span>;</span><br><span class="line"><span class="comment">--view3을 생성할때 a=3이라는 with check option을 사용했기때문에 다른 값으로 변경하려면 에러가 난다.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> view3</span><br><span class="line"><span class="keyword">SET</span> b=<span class="number">6</span></span><br><span class="line"><span class="keyword">WHERE</span> a=<span class="number">3</span>; <span class="comment">--a컬럼은 그냥 두고 b컬럼을 변경하면 가능하다.</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> view3 <span class="keyword">WHERE</span> a=<span class="number">3</span>;</span><br><span class="line"><span class="comment">--with check option 사용시 변경은 할 수 없지만 삭제는 가능하다.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Complex View (복합뷰)</p>
+<ul>
+<li><p>Sub Query부분에 여러개의 테이블이 Join되어 생성되는 것이다.</p>
+</li>
+<li><p>예1 ) emp_table과 dept테이블을 조회하여 사원의 이름과 부서를 출력하는 View 만들기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> v_emp</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ename, d.dname</span><br><span class="line"><span class="keyword">FROM</span> emp e, dept d</span><br><span class="line"><span class="keyword">WHERE</span> e.deptno = d.deptno;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>매번 위의 복잡한 서브쿼리를 생성해서 조회하기 힘들 때 View를 생성해 놓고 간단하게 조회할 수 있다는 것이 View의 큰 편리함이다.</p>
+</li>
+<li><p>그러나 뷰를 잘못 사용할 경우 성능 저하의 주 원인이 되는 경우도 많다. (뷰를 생성해놓고 뷰에서 특정 컬럼만 조회할 경우, 뷰를 먼저 생성한후 특정 컬럼을 가지고 오기 때문에 불필요한 조인이 발생하게 될수도 있다. 이럴 경우는 원본 데이터를 직접 조회하는 것이 좋다.)</p>
+</li>
+<li><p>View 안에는 가급적 INTERSECT, MINUM, UNION같은 집합 연산자는 사용하지 말아야 성능향상에 도움이 된다.</p>
+</li>
+</ul>
+</li>
+<li><p>Inline VIEW(인라인 뷰)</p>
+<ul>
+<li><p>View는 필요할 때 생성해 놓고 다른 쿼리에서 여러번 반복해서 재사용 할 수 있다.</p>
+</li>
+<li><p>러나 다른 쿼리에서 사용할 필요없이 해당 SQL에서만 필요한 View일 경우 번거롭게 View를 생성하지 말고 SQL 문장의 FROM 절에 View의 서브쿼리 부분을 바로 적어서 사용가능하면 이런 View를 Inline View라고 한다.</p>
+</li>
+<li><p>예1) emp 테이블과 dept 테이블을 조회하여 부서번호와 부서별 최대 급여 및 부서명 출력하기</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> test_view</span><br><span class="line"><span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.deptno, d.dname, e.sal</span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> deptno, <span class="keyword">MAX</span>(sal) sal <span class="keyword">FROM</span> emp <span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno) e, dept d</span><br><span class="line"><span class="keyword">WHERE</span> e.deptno= d.deptno;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>두번째 줄의 FROM 절 뒤에 있는 부분이 쿼리를 Inline View라고 한다.</li>
+<li>FROM절에 있는 Inline View 쿼리를 수행해서 나온 테이블은 원래 존재하지 않지만, 우리가 원하는 결과를 만들기 위해서 메모리에 임시로 생성했다.</li>
+<li>즉, Inline View를 사용해서 원하느 형태의 테이블을 먼저 만드는 것이 가장 중요하다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>View 조회 및 삭제</p>
+<ul>
+<li><p>조회</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> view_name, <span class="built_in">text</span>, read_only</span><br><span class="line"><span class="keyword">FROM</span> user_views;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>삭제</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">VIEW</span> v_emp1;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><del>Materialized View(MVIEW) 구체회된 뷰</del></p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/02/05/2018-02-05-Algorithm/">prev</a><a class="next" href="/2018/02/01/2018-02-01-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

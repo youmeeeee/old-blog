@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(최범균의JSP2.3) session | Youmekko</title><meta name="description" content="(최범균의JSP2.3) session - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(최범균의JSP2.3) session</h1><div class="post-info"><a></a>2018-04-28</div><div class="post-content"><p>클라이언트와의 대화♥ 2 : 세션 </p>
+<p>서버 세션을 사용하면 클라이언트의 상태를 저장할 수 있다. 쿠키와의 차이점은 세션은 웹 브라우저가 아니라 서버에 값을 저장한다는 점이다. 서버는 세션을 사용해서 클라이언트 상태를 유지할 수 있기 때문에, 로그인한 사용자 정보를 유지하기 위한 목적으로 세션을 사용 한다.</p>
+<h1 id="session-기본-객체"><a href="#session-기본-객체" class="headerlink" title="session 기본 객체"></a>session 기본 객체</h1><p>웹 브라우저에 정보를 저장할 때 쿠기를 사용한다면, 세션은 웹 컨테이너에 정보를 보관할 때 사용한다. 웹 컨테이너는 기본 적으로 한 웹 브라우저마다 한 세션을 생성한다.</p>
+<p><img src="/img/2018-04-26-session-01.png" alt=""></p>
+<h3 id="session-생성"><a href="#session-생성" class="headerlink" title="session 생성"></a>session 생성</h3><p>jsp에서 세션을 생성하려면 page 디렉티브의 session 속성을 true로 지정하면 된다. 사실은 default 값이 true니까 false로 지정하지만 않으면 세션이 생성된다.</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page session = <span class="string">"true"</span> %&gt;</span><br><span class="line">&lt;%</span><br><span class="line">session.setAttribute(<span class="string">"userInfo"</span>, userInfo);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>같은 세션을 사용하는 서버 프로그램에 웹 프라우저가 처음 접속할 때 새 세션을 생헝하고 이후로는 이미 생성된 세션을 사용한다.</p>
+<h3 id="session-기본-객체-1"><a href="#session-기본-객체-1" class="headerlink" title="session 기본 객체"></a>session 기본 객체</h3><ul>
+<li><strong>getId()</strong> [리턴타입 : String] : session 고유 ID를 구한다. (세션 ID라고 한다.) </li>
+<li><strong>getCreationTime()</strong> : 세션이 생성된 시간을 구한다. 시간은 1970년 1월 1일 이후 흘러간 시간을 의미하며, 단위는 1/1000초 이다. </li>
+<li><strong>getLastAccessedTime()</strong> : 웹 브라우저가 가장 마지막에 세션에 접근한 시간을 구한다. 시간은 1970년 1월 1일 이후 흘러간 시간을 의미하며, 단위는 1/1000초이다.</li>
+</ul>
+<p>브라우저마다 별도의 세션을 갖기 때문에, 각 세션을 구분하기 위해 세션 마다 고유 ID를 할당하는데 그 아이디를 세션 ID라고 한다. 웹 서버는 웹 브라우저에 세션 ID를 전송한다. 웹 브라우저는 웹 서버에 연결할 때마다 매번 세션 Id를 보내서 웹 서버가 어떤 세션을 사용할지 판단할 수 있게 한다.</p>
+<p>웹 서버는 세션 ID를 이용해서 웹 브라우저를 위한 세션을 찾기 때문에, 웹 서버와 웹 브라우저는 세션ID를 공유할 수 있는 방법이 필요하다 .이때 사용하는 것이 쿠키이다.  JSESSIONID인 쿠기가 세션을 공유할 때 사용하는 쿠키이다.</p>
+<h3 id="기본-객체의-속성-사용"><a href="#기본-객체의-속성-사용" class="headerlink" title="기본 객체의 속성 사용"></a>기본 객체의 속성 사용</h3><p>한번 생성된 세선은 지정한 유효시간 동안 유지된다. request  기본 객체가 하나의 요청을 처리하는데 사용되는 jsp에서 사이에서 공유된다면, session 기본 객체는 웹 브라우저의 여러 요청을 처리하는 jsp 페이지 사이에서 공유된다.</p>
+<p>세션에 값을 저장할 때는 속성을 사용한다. 속성에 값을 저장하려면  setAttribute(), 속성값을 getAttribute() 메소드를 사용한다. </p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;% page contetnType=<span class="string">"text/html"</span> charset=<span class="string">"utf-8"</span> %&gt;</span><br><span class="line">&lt;% session.setAttribute(<span class="string">"MEMBERID"</span>, youmekko);</span><br><span class="line">   session.getAttribute(<span class="string">"NAME"</span>, 유미코);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>일단 session 기본 객체에 속성을 설정하면 세션이 종료 되기 까지는 속성값을 사용할 수 있다.</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;% String name = (String)session.getAttribute(<span class="string">"NAME"</span>); %&gt;</span><br><span class="line">회원명 : &lt;%= name %&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h3 id="쿠키-vs-세션"><a href="#쿠키-vs-세션" class="headerlink" title="쿠키  vs 세션"></a>쿠키  vs 세션</h3><p>쿠키보다 세션을 사용하는 가장 큰 이유는 세션이 쿠키보다 보안에서 앞선 다는 점이다. 쿠키의 이름이나 데이터는 네트워크를 통해 전달되기 때문에 HTTP 프로토콜을 사용하는 경우 중간에 누군가의 쿠키의 값을 읽어올 수 있다. 하지만 세션의 값은 오로지 서버에만 저장되기 때문에 중요한 데이터를 저장하기 알맞은 장소다. </p>
+<p>세션을 사용하는 두번째 이유는(흔치 않지만) 웹 브라우저가 쿠기를 지원하지 않을 경우 또는 강제적으로 쿠키를 막는 경우 쿠키는 사용할 수 없게 되지만, 세션은 쿠키 설정 여부에 상관없이 사용할 수 있다는 점이다. servlet/jsp는 쿠키를 사용할 수 없는 경우 url 재작성 방식을 사용해서 세션 ID를 웹브라우저와 웹서버가 공유할 수 있다.</p>
+<p>하지만 세션은 여러 서버에서 공유할 수 없다. 예를 들어 <a href="http://www.daum.net의" target="_blank" rel="noopener">www.daum.net의</a> 세션과 mail.daum.net의 세션은 다르다. 반면에 쿠키는 도메인을 이용해서 쿠키를 여러 도메인 주소에 공유할 수 있다. 이런 이유로 daum과 같은 포털 사이트는 쿠키를 이용해서 로그인 정보를 저장한다.</p>
+</blockquote>
+<h3 id="세션-종료"><a href="#세션-종료" class="headerlink" title="세션 종료"></a>세션 종료</h3><p>세션을 유지할 필요가 없으면 session.invaildate() 메소드를 사용해서 세션을 종료한다. 세션을 종료하면 현재 사용중인 session 기본 객체를 삭제하고 session 기본 객체를 삭제하고 session 기본 객체에 저장 됐던 속성 목록도 함께 삭제한다.세션종료 후 다음 요청에서 session을 사용하면 새로운 세션 객체를 생성한다.</p>
+<h3 id="세션-유효-시간"><a href="#세션-유효-시간" class="headerlink" title="세션 유효 시간"></a>세션 유효 시간</h3><p>세션은 마지막 접근 이후 일정 시간 이내에 다시 세션에 접근하지 않는 경우 자동적으로 세션을 종료혼다. 예를 들어 세션 유효 시간이 30분이라면, 30분이 지남녀 가종으로 세션을 종료하고 이후 세션을 요청 하며 새로운 세션을 생성한다.</p>
+<p>세션 유효 시간은 두가지 방법으로 설정할 수 있다. </p>
+<p>(1) WEB-INF/web.xml 파일에 session-config 태그 사용하기</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 단위는 분이다 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>50<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>session-timpeout의 값을 0이나 음수로 설정하면 세션은 유효기간을 갖지 않는다. 이 경우 명시적으로 session.invalidate() 메소드를 호출하기 전까지 세션 객체가 서버에 유지 된다. 즉, 유효시간이 없는 상태에서 invalidate()  메소드를 실행하지 않으면 세션 객체가 계속 메모리에 남게 되어 메모리 부족 현상이 발생한다.</p>
+<p>(2) 세션 기본 객체가 제공하는 setMaxInactiveInterval() 메소드 사용하기</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%-- 단위는 초다 --%&gt;</span><br><span class="line">&lt;% session.setMaxIncativeInterval(<span class="number">60</span> * <span class="number">60</span> %&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="request-getSession-을-이용한-세션-생성"><a href="#request-getSession-을-이용한-세션-생성" class="headerlink" title="request.getSession()을 이용한 세션 생성"></a>request.getSession()을 이용한 세션 생성</h3><p>HttpSession을 생성하는 또 다른 방법은 request 기본 객체의 getSession() 메소드를 사용하는 것이다. request.getSession() 메소드는 현재 요청과 관련된 session 객체를 리턴한다. </p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page session = <span class="string">"false"</span> %&gt;</span><br><span class="line">&lt;%</span><br><span class="line">  HttpSession httpSession = request.getSession();</span><br><span class="line">  List list = (List)httpSession.getAttribute(<span class="string">"list"</span>);</span><br><span class="line">  list.add(productId);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>getSession() 메소드는 세션이 존재하면 해당 세션을 리턴하고 존재하지 않으면 새롭게 session을 생성해서 리턴한다. 세션이 생성된 경우에만 세션 객체를 구하고 싶다면 getSession() 메소드에 false를 인자로 전달하면 된다. <code>request.getSession(false)</code> 를 실행하면 세션이 존재하는 경우에만 session객체를 리턴하고 세션 객체가 존재하지 ㅇ낳으면  null을 리턴한다.</p>
+<h1 id="세션을-사용한-로그인-상태-유지"><a href="#세션을-사용한-로그인-상태-유지" class="headerlink" title="세션을 사용한 로그인 상태 유지"></a>세션을 사용한 로그인 상태 유지</h1><ol>
+<li>로그인에 성공하면 session 기본 객체의 특정 속성에 데이터를 기록한다.</li>
+<li>이후로 session 기본 객체의 특정 속성이 존재하면 로그인한것으로 간주한다.</li>
+<li>로그아웃할 경우 session.invalidate() 메소드를 호출하며 세션을 종료한다.</li>
+</ol>
+<h3 id="인증된-사용자-정보-session-기본-객체에-저장하기"><a href="#인증된-사용자-정보-session-기본-객체에-저장하기" class="headerlink" title="인증된 사용자 정보 session 기본 객체에 저장하기"></a>인증된 사용자 정보 session 기본 객체에 저장하기</h3><p>(예)</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"html/text; charset=utf-8"</span> %&gt;</span><br><span class="line">&lt;% </span><br><span class="line">String id = request.getParameter(<span class="string">"id"</span>);</span><br><span class="line">String password = request.getParamater(<span class="string">"password"</span>);</span><br><span class="line"><span class="keyword">if</span>(id.equals(password))&#123;</span><br><span class="line">    session.setAttribute(<span class="string">"MEMBER"</span>, id);</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;login success!&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">         LOGIN SUCCESS!</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">    &lt;/html&gt;</span><br><span class="line">    &lt;% <span class="keyword">else</span> &#123;<span class="comment">//로그인 실패시</span></span><br><span class="line">    %&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        alert(<span class="string">"login failed!"</span>);</span><br><span class="line">        history.go(-<span class="number">1</span>);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;%</span><br><span class="line">    &#125;</span><br><span class="line">    %&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="인증-여부-판단"><a href="#인증-여부-판단" class="headerlink" title="인증 여부 판단"></a>인증 여부 판단</h3><p>session 기본 객체에 로그인 상태를 위한 속성의 존재 여부에 따라 로그인 상태를 판단 할 수 있다.</p>
+<p>(예)</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">"html/text; charset=utf-8"</span> %&gt;</span><br><span class="line">&lt;%</span><br><span class="line">String memberId = (String)session.getAttribute(<span class="string">"MEMBERID"</span>);</span><br><span class="line"><span class="keyword">boolean</span> login = memberId == <span class="keyword">null</span> ? <span class="keyword">false</span> : <span class="keyword">true</span>;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="로그아웃-처리"><a href="#로그아웃-처리" class="headerlink" title="로그아웃 처리"></a>로그아웃 처리</h3><p>(1) session.invalidate() 메소드를 사용하면 된다. </p>
+<p>(2) session.invalidate() 를 호출하지 않고 로그인 상태를 보관할 때 사용한 session기본 객체를 모두 삭제해도 로그아웃한 효과를 낼수 있다. 하지만 로그인 할 때 session 기본 객체에 추가하는 속성이 늘어나면 로그아웃 코드도 함께 변경해야 하므로 (1)번 방법을 권장한다.</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seesion.removeAttribute(<span class="string">"MEMBERID"</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="연관된-정보-저장을-위한-클래스-작성"><a href="#연관된-정보-저장을-위한-클래스-작성" class="headerlink" title="연관된 정보 저장을 위한 클래스 작성"></a>연관된 정보 저장을 위한 클래스 작성</h1><p>세션에서 여러 속성을 사용해서 연관 정보들을 저장할 때 발생할 수 있는 문제점을 줄일 수 있는 방법은 클래스를 사용하는 것이다.</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MemberInfo</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id, name, email;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> female;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//get메소드</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>연관된 정보를 클래스로 묶어서 저장하면 각 정보를  개별 속성으로 저장하지 않고 한개의 속성을 이용해 저장할 수 있게 된다.</p>
+<ul>
+<li>속성값 설정 할 때</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">MemberInfo memberInfo = <span class="keyword">new</span> MemberInfo(id, name); </span><br><span class="line">session.setAttribute(<span class="string">"memberInfo"</span>, memberInfo);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>속성값 읽을 때</li>
+</ul>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">MemberInfo member = (MemberInfo)session.getAttribute(<span class="string">"memberInfo"</span>);</span><br><span class="line">%&gt;</span><br><span class="line">...</span><br><span class="line">&lt;%= member.getEmail() %&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="서블릿-컨텍스트와-세션"><a href="#서블릿-컨텍스트와-세션" class="headerlink" title="서블릿 컨텍스트와 세션"></a>서블릿 컨텍스트와 세션</h1><p>세션 아이디를 보관할 때 사용하는 JSESSIONID 쿠키의 경로로 웹 어플리케이션의 컨텍스트 경로를 사용한다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1) http:&#x2F;&#x2F;localhost:8080&#x2F;chap10&#x2F;viewCookies.jsp</span><br><span class="line">(2) http:&#x2F;&#x2F;localhost:8080&#x2F;chatp10_2&#x2F;viewVookies.jsp</span><br></pre></td></tr></table></figure>
+
+<p>서로 다른 두 웹 어플리케이션은 다른 세션 ID를 사용하고 다른 JSESSIONID 쿠키를 사용한다. 즉 세션을 공유하지 않는다.</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/28/2018-04-28-Cookie/">prev</a><a class="next" href="/2018/04/27/2018-04-27(Fri)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

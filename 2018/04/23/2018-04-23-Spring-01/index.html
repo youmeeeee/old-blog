@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(旧인프런스프링강의) 스프링 MVC | Youmekko</title><meta name="description" content="(旧인프런스프링강의) 스프링 MVC - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(旧인프런스프링강의) 스프링 MVC</h1><div class="post-info"><a></a>2018-04-23</div><div class="post-content"><h3 id="스프링-MVC"><a href="#스프링-MVC" class="headerlink" title="스프링 MVC"></a>스프링 MVC</h3><p><img src="/img/2018-04-23-spring-01.png" alt=""></p>
+<p>스프링 MVC의 전체적인 구조만 잘 정리해도, 스프링 MVC의 반 이상을 학습한 거라 생각해도 좋다. 그만큼 중요한 내용이다.</p>
+<ul>
+<li>Spring MVC 프로젝트를 생성해보자.</li>
+</ul>
+<p><img src="/img/2018-04-23-spring-02.png" alt=""></p>
+<p><img src="/img/2018-04-23-spring-03.png" alt=""><br>위 이미지에서 springMVCEx가 context 이름이 된다.</p>
+<ul>
+<li>프로젝트의 폴더 구조는 다음과 같다.</li>
+</ul>
+<p><img src="/img/2018-04-23-spring-04.png" alt=""></p>
+<ul>
+<li>만든 프로젝트를 톰캣 서버로 실행 시켜 보자.</li>
+</ul>
+<p><img src="/img/2018-04-23-spring-05.png" alt=""></p>
+<p>프로젝트만 생성 했을 뿐인데, 이 화면이 어떻게 출력되는지 살펴보자.</p>
+<ul>
+<li><p>클라이언트의 모든 요청은 DispatcherServlet이 받는다.</p>
+</li>
+<li><p>Servlet을 맵핑하는 web.xml파일을 확인해보자.</p>
+<p><img src="/img/2018-04-23-spring-06.png" alt=""></p>
+</li>
+</ul>
+<p>/ 패턴의  url은 전부 스프링 프레임워크의 DispatcherServlet 클래스로 넘긴다. DispatcherServlet은 작업후 알아서 Controller로 작업을 넘긴다.</p>
+<ul>
+<li><p>스프링 설정 파일의 위치로 지정된 /WEB-INF/spring/appServlet/servlet-context.xml도 확인해보자. (스프링의 bean등을 설정하는 파일)</p>
+<p><img src="/img/2018-04-23-spring-07.png" alt=""></p>
+</li>
+</ul>
+<p>context:component-scan base-package에 해당하는 패키지를 스프링이 스캔을 한다. 그중에 컨트롤러 어노테이션을 만나면 그 클래스가 컨트롤러 객체 역할을 한다.</p>
+<ul>
+<li><p>DispatcherServlet은 base-package를 스캔하다 @Controller 어노테이션으로  컨트롤러를 찾아온다. (컨트롤러가 여러개여도 상관없다.)</p>
+<p><img src="/img/2018-04-23-spring-08.png" alt=""></p>
+</li>
+<li><p>컨트롤러를 한번 살펴보자.</p>
+<p><img src="/img/2018-04-23-spring-09.png" alt=""></p>
+<ul>
+<li>@RequestMapping을 이용해 요청 경로를 지정하고</li>
+<li>요청을 처리한 메소드를 구현한 후</li>
+<li>뷰 이름을 리턴하면 (/WEB-INF/spring/appServlet/servlet-context.xml 파일의) prefix의 /WEB-INF/views + 뷰이름 + suffix의 .jsp가 합쳐져서 뷰 페이지가 출력된다.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>정리</p>
+<p><img src="/img/2018-04-23-spring-10.png" alt=""></p>
+</li>
+</ul>
+<h3 id="뷰에-데이터-전달하기"><a href="#뷰에-데이터-전달하기" class="headerlink" title="뷰에 데이터 전달하기"></a>뷰에 데이터 전달하기</h3><p>컨트롤러에서 로직 수행후 뷰페이지를 반환한다. 이때 뷰에서 사용하게 될 데이터를 객체로 전달 할 수 있다.</p>
+<p>(1) Model 클래스를 이용한 데이터 전달</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/board/content"</span>)</span><br><span class="line"><span class="comment">//Model 객체를 파라미터로 받는다.</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">content</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">    <span class="comment">//Model 객체에 데이터를 담는다.</span></span><br><span class="line">    model.addAttribute(<span class="string">"id"</span>, <span class="string">"youmekko"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"board/content"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    content.jsp파일</span><br><span class="line">    &lt;!-- 컨트롤러에서 전달 받은 Model 객체의 속성을 이용한다. --&gt;</span><br><span class="line">    id : $&#123;id&#125;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">content.jsp파일</span><br><span class="line">id : youmekko</span><br></pre></td></tr></table></figure>
+
+<p>(2) ModelAndView 클래스를 이용한 데이터 전달</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/board/reply"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">reply</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//ModelAndView객체 생성</span></span><br><span class="line">    ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">    <span class="comment">//ModelAndView객체에 데이터를 담는다.</span></span><br><span class="line">    mv.addObject(<span class="string">"id"</span>, <span class="string">"youmekko"</span>);</span><br><span class="line">    <span class="comment">//뷰 이름을 설정하고 객체를 리턴해준다.</span></span><br><span class="line">    mv.setViewName(<span class="string">"board/reply"</span>);</span><br><span class="line">    <span class="keyword">return</span> mv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="클래스에-RequestMapping-적용하기"><a href="#클래스에-RequestMapping-적용하기" class="headerlink" title="클래스에 @RequestMapping  적용하기"></a>클래스에 @RequestMapping  적용하기</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/board"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/write"</span>)&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">write</span><span class="params">(Model model)</span></span>&#123;</span><br><span class="line">            model.addAttribute(<span class="string">"id"</span>, <span class="string">"youmekko"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"board/write"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//조합된 요청 경로는 /board/write 이다.</span></span><br></pre></td></tr></table></figure>
+
+<p>[강의] 신입 프로그래머를 위한 자바 스프링 프레임워크 강좌 <a href="https://www.inflearn.com/course/%EC%9E%90%EB%B0%94-%EC%8A%A4%ED%94%84%EB%A7%81-%EA%B0%95%EC%A2%8C/" target="_blank" rel="noopener">링크</a> </p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/23/2018-04-23(Mon)-W.I.L/">prev</a><a class="next" href="/2018/04/23/2018-04-23-Spring-02/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

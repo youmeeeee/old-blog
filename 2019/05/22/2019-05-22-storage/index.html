@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Storage | Youmekko</title><meta name="description" content="Storage - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Storage</h1><div class="post-info"><a></a>2019-05-22</div><div class="post-content"><p>참고</p>
+<p><a href="https://www.zerocho.com/category/HTML&amp;DOM/post/5918515b1ed39f00182d3048" target="_blank" rel="noopener">https://www.zerocho.com/category/HTML&amp;DOM/post/5918515b1ed39f00182d3048</a></p>
+<p>친구가 면접을 보고 나와서는 인터뷰 내용 중 하나였던 위 페이지 링크를 보내줬다.</p>
+<p>팀내에서 localStorage사용에 대해서 이야기하는걸 들은 적이 있지만<br>하루하루가 벅찬 신입…(9개월이 지났지만)은 당시엔 ‘뭔 소리지’ 하고 일단 넘어가고<br>이런 기회에 정리하고 남겨두면 기억에 남거나 나중에 생각나면 다시 와서 찾아보거나 한다.</p>
+<p>이번주는 어쩐지 정말 의욕이 없으니 이 정도의 학습이라도 감당하자…</p>
+<h3 id="LocalStorage-vs-SessionStorage"><a href="#LocalStorage-vs-SessionStorage" class="headerlink" title="LocalStorage vs SessionStorage"></a>LocalStorage vs SessionStorage</h3><p>둘다 HTML 5에서 추가 된 저장소로 key - value로 저장된다.</p>
+<p>가장 큰 차이는 영구성으로<br>로컬스토리지의 데이터는 사용자가 지우지 않으면 계속 <strong>브라우저</strong> 에 남아있고<br>세션스토리지의 데이터는 윈도우나 브라우저 탭을 닫을 때 제거된다.</p>
+<p>로컬스토리지 - 지속 적으로 필요한 데이터 (자동 로그인 등)<br>세션스토리지 - 잠깐 필요한 정보 (일회성 로그인 등)</p>
+<p>하지만 비밀번호 같은 중요한건 절대저장하면안된단다.. (클라에 저장하므로 언제든지 털릴 수 있다)</p>
+<p>로컬, 세션스토리지가 나오기전에도 브라우저 저장소 역할을 하는 것 같은게 잇엇는데<br>바루 쿠키다.<br>쿠키 배우고 공부한적 있지만 잘 모른다.</p>
+<p>… 쿠키에 관한 내용은 중략 .. 하지만</p>
+<p>쿠키는 처음부터 서버와 클라의 지속적인 데이터 교환을 위해 만들어졌기 떄문에 계속 서버로 전송해줘야하는 단점이 있다. </p>
+<p>…다시 중략 …</p>
+<p>로컬 스토리지는 window.localStorage 세션 스토리지는 window.sessionStroage 에 위치한다.</p>
+<ul>
+<li><p>둘다 Storage 객체를 상속받기 떄문에 메소드가 공통으로 존재한다.</p>
+</li>
+<li><p>키밸류 저장소이기 때문에 순서대로 저장하면 된다.</p>
+</li>
+<li><p>밸류는 문자열,불린,숫자,널,언디파인 다 할수있는데 결국 <strong>문자열</strong>로 변환된다. 키도 문자열이다.</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(<span class="string">'key1'</span>, <span class="string">'value1'</span>);</span><br><span class="line">localStorage.getItem(<span class="string">'key1'</span>); <span class="comment">//value1</span></span><br><span class="line">localStorage.removeItem(<span class="string">'key'</span>);</span><br><span class="line">localStorage.clear() <span class="comment">//전체삭제</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//밸류에 객체를넣으면 제대로 저장되지 않고 toString메소드가 호출된 형태로 저장된다. [object object]같은...</span></span><br><span class="line"><span class="comment">//한번에 객체를 통째로 저장하려면 JSON.stringfy를 이용하자. 받을때는 JSON.parse하면되니까.</span></span><br><span class="line">localStorage.setItem(<span class="string">'obj1'</span>, <span class="built_in">JSON</span>.stringfy(&#123;<span class="attr">a</span>:<span class="string">'b'</span>&#125;));</span><br><span class="line"><span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">'obj1'</span>));</span><br></pre></td></tr></table></figure>
+
+<p>핵심<br><em>로컬스토리지 - 지우기 전까지 영구 / 세션 스토리지 - 브라우저 탭,윈도우 닫을때 삭제된다!!!</em></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/05/31/2019-05-31-events/">prev</a><a class="next" href="/2019/04/19/2019-04-19-Javascript/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

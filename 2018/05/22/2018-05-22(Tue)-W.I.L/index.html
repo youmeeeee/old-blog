@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>2018-05-22(Tue) W.I.L | Youmekko</title><meta name="description" content="2018-05-22(Tue) W.I.L - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">2018-05-22(Tue) W.I.L</h1><div class="post-info"><a></a>2018-05-22</div><div class="post-content"><h5 id="서버의-역할"><a href="#서버의-역할" class="headerlink" title="서버의 역할"></a>서버의 역할</h5><p>서버는 클라이언트에게 네트워크를 통해 정보나 서비스를 제공하는 컴퓨터 또는 프로그램을 발한다. </p>
+<p>서버는 클라이언트의 요청에 의해 서비시를 하는데 이와 같이 구성된 시스템을 클라이언트 - 서버 시스템이라고 하며, 이는 하나의 이상의 응용 프로그램을 상호 협력적인 환경에서 운용하는 분산처리 형태를 의미한다. 즉, 서비스를 요청하는 클라이언트와 요청을 처리하는 서버와의 협동 작업을 통해 사용자가 원하는 결과를 얻는 처리방식이 클라이언트 - 서버 시스템이다.</p>
+<h5 id="Dispatcher-Servlet의-역할"><a href="#Dispatcher-Servlet의-역할" class="headerlink" title="Dispatcher Servlet의 역할"></a>Dispatcher Servlet의 역할</h5><p>컨트롤러로 향하는 모든 웹 요청의 진입 점으로 결과 데이터를 클라이언트에 제공하는 역할을 한다. Model, View, Controller 파트를 조합하여 브라우저로 출력해주는 역할을 수행하는 클래스이다.</p>
+<p>클라이언트 - DispatcherServlet - (해당 요청을 맵핑한 컨트롤러가 있는지 검색)  - HandlerMapping - (처리요청) - Contoller - (클라이언트의 요청을 처리하고 결과를 출력할 뷰 이름을 리턴) - DispatcherServlet - (컨트롤러에서 보내온 뷰 이름을 토대로 처리 뷰를 검색) - ViewResolver - (처리결과를 뷰에 송신) - View - (처리 결과가 포함된 뷰를 DispatcherServlet에 송신) - DispatcherServlet - (최종결과를 출력) - 클리아인트</p>
+<h5 id="apache와-tomcat의-차이"><a href="#apache와-tomcat의-차이" class="headerlink" title="apache와 tomcat의 차이"></a>apache와 tomcat의 차이</h5><ul>
+<li>apache는 apache 재단에서 후원하는 오픈 소스 프로젝트 커뮤니티에서 만든 http웹서버이다.웹 서버는 클라이언트의 요청을 받아 처리를 실행하고 다시 사용자한테 답변을 보내준다. 웹 페이지, 이미지 등 정적인 페이지를 생성한다. http 프로토콜 사용.</li>
+<li>tomcat은 WAS(web application server)이다. WAS = Web Server + Container. tomcat은 JSP/Servlet Container의 기능을 구현했다. </li>
+<li>웹서버와 WAS를 구별 짓는 것은 동적 서버 콘텐츠를 수행하는가이다.</li>
+</ul>
+<p><img src="/img/2018-05-22-wil-01.png" alt=""><br>(이미지의 정확한 출저를 알 수 없다.)</p>
+<h5 id="Collection-종류-정리"><a href="#Collection-종류-정리" class="headerlink" title="Collection 종류(정리)"></a>Collection 종류(정리)</h5><p>Set, List, Que, Map가 있다 아래는 주요 특징만.</p>
+<ul>
+<li><p>List :  순서를 유지하고 저장, 중복 저장 가능하다.</p>
+</li>
+<li><p>Set : 순서가 유지되지 않고, 중복저장 할 수 없다.</p>
+</li>
+<li><p>Map : 키와 값으로 객체를 저장하는 구조로 키와 값은 모두 객체이다. 키는 중복될 수 없지만 값은 중복저장 가능하다.</p>
+</li>
+</ul>
+<h5 id="JavaScript-jquery의-차이-역할"><a href="#JavaScript-jquery의-차이-역할" class="headerlink" title="JavaScript / jquery의 차이, 역할"></a>JavaScript / jquery의 차이, 역할</h5><p>JS는 객체 기반의 스크립트 프로그래밍 언어로 웹 브라우저 내에서 주로 사용하며, 다른 응용 프로그램의 내장 객체에도 접근할 수 있는 기능을 가지고 있다. (스크립트 언어는 응용 프로그램과 독립하여 사용되고 일반적으로 응용 프로그램의 언어와 다른 언어로 사용되어 최종 사용자가 응용 프로그램의 동작을 사용자의 요구에 맞게 수행할 수 있도록 도와준다.)</p>
+<p>jquery는 js의 라이브러리이다.</p>
+<p>jquery는 DOM탐색이나 이벤트, 애니메이션, ajax등을 활용할 때 유용하게 사용할 수 있다.</p>
+<p>가장 큰 장점은 멀티 브라우저 지원이다. 어느 브라우저에서나 동일하게 작동한다. 또 다른 장점은 간단하게 사용할 수 있는 핵심 기능을 포함하고 있다는 것이다.</p>
+<p>제이쿼리의 가장 큰 단점은 속도이다. 순수 자바스크립트로 코딩한 것보다 현저히 느리다. 또 다른 단점은 코드관리가 어렵다는 것이다. 코드가 간결하기 때문에 쉽게 생각하는 경향이 있지만, 코드가 짧기 때문에 코드를 많이 붙이게 되고 코드가 꼬이거나 중복되는 경우가 많다. (품질 저하)</p>
+<p>제이쿼리의 대안은 순수 자바스크립트 메소드르 사용하는 것이다. 대부분의 제이쿼리 선택자를 대체할 수 있다. 속도도 훨씬 빠르다. </p>
+<p>&lt;비동기 요청&gt;</p>
+<p>제이쿼리의 ajax() 함수를 이용하면 서버 측에 비동기 요청을 보낼 수 있다.</p>
+<p>자바스크립트에서는 XMLHttpRequest객체를 직접 사용하면 가능하다.</p>
+<h5 id="ajax란"><a href="#ajax란" class="headerlink" title="ajax란?"></a>ajax란?</h5><p>쉽게 말하면(제발!!!) HTML의 form 태그가 아니라 자바스트립트를 통해서 서버에 데이터를 요청하는 것이다. 따라서 서버에서 로딩된 페이지를 보여주기 위해 새로운 HTML 페이지로 갈 필요도 없고, 새로고침을 할 필요도 없다. 부분 부분만 로드되므로 속도도 빠르다.</p>
+<ol>
+<li>Anynchronos<ul>
+<li>비동기적이라는 것은 클라이언트에서 서버에 요청을 보낼때 서버에 요청을 보내놓고 프로그램은 계속 돌아간다는 의미이다. ajax는 대부분 서버에 요청을 하고 있어 그에 대한 응답을 받게 되면 성공이나 실패 등에 따라서 함수가 실행하게 되는데  (콜백 함수 : 서버로부터 데이터가 돌아왔을 때 실행되는 함수) 그  함수가 먼저 실행되는 것이 아니라 서버의 응답을 받은 후 실행되는 것이다.</li>
+</ul>
+</li>
+<li>JavaScript<ul>
+<li>웹 브라우저에 대한 스크립트 언어이다. 웹 브라우저에서 출발했기 때문에 원래는 서버와 소통하는 기능은 없었지만 ajax는 가능하다.</li>
+</ul>
+</li>
+<li>XML <ul>
+<li>xml 은 데이터 형식의 일종으로 Extensible Markup Language의 준말로 확장가능한 표시 언어이다.  xml은 자바스크립트에서 사용하기 불편하기 때문에 자바스크립트로 서버에 요청을 보낼 때는 주로 JSON을 많이 쓴다.</li>
+</ul>
+</li>
+</ol>
+<p>ajax는 웹 서버가 있어야만 동작하므로 HTML처럼 브라우저만 있다고 돌아가는 것이 아니다.</p>
+<p>ajax의 본래 명칭의 XHR(XML Http Request)로 즉 HTTP request를 서버에 보내는 것이다.</p>
+<p>&lt;ajax의 과정&gt;</p>
+<ol>
+<li><p>XMLHttpRequest 오브젝트를 만든다.</p>
+<ul>
+<li>리퀘스트를 보낼 준비를 브라우저에게 시키는 과정이다.</li>
+<li>이것을 위해서 필요한 메소드를 갖춘 오브젝트가 필요하다.</li>
+</ul>
+</li>
+<li><p>콜백 함수를 만든다.</p>
+<ul>
+<li>서버에서 응답이 왔을 때 실행시키는 함수이다.</li>
+<li>html 페이지를 업데이트 한다.</li>
+</ul>
+</li>
+<li><p>open a request</p>
+<ul>
+<li>여기서 브라우저에게 두가지 정보를 넘긴다.<ul>
+<li>브라우저가 요청을 보내기 이해 사용할 메소드</li>
+<li>그리고 요청이 갈 URL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>send the request</p>
+</li>
+</ol>
+<p>Http프로토콜은 기본 적으로 클라이언트 쪽에 요쳥을 보내고 응답을 받으면 이어졌던 연결이 끊기게 설계가 되어있다. 그래서 화면의 내용을 갱신하기 위해서는 다시 요쳥을 하고 응답으로 전체 페이지를 다시 받게 된다. 하지만 ajax는 html전체 페이지가 아니라 필요한 부분만 갱신할 수 있도록 XMLHttpRequest를 객체를 통해 요청한다. json이나 xml의 형태로 최소한의 필요한 데이터만 받아서 갱신하게 되므로서 자원낭비와 시간 낭비가 그만큼 줄어든다. </p>
+<p>&lt;장점&gt;</p>
+<ul>
+<li>페이지 이동없이 고속으로 화면전환</li>
+<li>서버 처리를 기다리지 않고 비동기 요청이 가능</li>
+<li>수신하는 데이터 양을 줄일 수 있고, 클라이언트에 처리를 위임할 수도 있다.</li>
+</ul>
+<p>&lt;단점&gt;</p>
+<ul>
+<li>브라우저 호환</li>
+<li>http클라이언트 기능의 한정</li>
+<li>페이지 이동 없는 통신으로 인한 보안상의 문제</li>
+<li>지원하는 charset이 한정적</li>
+<li>스크립트로 작성되므로 디버깅이 용이하지 않음</li>
+<li>요청을 남발하면 역으로 서버에 부하가 늘 수 있다</li>
+<li>동일-출처 정책으로 인해 다른 도메인과는 통신이 불가능하다. (cross-domain 문제)</li>
+</ul>
+<p>아.. ajax…</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/05/24/2018-05-24-Servlet/">prev</a><a class="next" href="/2018/05/21/2018-05-21(Mon)-W.I.L/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

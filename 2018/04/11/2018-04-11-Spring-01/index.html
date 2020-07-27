@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(구멍가게코딩단) Part1-2. 스프링에 대한 간단 소개 | Youmekko</title><meta name="description" content="(구멍가게코딩단) Part1-2. 스프링에 대한 간단 소개 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(구멍가게코딩단) Part1-2. 스프링에 대한 간단 소개</h1><div class="post-info"><a></a>2018-04-11</div><div class="post-content"><h1 id="PART-1-프로젝트의-기본-구조-구성"><a href="#PART-1-프로젝트의-기본-구조-구성" class="headerlink" title="PART 1 프로젝트의 기본 구조 구성"></a>PART 1 프로젝트의 기본 구조 구성</h1><h3 id="2-스프링에-대한-간단-소개"><a href="#2-스프링에-대한-간단-소개" class="headerlink" title="2. 스프링에 대한 간단 소개"></a>2. 스프링에 대한 간단 소개</h3><ul>
+<li>스프링이 개발 대세가 된 이유?</li>
+</ul>
+<p>프레임워크는 말 그대로 뼈대나 근간을 이루는 코드들의 묶음이다. 개발자는 각 개개인의 능력 차이가 큰 직종이고, 따라서 개발자의 구성에 따라 프로젝트 역시 결과차이가 크다. 프레임워크는 이런 상황을 극복하기 위한 코드의 결과물이다. 프레임워크를 이용한다는 의미는 프로그램의 긱본 흐름이나 구조를 정하고, 모든 팀원이 이 구조에 자신의 코드를 추가하는 방식으로 개발하게 된다.</p>
+<p>2000년대 초반부터 시작된 엔터프라이즈급 개발은 안정된 품질의 개발이 절실했고, 그 결과 많은 프레임 워크의 전성시대라고 할 수있었다. 스프링은 비교적 그 시작이 조금 늦은 프로젝트 였지만, 가장 성공적인 경량 프레임워크다. 당시 나왔던 다른 프레임워크들과 스프링은 뚜렷한 차별성을 가지고 있었다. <del>이것 저것 나와있지만 지금은 무슨 말인지 모르겠으니 패스</del></p>
+<ul>
+<li><p>스프링의 주요 특징</p>
+<ol>
+<li>POJO 기반의 구성</li>
+<li>의존성 주입(DI)를 통한 객체 간의 관계 구성</li>
+<li>AOP(Aspect-Oriented-Programming) 지원</li>
+<li>편리한 MVC 구조</li>
+<li>WAS에 종속적이지 않은 개발 환경</li>
+</ol>
+</li>
+</ul>
+<h4 id="POJO-기반의-구성"><a href="#POJO-기반의-구성" class="headerlink" title="POJO 기반의 구성"></a>POJO 기반의 구성</h4><p>스프링 성격 자체가 가벼운 프레임 워크지만, 그 내부에는 객체 간의 관계를 구성할 수 있는 특징을 가지고 있다. 스프링은 다른 프레임 워크들과 돨리 이 관계를 구성할 떄 별도의 API등을 사용하지 않는 POJO(Plain Old Java Object)의 구성만으로 가능하도록 제작되어 있다. 쉽게 말해 <strong>일반적인 Java코드를 이용해 객체를 구성하는 방식을 그대로 스프링에서 사용할 수 있다는 얘기이다.</strong></p>
+<p>이게 중요한 이유는 개발할때 특정한 라이브러리나 컨테이너의 기술에 종속적이지 않다는 것을 의미하기 떄문이다. 생산성에서도 유리하고, 코드 테스트 역시 유연하게 할 수 있다.</p>
+<h4 id="의존성-주입-DI-을-통한-객체-간의-관계-구성"><a href="#의존성-주입-DI-을-통한-객체-간의-관계-구성" class="headerlink" title="의존성 주입(DI)을 통한 객체 간의 관계 구성"></a>의존성 주입(DI)을 통한 객체 간의 관계 구성</h4><p>스프링 하면 사람들이 가장 먼저 떠올리는 단어가 ‘의존성 주임(DI - Dependency Injection)’ 이란 용어와 IoC(Inversion Of Control - 제어의 역행) 이라는 단어이다.</p>
+<p>IoC는 말 그대로 메소드나 객체의 호출 작업을 개발자가 결정하는 것이 아니라, 외부에서 결정되는 것을 의미한다. 이 방식은 대부분의 프레임 워크에서 사용하는 방법으로 개발자는 필요한 부분을 개발해서 끼워넣기 형태로 개발하고 실행하게 된다.</p>
+<p>DI는 제어의 역행이 일어날 떄 스프링이 내부에 있는 객체(스프링에서는 빈(Bean))들의 관계를 관리할 때 사용하는 기법이다.</p>
+<p>의존성(Dependency)라는 용어는 어떤 객체가 혼자 일을 처리할 수 없다는 것을 의미한다. 만약 A 객체가 B 객체의 도움을 받아야 온전히 일을 처리할 수 있을때 A는 B에 의존적이다 라고 표현한다. Java에서는 일반적으로 인터페이스를 이용해서 이론 의존적인 객체의 관계를 최대한 유연하게 처리할 수 있도록 노력한다.</p>
+<p>의존성 주입은 말 그대로 이런 의존적인 객체를 직접 생성하거나 제어하는 것이 아니라, 제어의 역행으로 특정 객체에 필요한 객체를 외부에서 결정해서 연결 시키는 적을 의미한다. 외부에서 필요한 객체를 결정하기 때문에 개발자는 의존적인 객체들과의 관계를 직접 처리할 필요가 없고 인터페이스를 활용해서 유연한 구조를 사용할 수 있다. 스프링은 의존성 주입을 프레임워크에서 처리하기 때문에 개발자는 자신이 만드는 객체나 클래스 외에는 신경쓰지 않고 코드를 만들고, 자신의 코드에 필요한 객체는 스프링을 통해서 주입 받는 구조로 작성된다.</p>
+<p>의존성 주입의 종류는 1)생성자를 통한 주입과 2.)set메소드를 이용한 주입으로 구분할 수 있다. 스프링은 두 방식 모두를 사용할 수 있고, 이에 대한 처리 역시 간단한 애노테이션만으로 처리할 수 있다.</p>
+<h4 id="AOP의-지원"><a href="#AOP의-지원" class="headerlink" title="AOP의 지원"></a>AOP의 지원</h4><p>좋은 개발 환경의 중요 원칙은 개발자가 비지니스 로직에만 집중할 수 있게 한다 이다. 이 목표를 이루기 위해서는 몇가지 중요한 원칙이 있지만 가장 쉽게 생각할 수 있는 것이 중복 코드의 제거 이다. 스프링 개발에서도 중복 코드를 줄이고, 핵심 비니지스 로직에만 집중할 수 있는 방법을 제공한다.</p>
+<p>대부분의 시스템이 공통으로 가지는 보안이나 로그, 트랜잭션과 같이 비지니스 로직은 아니지만, 반드시 처리가 필요한 부분을 스프링에서는 횡단 관심사(cross-concern)이라고 하며, 스프링은 이러한 횡단 관심사를 분리해서 제작하느 것이 가능하다. AOP(Aspect Oriented Programming)는 이러한 횡단 관심사를 모듈로 분리하는 프로그래밍 패러다임이다.</p>
+<p>스프링은 AOP를 AspectJ의 문법을 통해 작성할 수 있는데, 이를 통해서 개발자는 1)핵심 비지니스 로직에만 집중해서 코드를 개발할 수 있게 되었고 2)각 프로젝트마다 다른 관심사를 적ㅇ요할 때 코드의 수정을 최소화 할 수 있고 3)원하는 관심사의 유지보수가 수월한 코드를 구성할 수 있다.</p>
+<h4 id="트랜잭션의-지원"><a href="#트랜잭션의-지원" class="headerlink" title="트랜잭션의 지원"></a>트랜잭션의 지원</h4><p>DB에서 트랜잭션 처리는 상황에 따라 복잡하게 구성될 수도 있고 아닐수도 있는데 그 때마다 코드를 이용해서 처리하는 작업은 개발자에겐 상당히 피곤한 일이다.(급공감) 스프링은 이런 트랜잭션의 관리르 애노테이션이나 XML로 설정할 수 있기 때문에 개발자가 매번 상황에 맞는 코드를 작성할 필요가 없도록 설계 되어있다.</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/11/2018-04-11-Spring-02/">prev</a><a class="next" href="/2018/04/10/2018-04-10-Spring/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

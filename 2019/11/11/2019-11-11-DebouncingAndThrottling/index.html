@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Debouncing, Throttling 용어 | Youmekko</title><meta name="description" content="Debouncing, Throttling 용어 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Debouncing, Throttling 용어</h1><div class="post-info"><a></a>2019-11-11</div><div class="post-content"><p>참고</p>
+<p><a href="https://bityoungjae.com/2019/11/09/JavaScript/%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/%EB%94%94%EB%B0%94%EC%9A%B4%EC%8B%B1%EA%B3%BC%20%EC%93%B0%EB%A1%9C%ED%8B%80%EB%A7%81/" target="_blank" rel="noopener">https://bityoungjae.com/2019/11/09/JavaScript/개념정리/디바운싱과 쓰로틀링/</a> </p>
+<h3 id="Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함"><a href="#Debouncing-디바운싱-Interval-내-반복되는-이벤트룰-무시함" class="headerlink" title="Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함"></a>Debouncing 디바운싱 : Interval 내 반복되는 이벤트룰 무시함</h3><p>3초의 시간을 설정해두고 3초 내애는 버튼이 눌려도 폭죽이 발사되지 않도록 조정하는 것</p>
+<p>마구 연타시 폭죽은 발사되지 않고 마지막 버튼을 떼는 순간 3초 뒤 발사 된다.</p>
+<p>-&gt; 셋팅한 3초만큼 기능이 정지된다고 해야하나..</p>
+<h3 id="Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장"><a href="#Throttling-쓰로틀링-연-이은-이벤트의-Interval-단위-실행을-보장" class="headerlink" title="Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장"></a>Throttling 쓰로틀링 : 연 이은 이벤트의 Interval 단위 실행을 보장</h3><p> 3초 후에는 다시 폭죽이 발사되도록 초기화 된다.</p>
+<p>이제 버튼을 마구 연타해도 3초의 발사간격을 보장한다.</p>
+<p>-&gt; 3초의 대기 후 다시 이벤트를 처리한다.</p>
+<p>예) </p>
+<ul>
+<li>디바운싱 - 아이디 중복 검사</li>
+<li>쓰로틀링 - 스크롤 이벤트</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/11/12/2019-11-12-Webpack/">prev</a><a class="next" href="/2019/06/04/2019-06-04-Vuex/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

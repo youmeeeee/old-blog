@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(부스트코스) Hello, Servlet | Youmekko</title><meta name="description" content="(부스트코스) Hello, Servlet - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(부스트코스) Hello, Servlet</h1><div class="post-info"><a></a>2018-04-03</div><div class="post-content"><h3 id="자바-웹-어플리케이션의-구조"><a href="#자바-웹-어플리케이션의-구조" class="headerlink" title="자바 웹 어플리케이션의 구조"></a>자바 웹 어플리케이션의 구조</h3><ul>
+<li>WEB-INF  폴더 <ul>
+<li>web.xml (배포기술자/DeploymentDescripter) 해당 웹 어플리케이션에 대한 모든 정보를 가지고 있다.  servlet 3.0 미만에서는 필수, 3.0이상에서는 어노테이션 사용이 대신 해주는 부분이 많다.</li>
+<li>lib (jar  파일들)</li>
+<li>classes폴더 (자바패키지, class들)</li>
+</ul>
+</li>
+<li>리소소들(각종 폴더, 이미지, 다양한 리소스들)</li>
+</ul>
+<p><img src="/img/2018-04-03-wiki-tree-01.png" alt=""></p>
+<p>좀 길지만 위 이미지는 JSP + bootstrap으로 만들었던 게시판 튜토리얼의 트리구조이다.  java, servlet 파일을 컴파일 하면 build폴더로 들어간다.</p>
+<h3 id="Servlet-작성-방법-2가지"><a href="#Servlet-작성-방법-2가지" class="headerlink" title="Servlet 작성 방법 2가지"></a>Servlet 작성 방법 2가지</h3><p>이클립스에서 Dynamic Web Project 만들 때, Dynamic web module version에서 선택할 수 있다.(Context root도 프로젝트 생성할 때 설정 가능)</p>
+<ol>
+<li><p>3.0 이상</p>
+<ul>
+<li>web.xml을 사용하지 않는다.</li>
+<li>자바 annotaion을 사용한다.</li>
+<li>*<em>어노테이션으로 web.xml의 역할을 대체했다 하더라도 Spring 으로 작업할 땐 또 다른 설정을 web.xml에 추가해야 한다. *</em></li>
+</ul>
+</li>
+<li><p>3.0 미만</p>
+<ul>
+<li>servlet을 등록할 때 web.xml파일에 등록한다.</li>
+<li>프로젝트 생성할 때 설정하면 자동으로 web.xml 부분에 아래처럼 추가 된다.</li>
+<li>web.xml파일이 수정되면 서버는 반드시 리스타트 되야한다.</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>testServlet<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>testServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.testServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>testServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/ts<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>서블릿은 동적으로 응답 결과를 만들어 내는 것이다. 동적으로 만들어 낸다는 것은 이미 응답할 내용을 가지고 있는 것이 아니라, 요청이 들어 왔을 때, 서블릿이 실행이 되면서 응답할 코드를 만들어 내고 응답하는 것이다.</p>
+<h3 id="Servlet의-생명-주기"><a href="#Servlet의-생명-주기" class="headerlink" title="Servlet의 생명 주기"></a>Servlet의 생명 주기</h3><ul>
+<li>init() / service(request, response) / destroy()</li>
+<li>WAS는 서블릿 요청을 받으면 서블릿이 메모리에 있는지 확인힌다.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(메모리에없음)&#123;</span><br><span class="line">    -해당 서블릿 클래스를 메모리에 올림</span><br><span class="line">    -init() 메소드를 실행</span><br><span class="line">&#125;</span><br><span class="line">-service() 메소드를 실행</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>WAS가 종료되거나, 어플리메이션이 새롭게 갱신 될 경우 destroy() 메소드가 실행된다.</li>
+</ul>
+<h5 id="service-request-response"><a href="#service-request-response" class="headerlink" title="service(request, response)"></a>service(request, response)</h5><ul>
+<li>httpServlet의 service메소드는 템플릿 메소드 패턴으로 구현한다. <del>상속관계가 다소 헷갈리지만..</del><ul>
+<li>클라이언트 요청이 GET인 경우에는 자신이 가지고 있는 doGet(request, response) 메소드를 호출</li>
+<li>클라이언트 요청이 POST인 경우에는 자신이 가지고 있는 doPost(request, response) 메소드를 호출</li>
+</ul>
+</li>
+</ul>
+<h3 id="response-request"><a href="#response-request" class="headerlink" title="response, request"></a>response, request</h3><p><img src="/img/2018-04-03-servlet-01.png" alt=""></p>
+<ul>
+<li>WAS 가 웹브라우저로부터 서블릿 요청을 받으면, 요청할 때 가지고 있는 정보를  request 객체를 생성하여 저장하고, 응답을 보낼 때 사용하기 위해 response객체를 생성한다. 생성된 객체를 서블릿에 전달한다.</li>
+</ul>
+<p>[강의(내용/이미지) 출처] <a href="http://www.edwith.org/boostcourse-web" target="_blank" rel="noopener">http://www.edwith.org/boostcourse-web</a></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/04/03/2018-04-03-Java-FileIO/">prev</a><a class="next" href="/2018/04/02/2018-04-02-MVCPattern/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

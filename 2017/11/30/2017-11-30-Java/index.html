@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Override | Youmekko</title><meta name="description" content="Override - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Override</h1><div class="post-info"><a></a>2017-11-30</div><div class="post-content"><h2 id="헷갈리는-Overloading-vs-Overriding-오버로딩-vs-오버라이딩"><a href="#헷갈리는-Overloading-vs-Overriding-오버로딩-vs-오버라이딩" class="headerlink" title="헷갈리는 Overloading vs Overriding (오버로딩 vs 오버라이딩)"></a>헷갈리는 Overloading vs Overriding (오버로딩 vs 오버라이딩)</h2><ul>
+<li>*<em>Overloading(오버로딩) *</em> : 메소드 오버로딩, 생성자 오버로딩이 있다. 같은 이름의 메소드를 여러개 정의하고, 매개 변수의 유형과 개수를 다르게 하여 다양한 유형의 호출에 응답하게 한다.</li>
+<li>*<em>Overriding(오버라이딩) *</em> : 상위 클래스가 가지고 있는 멤버 변수가 하위 클래스로 상속 되는 것처럼 상위 클래스가 가지고 있는 메소드도 하위 클래스로 상속되어 하위 클래스에서 사용할 수 있다. 하지만 하위 클래스에서 메소드를 재정의 해서 사용할 수 있다. 상속 관계에 있는 클래스 간에 같은 이름의 메소드를 정의 하는 기술.</li>
+<li><strong>오버로딩과 오버라이딩 성립 조건</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">구분</th>
+<th align="center">Overloading</th>
+<th align="center">Overriding</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">메소드 이름</td>
+<td align="center">동일</td>
+<td align="center">동일</td>
+</tr>
+<tr>
+<td align="center">매개변수, 타입</td>
+<td align="center">다름</td>
+<td align="center">동일</td>
+</tr>
+<tr>
+<td align="center">리턴 타입</td>
+<td align="center">상관없음</td>
+<td align="center">동일</td>
+</tr>
+<tr>
+<td align="center">***</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">## @Override</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 상속 관계에서 메소드 재정의는 오버라이드(<strong>상속오라</strong>오라나에게오라…)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 상속 관계인 경우 부모의 멤버(메소드)를 자식 클래스에서 재정의(Overriding)해서 사용할 수 있다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 재정의는 부모 메소드의 기능을 무시하고 자식 클래스에서 새롭게 구현하는 상태.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 부모 메소드의 시그니처와 동일한 시그니처를 가진 자식 메소드를 구현하면 된다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 접근 제한을 더 강하게 오버라이딩 할 수 없다. (부모 메소드가 public 접근 제한을 가지고 있는 경우, 오버라이딩 하는 자식 메소드가 default나 private 접근 제한으로 수정할 수 없다.)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- @Override 어노테이션(annotation) 지정 가능</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 상속 지정이 없는 경우 자바의 모든 클래스는 java.lang.Object 클래스를 자동 상속 받는다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">- 이클립스 Source &gt; Override &gt; Implement Methods 메뉴 (부모 메소드의 시그니처를 잘 모를때 유용)</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//부모 역할 클래스</span></span><br><span class="line"><span class="comment">//상속 지정이 없는 경우 자바의 모든 클래스는 java.lang.Object 클래스를 자동 상속 받는다.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"> <span class="comment">//java.lang.Object 클래스의 toString() 메소드가 상속 받은 상태이다.</span></span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"SuperClass의 method1()"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"SuperClass의 method2()"</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//자식 역할 클래스</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"> <span class="comment">//java.lang.Object 클래스의 toString() 메소드가 상속 받은 상태이다.</span></span><br><span class="line"> <span class="comment">//SuperClass의 method1()은 상속 받게 된다.</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//SuperClass의 method2()와 동일하기 때문에 오버라이딩 상태가 된다.</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"SubClass의 method2()"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//SubClass의 전용 메소드</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"SubClass의 method3()"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//실행 테스트 클래스</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//자식 클래스의 객체 생성 및 멤버 확인</span></span><br><span class="line">  SubClass sub = <span class="keyword">new</span> SubClass();</span><br><span class="line">  </span><br><span class="line">  sub.method1(); <span class="comment">//SuperClass</span></span><br><span class="line">  sub.method2(); <span class="comment">//SubClass</span></span><br><span class="line">  sub.method3(); <span class="comment">//SubClass</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//toString() - 객체의 정보 반환</span></span><br><span class="line">  System.out.println(sub.toString()); <span class="comment">//java.lang.Object</span></span><br><span class="line">  <span class="comment">//결과 값: com.inheritance007.SubClass@7852e922  (클래스명@해쉬코드)</span></span><br><span class="line">  </span><br><span class="line">  String str = <span class="keyword">new</span> String(<span class="string">"TEST"</span>);</span><br><span class="line">  <span class="comment">//toString() - String 객체가 가진 문자열 반환</span></span><br><span class="line">  <span class="comment">//-&gt;toString() 메소드의 원래 기능이 아닌 경우 오버라이딩 상태가 된다. </span></span><br><span class="line">  System.out.println(str.toString()); <span class="comment">//java.lang.String</span></span><br><span class="line">  <span class="comment">//결과 값 : TEST</span></span><br><span class="line">  </span><br><span class="line">  Integer i = <span class="keyword">new</span> Integer(<span class="number">10</span>);</span><br><span class="line">  <span class="comment">//toString() - Integer 객체가 가진 숫자를 문자열 형태로 반환</span></span><br><span class="line">  <span class="comment">//-&gt;toString() 메소드의 원래 기능이 아닌 경우 오버라이딩 상태가 된다. </span></span><br><span class="line">  System.out.println(i.toString() + <span class="number">10</span>); <span class="comment">// 결과 값 :1010 java.lang.Integer</span></span><br><span class="line">  System.out.println(i + <span class="number">10</span>); <span class="comment">// 결과값 : 20</span></span><br><span class="line">  </span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 모든 클래스는 내부적으로 super, this 변수가 자동 생성되고 객체의 참조 주소가 자동 지정 된다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* <strong>super</strong> : 상속 관계인 경우 부모 객체의 멤버(메소드) 접근시 사용하는 키워드로 자식 클래스의 메소드 내부에서만 사용 가능하다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"Animals can move"</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">//내부적으로 모든 클래스는 super, this 변수가 자동 생성된다. 객체의 참조주소가 자동 지정된다.</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//super 키워드</span></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  - 상속 관계인 경우 부모 객체의 멤버(메소드) 접근시 사용하는 키워드</span></span><br><span class="line"><span class="comment">  - 오버라이딩 메소드의 경우 부모 메소드 접근이 안된다. super 키워드를 이용하면 접근 가능.</span></span><br><span class="line"><span class="comment">  - 자식 클래스의 메소드 내부에서만 사용 가능</span></span><br><span class="line"><span class="comment">  - 형식</span></span><br><span class="line"><span class="comment">  super.메소드()</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.move(); <span class="comment">// invokes the super class method</span></span><br><span class="line">   System.out.println(<span class="string">"Dogs can walk and run"</span>);</span><br><span class="line"> &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDog</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">  Dog b = <span class="keyword">new</span> Dog();</span><br><span class="line">  b.move(); <span class="comment">// runs the method in Dog class</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//결과 값: </span></span><br><span class="line"><span class="comment">//Animals can move</span></span><br><span class="line"><span class="comment">//Dogs can walk and run</span></span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">***</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">## final 키워드</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* final 키워드는 불변의 특성을 가지는 클래스, 멤버(필드, 메소드) 선언시 사용. 결코 수정될 수 없음을 뜻한다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* final 클래스는 상속 불가 클래스. 최종 클래스. 부모 클래스 지정 불가 상태.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 대표적인 final 클래스는  자바 표준 API에서 제공하는 String 클래스 이다. 이 클래스 안에 있는 모든 메소드는 오버라이딩이 금지되어 있다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 부모 클래스를 상속해서 자식 클래스를 선언 할때 부모 클래스에 선언된 final 메소드는 자식 클래스에서 재정의 해서 사용할 수 없다. 오버라이딩 불가. 메소드 원본 기능을 유지한다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">***</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">## protected 키워드</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 접근제한자 public, protected, default, private 의 한 종류</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 같은 패지키 내에서는 접근 가능, 다른 패키지인 경우 상속관계일때만 접근 가능한다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">* 메소드 필드 등에 지정할 수 있다.</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.inheritance018;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"com.inheritance018.SuperClass의 protected 메소드"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.inheritance019.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">//super 키워드를 이용한 부모 메소드 호출</span></span><br><span class="line">  <span class="keyword">super</span>.method();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.inheritance019.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//다른 패키지에 있는 protected 메소드가 있는 클래스 객체 생성 및 멤버 확인</span></span><br><span class="line">  SuperClass sup = <span class="keyword">new</span> SuperClass();</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//protected 메소드 접근 불가 -&gt; 다른 패키지</span></span><br><span class="line">  <span class="comment">//The method method() from the type SuperClass is not visible</span></span><br><span class="line">  <span class="comment">//sup.method();</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//다른 패키지에 있는 protected 메소드가 있는 클래스 상속 받은 자식 클래스 객체 생성</span></span><br><span class="line">  SubClass sub = <span class="keyword">new</span> SubClass();</span><br><span class="line">  <span class="comment">//부모 메소드 호출 기능이 있는 자식 메소드 호출</span></span><br><span class="line">  sub.method();</span><br><span class="line">  </span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//결과 값 : </span></span><br><span class="line"><span class="comment">//com.inheritance018.SuperClass의 protected 메소드</span></span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2017/12/01/2017-12-01-hexo/">prev</a><a class="next" href="/2017/11/29/2017-11-29-Java/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>첫 웹팩.. 트라이... | Youmekko</title><meta name="description" content="첫 웹팩.. 트라이... - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">첫 웹팩.. 트라이...</h1><div class="post-info"><a></a>2019-11-12</div><div class="post-content"><p>package.json</p>
+<p>dependencies</p>
+<p>devDependencies : 개발 단계에서 필요한 의존성 모듈… (테스트 관련 모듈이나 트랜스 파일러 관련 모듈)</p>
+<ul>
+<li><code>version</code> : 명시한 버전과 일치해야 한다.</li>
+<li><code>&gt;version</code> :  명시한  버전 보다 높아야 한다.</li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;</code></li>
+<li><code>&lt;version&gt;</code></li>
+<li><code>&lt;version</code></li>
+<li><code>&lt;=version</code></li>
+<li><code>~version</code> : 명시한 버전과 근사한 것.</li>
+<li><code>^version</code> : 명시한 버전과 호환 되는 것</li>
+<li><code>*</code> : 모든 버전</li>
+<li><code>version1 - version</code> : <code>&gt;= version1 &lt;= version2</code></li>
+<li><code>range1 || range2</code> : range1 또는 range2</li>
+</ul>
+<p> <a href="http://guswnsxodlf.github.io/production-with-webpack" target="_blank" rel="noopener">http://guswnsxodlf.github.io/production-with-webpack</a> </p>
+<p>웹 서비스를 개발할 때, 개발 모드와 배포모드에 따라 다른 결과가 나오야 하는 경우기있다. 예를 들어, 내가 요청한 api서버 주소가 내 컴퓨터에서 개발 중일때와 서버에 올라갔을 때 다를 수 있다. 또 개발중인 코드에서 보여주지 말아야 할 에러메세지가 있을 수도 있고, 캐싱 여부가 다를수도 있다. 단순하게 페이지의 내용을 다르게 하고싶을 수 있다.</p>
+<p>보통 이런문제들을 해결하기 위해서 Node.js에서는 NODE_ENV라는 환경변수를 설정해서 분기한다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'production'</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'production mode'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(process.env.NODE_ENV === <span class="string">'development'</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'development mode'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>… 투비컨티뉴~?</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/12/06/2019-12-06-Etc/">prev</a><a class="next" href="/2019/11/11/2019-11-11-DebouncingAndThrottling/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

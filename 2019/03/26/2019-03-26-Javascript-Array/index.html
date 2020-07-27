@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Javascript 배열 메소드들 | Youmekko</title><meta name="description" content="Javascript 배열 메소드들 - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Javascript 배열 메소드들</h1><div class="post-info"><a></a>2019-03-26</div><div class="post-content"><p>참고</p>
+<p><a href="https://youtaekjung.github.io/2018/04/30/js/JS-Array-method/" target="_blank" rel="noopener">https://youtaekjung.github.io/2018/04/30/js/JS-Array-method/</a></p>
+<h3 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h3><p>인자가 배열인지 확인하는 메소드</p>
+<p><code>Array.from(arrayList[, mapFn[, thisArg]])</code></p>
+<p>return <code>Array</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.from(<span class="string">'foo'</span>);</span><br><span class="line"><span class="comment">// ['f', 'o', 'o]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.from([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], x=&gt; x + x);</span><br><span class="line"><span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Array-isArray"><a href="#Array-isArray" class="headerlink" title="Array.isArray"></a>Array.isArray</h3><p>value가 배열인지 체크하는 메소드</p>
+<p><code>Array.isArray(value)</code></p>
+<p>return <code>boolean</code></p>
+<h3 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h3><p>숫자 인자로 부터 새로운 배열을 만드는 메소드</p>
+<p><code>Array.of(element0[, element1[, ... [, elementN]]])</code></p>
+<p>return <code>Array</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.of(<span class="number">7</span>) <span class="comment">// [7]</span></span><br><span class="line"><span class="built_in">Array</span>.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) <span class="comment">//[1,2,3]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">7</span>) <span class="comment">//[, , , , , ,]</span></span><br><span class="line"><span class="built_in">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>) <span class="comment">//[1,2,3]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Array-prototype-concat"><a href="#Array-prototype-concat" class="headerlink" title="Array.prototype.concat();"></a>Array.prototype.concat();</h3><p>두 개 이상의 배열을 합쳐주는 메소드</p>
+<p><code>var new_array = old_array.concat([value1[, value2[, ...[, valueN]]]])</code></p>
+<p>return <code>Array</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"><span class="keyword">var</span> array2 = [<span class="string">'d'</span>, <span class="string">'e'</span>, <span class="string">'f'</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(array1.concat(array2));</span><br><span class="line"><span class="comment">//["a", "b", "c", "d", "e", "f"]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Array-prototype-copyWithin"><a href="#Array-prototype-copyWithin" class="headerlink" title="Array.prototype.copyWithin()"></a>Array.prototype.copyWithin()</h3><p>사이즈는 변하지 않지만 배열의 순서를 변경해서 옅은 복사를 하는 메소드</p>
+<p><code>arr.copyWithin(target[, start[, end]])</code></p>
+<p>return modified <code>Array</code></p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/03/28/2019-03-27-Javascript-imageUp/">prev</a><a class="next" href="/2019/03/26/2019-03-26-Jquery-extend/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

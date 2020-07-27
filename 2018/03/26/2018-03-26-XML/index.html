@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>(w3schools) XML Parsing (JAVA) | Youmekko</title><meta name="description" content="(w3schools) XML Parsing (JAVA) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">(w3schools) XML Parsing (JAVA)</h1><div class="post-info"><a></a>2018-03-26</div><div class="post-content"><h3 id="XML이란"><a href="#XML이란" class="headerlink" title="XML이란?"></a>XML이란?</h3><p>트리 구조의 데이터를 단순히 텍스트 형태로 나타낸 것이다. XML은 범용성과 확장성을 가지게 때문에 환경 설정이나 데이터 전달 포맷으로 쓰인다.<br>장점 : 유연하게 쓰인다. (다른 기종간 데이터 전달 등), 네임 스페이스 + 문서검증기능?!<br>단점 : 가독성이 안좋고, 파싱하기 어렵고, 처리속도가 느리다. → 왠만하면 json을 쓰자! (라고 쓰여있지만.. xml만 제공되는 경우도 있는건가…)</p>
+<p><strong>여기서 Parsing이란?</strong> 주어진 문장을 분석하거나 문법적 관계를 해석하는 것이다.</p>
+<p><strong>Pasring의 필요성</strong> </p>
+<ul>
+<li>프로그래밍이 간편해진다.</li>
+<li>플랫폼 독립적으로 프로그래밍 언어에 구애받지 않는다.</li>
+<li>필요한 데이터를 빠르게 처리 가능하다.</li>
+<li>웹 상의 xml이 수정되어도 프로그램을 변경하지 않아도 된다.</li>
+</ul>
+<h3 id="Parser종류"><a href="#Parser종류" class="headerlink" title="Parser종류"></a>Parser종류</h3><ul>
+<li>DOM Parser</li>
+<li><del>SAX Parser</del></li>
+<li><del>Xml Pull Parser</del></li>
+</ul>
+<h3 id="Dom-Parser"><a href="#Dom-Parser" class="headerlink" title="Dom Parser"></a>Dom Parser</h3><ul>
+<li>문서의 모든 내용을 해석한 후 메모리에 트리 구조로 펼친 후 값을 읽는다.</li>
+</ul>
+<p>&lt;장점&gt;</p>
+<ul>
+<li>xml문서가 메모리에 모두 로드되어 있기 때문에 노드의 검색, 수정 , 구조 변경이 등이 빠르고 용이하다.</li>
+<li>직관적이고 SAX보다 parsing하기 단순하다.</li>
+</ul>
+<p>&lt;단점&gt;</p>
+<ul>
+<li>메모리 사용이 많다.</li>
+<li>문서 전체를 로딩해야 하므로 처음 시작이 좀 느리다.</li>
+</ul>
+<h4 id="DOM-Parser-접근-방법"><a href="#DOM-Parser-접근-방법" class="headerlink" title="DOM Parser 접근 방법"></a>DOM Parser 접근 방법</h4><ol>
+<li>DocumentBuilderFactory 객체 생성</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>DocumentBuilder 객체 생성</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DocumentBuilder builder = factory.newDocumentBuilder();</span><br></pre></td></tr></table></figure>
+
+<p>1, 2번을 마쳤다면 XML 문서를 파싱할 준비가 끝났다!</p>
+<ol start="3">
+<li>위에서 만든 builder 객체로 parse() 메소드 호출</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Document <span class="title">parse</span><span class="params">(InputStream)</span></span>;</span><br><span class="line"><span class="function">Document <span class="title">parse</span><span class="params">(String URI)</span></span>;</span><br><span class="line"><span class="function">Document <span class="title">Parse</span><span class="params">(File file)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//작성 예</span></span><br><span class="line">Document doc = builder.paser(file);</span><br></pre></td></tr></table></figure>
+
+<p>parse() 메소드는 받은 문서를 분석하며 메모리에 트리형태로 전개하고, 트리 구조 정보를 담고 있는 Document객체를 리턴한다. <strong>Document객체를 얻었다면 요소에 빠른 속도로 접근 할 수 있다.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">File file = <span class="keyword">new</span> File(<span class="string">"test.xml"</span>);</span><br><span class="line">DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">DocumentBuilder builder = factory.newDocumentBuilder();</span><br><span class="line">Document doc = builder.parse(file);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>접근 방법</p>
+<ul>
+<li><p>Document 객체 내 루트 엘리먼트에 접근하기 위한 메소드<br>Element <strong>getDocumentElement()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Element root = doc.getDocumentElement();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>루트에서 태그명과 일치하는 모든 자식 요소를 찾는 메소드<br>NodeList <strong>getElementsByTagName(“태그명”)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NodeList childs = root.getElementsByTagName(<span class="string">"이름"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>노드 리스트에서 하나의 요소를 선택하는 방법<br>Node 노드리스트.<strong>item(번호)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Node child = childs.item(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>요소의 내용에 접근<br>노드명.<strong>getFirstChild()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Node childValue = child.getFirstChild();</span><br></pre></td></tr></table></figure>
+
+<p><em>DOM에서는 요소의 내용 값을 요소의 자식 노드로 취급한다.</em></p>
+</li>
+<li><p>요소의 모든 속성에 접근 하는 메소드<br>NamedNodeMap <strong>getAttributes()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NamedNodeMap attrs = child.getAttributes();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>속성 목록에서 하나의 속성에 접근하는 방법<br>속성목록.<strong>item(번호)</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Node attr = Attrs.item(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>그 밖의 노드 관련 주요 메소드</p>
+<ul>
+<li>String getNodeName() : 노드 이름</li>
+<li>Short getNodeType : 노드 타입</li>
+<li>String getNodeValue : 노드 값</li>
+<li>Node getFirstChild() : 첫번째 자식 노드</li>
+<li>Node getLastChild() : 마지막 자식 노드</li>
+<li>Node getNextSibling() : 자신의 다음 노드</li>
+<li>Node getPreviousSibling() : 자신의 이전 노드</li>
+<li>Node getParentNode() :자신의 부모 노드</li>
+<li>NodeList getChildNodes() : 모든 자식 노드를 중심으로 주변 노드를 찾는 메소드</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="DOM-Parser를-사용한-Parsing-예"><a href="#DOM-Parser를-사용한-Parsing-예" class="headerlink" title="DOM Parser를 사용한 Parsing 예"></a>DOM Parser를 사용한 Parsing 예</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">book</span> <span class="attr">id</span>=<span class="string">"b01"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>Java<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">author</span>&gt;</span>James<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">pubDate</span>&gt;</span>1999-01-01<span class="tag">&lt;/<span class="name">pubDate</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">price</span>&gt;</span>20,000<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">book</span> <span class="attr">id</span>=<span class="string">"b02"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">author</span>&gt;</span>Tim<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">pubDate</span>&gt;</span>1999-02-01<span class="tag">&lt;/<span class="name">pubDate</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">price</span>&gt;</span>15,000<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilder;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilderFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Document;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Element;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Node;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.NodeList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			File file = <span class="keyword">new</span> File(<span class="string">"test.xml"</span>);</span><br><span class="line">			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">			DocumentBuilder builder = factory.newDocumentBuilder();</span><br><span class="line">			Document doc = builder.parse(file);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// optional, but recommended</span></span><br><span class="line">			<span class="comment">// read this -</span></span><br><span class="line">			<span class="comment">// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work</span></span><br><span class="line">			doc.getDocumentElement().normalize();</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"Root element : "</span> + doc.getDocumentElement().getNodeName());</span><br><span class="line"></span><br><span class="line">			NodeList nodeList = doc.getElementsByTagName(<span class="string">"book"</span>);</span><br><span class="line">			</span><br><span class="line">			System.out.println(<span class="string">"---------------------------------"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nodeList.getLength(); i++) &#123;</span><br><span class="line">				Node node = nodeList.item(i);</span><br><span class="line">				System.out.println(<span class="string">"Current Element : "</span> + node.getNodeName());</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(node.getNodeType() == Node.ELEMENT_NODE) &#123;</span><br><span class="line">					</span><br><span class="line">					Element eElement = (Element) node;</span><br><span class="line">					</span><br><span class="line">					System.out.println(<span class="string">"Book Id : "</span> + eElement.getAttribute(<span class="string">"id"</span>));</span><br><span class="line">					System.out.println(<span class="string">"Title : "</span> + eElement.getElementsByTagName(<span class="string">"title"</span>).item(<span class="number">0</span>).getTextContent());;</span><br><span class="line">					System.out.println(<span class="string">"Title : "</span> + eElement.getElementsByTagName(<span class="string">"author"</span>).item(<span class="number">0</span>).getTextContent());;</span><br><span class="line">					System.out.println(<span class="string">"Title : "</span> + eElement.getElementsByTagName(<span class="string">"pubDate"</span>).item(<span class="number">0</span>).getTextContent());;</span><br><span class="line">					System.out.println(<span class="string">"Title : "</span> + eElement.getElementsByTagName(<span class="string">"price"</span>).item(<span class="number">0</span>).getTextContent());;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Root element : bookstore</span><br><span class="line">---------------------------------</span><br><span class="line">Current Element : book</span><br><span class="line">Book Id : b01</span><br><span class="line">Title : Java</span><br><span class="line">Title : James</span><br><span class="line">Title : 1999-01-01</span><br><span class="line">Title : 20,000</span><br><span class="line">Current Element : book</span><br><span class="line">Book Id : b02</span><br><span class="line">Title : HTML</span><br><span class="line">Title : Tim</span><br><span class="line">Title : 1999-02-01</span><br><span class="line">Title : 15,000</span><br></pre></td></tr></table></figure>
+
+<p>[참고] </p>
+<ul>
+<li><a href="http://elearning.kocw.net/document/02-06-XML_Parser.pdf" target="_blank" rel="noopener">http://elearning.kocw.net/document/02-06-XML_Parser.pdf</a></li>
+<li><a href="http://humble.tistory.com/23" target="_blank" rel="noopener">http://humble.tistory.com/23</a></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2018/03/26/2018-03-26_JSON_01/">prev</a><a class="next" href="/2018/03/21/2018-03-21-XML/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>

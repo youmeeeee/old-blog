@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>도서 대출 관리 프로그램 진행상황(3) | Youmekko</title><meta name="description" content="도서 대출 관리 프로그램 진행상황(3) - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">도서 대출 관리 프로그램 진행상황(3)</h1><div class="post-info"><a></a>2017-12-28</div><div class="post-content"><h2 id="1차-프로젝트-개요"><a href="#1차-프로젝트-개요" class="headerlink" title="1차 프로젝트 개요"></a>1차 프로젝트 개요</h2><ul>
+<li>기간 : 2017/12/18 ~ 2018/01/05 (크리스마스, 연말연시 휴강)</li>
+<li>환경 : 콘솔 기반</li>
+<li>주제 : 도서 대출 관리</li>
+<li>기술 : JavaSE , OOP, Collection, Generic, File IO, Serialization</li>
+<li>진행절차 : 요구분석 → 화면 설계 → 자료구조 설계 → 액션 설계 → 액션 구현 → 테스트 - 최종실행 (컨펌의 기회는 하루 1번…)</li>
+</ul>
+<h3 id="2017-12-26-28"><a href="#2017-12-26-28" class="headerlink" title="2017-12-26~28"></a>2017-12-26~28</h3><p><strong><u>화면설계 결과</u></strong></p>
+<ul>
+<li>자료 구조 설계에 애를 많이 먹었다. 화면에 출력 해야하는 리스트들이, 회원 정보, 도서 정도, 대출 정보 3개를 모두 가져와야 하는 부분이 많았기에 복잡하다. 중간에 시행착오가 너무 많아서 전부 기록을 못했다. </li>
+<li>결과<ul>
+<li>Book //도서 정보 자료형 클래스<ul>
+<li>private String bookNo; //등록번호</li>
+<li>private String bookTitle; //도서명</li>
+<li>private String author; //저자</li>
+<li>private String publisher; //출판사</li>
+<li>private int bookStatus; //도서상태(0.비치중/1.대출중/2.연체중)</li>
+</ul>
+</li>
+<li>User //사용자 정보 자료형 클래스<ul>
+<li>private String userNo; //회원번호</li>
+<li>private String userId; //아이디</li>
+<li>private String password; //비밀번호</li>
+<li>private String name; //이름</li>
+<li>private String phone; //전화번호</li>
+<li>private List<String> messages = new ArrayList<String>(); //메세지 리스트</li>
+</ul>
+</li>
+<li>CheckOut //대출 정보 자료형 클래스<ul>
+<li>private String bookNo; //대출한 도서 등록번호</li>
+<li>private String userNo; //대출인 회원번호</li>
+<li>private String checkOutDate; //대출일</li>
+<li>private String returnDate; //반납일</li>
+<li>private String dueDate; //반납예정일</li>
+<li>private int checkOutbookStatus; //반납상태(0.반납완료/1.대출중/2.연체중)</li>
+</ul>
+</li>
+<li>LibraryDAO       //모든 정보 액세스 클래스<ul>
+<li>private Map&lt;String, Book&gt; books = new HashMap&lt;String, Book&gt;(); //전체 도서 리스</li>
+<li>private Map&lt;String, User&gt; users = new HashMap&lt;String, User&gt;(); //전체 회원 리스</li>
+<li>private List<CheckOut> checkOuts = new ArrayList<CheckOut>(); //전체 대출 리스트</li>
+</ul>
+</li>
+<li>LibraryService  //메뉴 화면 구현을 위한 클래스</li>
+<li>Methods<ul>
+<li>register //회원가입을 한다.</li>
+<li>login //로그인을 한다.</li>
+<li>logout //로그아웃을 한다.</li>
+<li>messagesAfterLogin //로그인 후 메세지를 본다.</li>
+<li>viewAllBooks //전체 도서 목록을 본다.</li>
+<li>searchForBooks //도서를 검색 한다.</li>
+<li>checkOutBook //도서를 대출 한다.</li>
+<li>viewCheckedOutBooks //대출중인 도서 목록을 본다.</li>
+<li>returnBook //도서를 반납 한다.</li>
+<li>viewReturnedBooks //반납한 도서 목록을 본다.</li>
+<li>viewAllMessages  //메세지 목록을 본다.</li>
+<li>deleteOneMessage //메세지를 한개 삭제 한다.</li>
+<li>deleteAllMessages //메세지를 전체 삭제한다.</li>
+<li>viewAllBooks //전체 도서 목록을 본다.</li>
+<li>registerBook //도서를 등록한다.</li>
+<li>deleteBook //도서를 삭제한다.</li>
+<li>searchForBooks //도서를 검색한다.</li>
+<li>viewBookInDetail //도서 상세 보기를 한다.</li>
+<li>viewCheckedOutBooks //대출중인 도서 목록을 본다.</li>
+<li>changeDueDate //반납 예정일을 수정한다.</li>
+<li>viewOverdueBooks //연체중인 도서 목록을 본다.</li>
+<li>sendMessages //메세지를 보낸다.</li>
+<li>viewAllUsers //전체 회원 목록을 본다.</li>
+<li>serachForUsers //회원을 검색한다.</li>
+<li>viewUserInDetail //회원 상세 보기를 한다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><u>강사님 피드백</u></strong>을 받은 부분 <ol>
+<li>각 자료형 클래스별로 DAO 클래스를 따로 만듬<br>→ 자료 운용?의 효율성을 위해서 DAO 클래스를 한개로 만들었다. </li>
+<li>DAO 클래스에 저장소 타입을 전부 List로 만듬<br>→ 자료 검색과 추출.. 의 효율성을 위해 도서 정보와 사용자 정보를 HashMap으로 바꿨다.</li>
+</ol>
+</li>
+<li><strong><u>느낀 점</u></strong> 어렵다. 힘들었다. 혼자 작업하는 것보다 그룹으로 작업하는게 더 어렵다 모두가 잘 이해한 상태에서 작업할 수 있게 자료 정리를 열심히 했다. (Google Spread Sheets/ draw.io 이용)<br>​<br><img src="/img/bookmng3.png" alt=""><br><img src="/img/methods.png" alt=""></li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2017/12/28/2017-12-28-W.I.L/">prev</a><a class="next" href="/2017/12/26/2017-12-26-TeamProject01/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>
