@@ -26,4 +26,12 @@
 <h3 id="동시성과-이벤트-루프"><a href="#동시성과-이벤트-루프" class="headerlink" title="동시성과 이벤트 루프"></a>동시성과 이벤트 루프</h3><p>콜스택에 수행할 함수가 있으면브라우저는 아무것도 할 수 없다는게 문제다. 바로 ‘블록킹’ 되기 때문이다. 브라우저는 렌더링을 할 수도 없고 다른 코드를 수행할 수도 없다.</p>
 <p>문제는또 있는데 브라우저가 호출 스택 내의 많은 작업을 수행하면서 꽤 긴시간 응답이 없으면 대부분의 브라우저에서 에러를 일으키고 사용자에게 해당 페이지를 닫을지 물어보는 상황이 발생한다.</p>
 <p>그렇다면  어떻게 하면 페이지 렌더링 동작을 방해하지 않고 브라우 저의응답도 끊기지 않으면서 연산량이 많은코드를 실행할 수 있을까? 정답은 <strong>비동기 콜백(asynchronous callbacks)</strong>이다.</p>
-</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/04/11/2019-04-11-ES6-Promise/">prev</a><a class="next" href="/2019/04/10/2019-04-10-Javascript-performance/">next</a></div><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/2019/04/11/2019-04-11-ES6-Promise/">prev</a><a class="next" href="/2019/04/10/2019-04-10-Javascript-performance/">next</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'youmekko';
+var disqus_identifier = '2019/04/11/2019-04-11-Javascript-callstack/';
+var disqus_title = 'Javascript 호출 스택(=Call Stack)';
+var disqus_url = 'http://yoursite.com/2019/04/11/2019-04-11-Javascript-callstack/';
+(function () {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>
