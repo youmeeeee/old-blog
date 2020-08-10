@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Don't block the event loop | Youmekko</title><meta name="description" content="Don't block the event loop - Youme Choi"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Youmekko"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Youmekko" type="application/atom+xml">
+</head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Youmekko">Youmekko</a></h1><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVES</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/youmekko" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Don't block the event loop</h1><div class="post-info"><a></a>2020-08-10</div><div class="post-content"><ul>
+<li>run-to-completion</li>
+<li>javascript-engine</li>
+<li>call-stack<ul>
+<li>코드가 실행 될 때 호출 스택이 쌓인다.</li>
+</ul>
+</li>
+<li>Web APIs<ul>
+<li>dom events</li>
+<li>xmlHttpRequest</li>
+<li>setTimeout</li>
+<li>Promise</li>
+<li>requsetAnimationFrame</li>
+</ul>
+</li>
+<li>Event loop<ul>
+<li>Event loop manages what task is to be pushed in the Callstack</li>
+<li>JS엔진의 구성 요소는 아니다.</li>
+<li>비동기 동시성을 지원하는 것은 엔진이 구동 되는 환경 브라우저나 nodejs 이다.</li>
+<li>구동환경에서  이벤트 루프에 어떤 task를 밀어넣을지 관리하는 역할은 호출 스택이 한다.</li>
+<li>동작 순서<ol>
+<li>While there are tasks</li>
+<li>excute the oldest task</li>
+<li>sleep until a task appears, then go to 1.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/2020-08-10-01.gif" alt=""></p>
+<ul>
+<li><p>task vs micro task</p>
+<ul>
+<li>task<ul>
+<li>task than should execute sequentially in browser</li>
+<li>source: setTimeout, running script, ui events</li>
+</ul>
+</li>
+<li>micro tasks<ul>
+<li>async task that should happne after the currenly executing script</li>
+<li>microtask queue has a higher priority than the task queue</li>
+<li>source : promise, mutationObserver, process.nextTick</li>
+</ul>
+</li>
+<li>실행 순서 디테일 변경<ol>
+<li>if the micro task queue is not empty execute all microtasks</li>
+<li>while thre are tasks execute the oldest task</li>
+<li>sleep unitl a task appears then go to 1</li>
+</ol>
+</li>
+</ul>
+<p><img src="/img/2020-08-10-02.gif" alt=""></p>
+</li>
+<li><p>So… Can asynchronous JS solve all the problem</p>
+<ul>
+<li>앞선 task로 인해서 다음 task가 블락 될 가능성은 남아 있다.</li>
+<li>Task is always executed sequentially by event loop<ul>
+<li>other task cannot be performed when any task is running</li>
+</ul>
+</li>
+<li>microtask queue has a higher priority than the task queue<ul>
+<li>So, UI-related events cannot be exectued again until all microtasks accumulated in the queue are cleared.</li>
+</ul>
+</li>
+<li>what if long running task stacked tasks or microtasks block event that is directly connected to UI such as rendering, click, input?<ul>
+<li>janky UI/UX occurs… 👻</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/2020-08-10-03.gif" alt=""></p>
+</li>
+<li><p>how to handling this blocking?</p>
+<ul>
+<li><p>With another thread…?</p>
+<ul>
+<li>라이크 멀티 쓰레딩?</li>
+<li>JS에서 멀티쓰레딩은 web worker 를 활용하면 가능하다.</li>
+<li>web workers makes it possible to run a script operation in a background thread sperate from the main execution thread of a web application</li>
+<li>메인쓰레드에서 워커객체를 생성해서 워커쓰레드와 메세지 기반으로 통신할 수 있다.</li>
+</ul>
+<p><img src="/img/2020-08-10-04.png" alt=""></p>
+<p><img src="/img/2020-08-10-05.png" alt=""></p>
+<ul>
+<li>frame소요시간 interaction 소요시간도 상당히 줄일 수 있다.</li>
+<li>하지만 역시 버벅임 없는 사용자 경험을 주지는 못한다. (예제 코드에서)</li>
+<li>요즘 대부분의 디스플레이 단말기가 60fps ( 16m/frame ) 기준</li>
+<li>cpu 바운드의 연산은 워커쓰레드에 위임을 했지만 돔 갱신 등의 작업은 메인쓰레드에서 이루어지기 때문인 것으로 예상된다.</li>
+<li>Web worker Limitaions<ul>
+<li>Data is sent between workers and the main thread via a system of messages</li>
+<li>Worker cannot access directly the DOM, context (of main thread).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>split some expensive task into small tasks…? 적절하게 쪼개서 실행해보자</p>
+<ul>
+<li><p>scheduling</p>
+<ul>
+<li>slice your heavy task in light sub-tasks and run them asynchronously</li>
+<li></li>
+</ul>
+<p><img src="/img/2020-08-10-06.gif" alt=""></p>
+<p><img src="/img/2020-08-10-07.png" alt=""></p>
+<p><img src="/img/2020-08-10-08.png" alt=""></p>
+<ul>
+<li>프레임 최대 소요시간도 마지막 돔을 갱신하는 순간에 조금 걸렷고 interaction 소요 시간도 눈에 띄게 짧아 졌다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h1><ul>
+<li>If long-running-tasks or microtasks block rendering, click, and text input, a janky UI that harms user experience can be delivered can occur.</li>
+<li>This is due to the structure of the JS engine event-loop, etc. and needsto to understanding and handle properly.</li>
+<li>to handle this, Delegate long-running-tasks to toher threads using Web Worker.</li>
+<li>Or, split the long-running-tasks properly so that other important UI event do not block.</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a class="next" href="/2020/07/29/2020-07-29-ssh/">next</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'youmekko';
+var disqus_identifier = '2020/08/10/2020-08-10-dontblocktheEventLoop/';
+var disqus_title = 'Don't block the event loop';
+var disqus_url = 'http://yoursite.com/2020/08/10/2020-08-10-dontblocktheEventLoop/';
+(function () {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>&copy; 2016 - 2020 <a href="https://www.example.org/john-doe" target="_blank" rel="noopener">John Doe</a>.<br>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/Dreyer/hexo-theme-artemis" target="_blank">Artemis</a>.</p></div></footer></div></body></html>
